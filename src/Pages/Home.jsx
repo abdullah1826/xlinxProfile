@@ -518,6 +518,8 @@ const Home = () => {
   let isColor = false;
   let isFull = true;
 
+  let saveBtnStyle = ["s1", "s2", "s3", "s4"];
+  let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s7"];
   return (
     <>
       {loading ? (
@@ -579,6 +581,7 @@ const Home = () => {
                   checkHttp={checkHttp}
                   linkAnalytics={linkAnalytics}
                   scrnWidth={scrnWidth}
+                  saveBtnStyle={saveBtnStyle[0]}
                 />
               )}
 
@@ -596,6 +599,7 @@ const Home = () => {
                   checkHttp={checkHttp}
                   linkAnalytics={linkAnalytics}
                   scrnWidth={scrnWidth}
+                  saveBtnStyle={saveBtnStyle[0]}
                 />
               )}
 
@@ -613,6 +617,7 @@ const Home = () => {
                   checkHttp={checkHttp}
                   linkAnalytics={linkAnalytics}
                   scrnWidth={scrnWidth}
+                  saveBtnStyle={saveBtnStyle[2]}
                 />
               )}
 

@@ -3,6 +3,9 @@ import share from "../imgs/share.png";
 import imgPlchldr from "../imgs/imgPlchldr.jpg";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
+import SaveBtn from "../assets/components/SaveBtn";
+import WebBtn from "../assets/components/webBtn";
+import WebGrfkBtn from "../assets/components/webGrfkBtn";
 
 const Full = ({
   coverurl,
@@ -17,7 +20,11 @@ const Full = ({
   checkHttp,
   linkAnalytics,
   scrnWidth,
+  saveBtnStyle,
 }) => {
+  console.log(sociallink);
+
+  let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
   return (
     <div className="w-[97%]  min-h-[100vh]">
       <div className="min-h-[355px] w-[100%] flex items-center flex-col">
@@ -77,18 +84,7 @@ const Full = ({
           className={`w-[100%] h-[80px] flex justify-center items-center relative`}
         >
           {/* bg-gradient-to-b from-[${hexToRGBA(userdata?.colorCode)}] to-white */}
-          <div className="w-[250px] flex justify-center items-center">
-            <div
-              className={`w-[166px] h-[55px]  rounded-[15px] flex justify-center items-center text-[18px] text-white font-[700] cursor-pointer`}
-              style={{
-                backgroundColor: "black",
-                fontStyle: "Inter",
-              }}
-              onClick={() => downloadVcf()}
-            >
-              Save Contact
-            </div>
-          </div>
+          <SaveBtn downloadVcf={downloadVcf} saveBtnStyle={saveBtnStyle} />
           <div
             className="h-[25px] w-[25px] cursor-pointer absolute"
             onClick={() => handleModal()}
@@ -156,7 +152,25 @@ const Full = ({
           <div className=" w-[95%]  flex justify-around items-center flex-wrap mt-5">
             {/* grid grid-cols-3 gap-x-4 pr-7 */}
             {sociallink?.map((elm) => {
-              return (
+              return elm?.linkID === 32 ||
+                elm?.linkID === 15 ||
+                elm?.linkID === 16 ? (
+                <WebBtn
+                  elm={elm}
+                  checkHttp={checkHttp}
+                  linkAnalytics={linkAnalytics}
+                  returnIcons={returnIcons}
+                  webBtnStyle={webBtnStyle[7]}
+                />
+              ) : elm?.linkID === 31 ? (
+                <WebGrfkBtn
+                  elm={elm}
+                  checkHttp={checkHttp}
+                  linkAnalytics={linkAnalytics}
+                  // returnIcons={returnIcons}
+                  // webBtnStyle={webBtnStyle[7]}
+                />
+              ) : (
                 <>
                   <a
                     target="_blank"

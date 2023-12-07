@@ -77,7 +77,7 @@ const Color = ({
           className={`w-[100%] h-[80px] flex justify-center items-center relative`}
         >
           {/* bg-gradient-to-b from-[${hexToRGBA(userdata?.colorCode)}] to-white */}
-          <div className="w-[250px] flex justify-center items-center">
+          <div className="w-[250px] flex justify-center items-center ">
             <div
               className={`w-[166px] h-[55px]  rounded-[15px] flex justify-center items-center text-[18px] text-white font-[700] cursor-pointer`}
               style={{

@@ -8,9 +8,9 @@ const NotFound = () => {
   let handleModal = () => {
     setModal(!modal);
   };
-
+  
   return (
-    <div className="min-h-[100vh] max-w-[420px] w-[100%] ">
+    <div className="min-h-[100vh] max-w-[420px] w-[100%] " >
       <NotFoundModal modal={modal} handleModal={handleModal} />
       <div className="w-[96%] shadow-lg min-h-[100vh] border">
         <div className="w-[100%] flex justify-center text-2xl mt-[50px] ">
