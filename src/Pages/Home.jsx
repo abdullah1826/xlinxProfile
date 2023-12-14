@@ -529,25 +529,48 @@ const Home = () => {
           {notfound || userdata.profileOn === 0 ? (
             <NotFound />
           ) : userdata?.directMode === false ? (
+            // <div className="h-max w-max relative">
             <div
-              className="min-h-[100vh] max-w-[420px] w-[100%] flex flex-col items-center rounded-md shadow-lg  relative"
+              className="h-[100vh] max-w-[420px] w-[100%] flex flex-col items-center rounded-md shadow-lg  relative"
               style={
-                isFull
+                userdata?.profileDesign?.backgroundTheme === "Full"
                   ? {
                       fontFamily: "Inter, sans-serif",
-                      backgroundImage: `url(${prffbg})`,
-                      backgroundSize: "cover",
-                      backgroundRepeat: "no-repeat",
+                      // backgroundImage: `url(${userdata?.profileDesign?.backgroundImage})`,
+                      // backgroundSize: "cover",
+                      // backgroundRepeat: "no-repeat",
+                      // objectFit: "cover",
+                      // opacity: `${userdata?.profileDesign?.backgroundOpacity}%`,
                     }
                   : {
                       fontFamily: "Inter, sans-serif",
 
-                      background: `linear-gradient(to bottom, ${hexToRGBA(
-                        userdata?.cardColor
-                      )},${hexToRGBA(userdata?.cardColor)}, white)`,
+                      // background: `linear-gradient(to bottom, ${hexToRGBA(
+                      //   userdata?.cardColor
+                      // )},${hexToRGBA(userdata?.backgroudColor)}, white)`,
+                      backgroundColor: `${userdata?.profileDesign?.backgroudColor}`,
                     }
               }
             >
+              {userdata?.profileDesign?.backgroundTheme === "Full" && (
+                <img
+                  src={userdata?.profileDesign?.backgroundImage}
+                  className="h-[100%] w-[100%] object-cover"
+                  style={{
+                    opacity: `${userdata?.profileDesign?.backgroundOpacity}%`,
+                  }}
+                />
+              )}
+              {/* <div
+                style={{
+                  backgroundColor: "rgba(0, 0, 0, 0.5)",
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  height: "100%",
+                  width: "100%",
+                }}
+              > */}
               {/* <ToastContainer position="top-center" autoClose={2000} /> */}
 
               <LeadformModal
@@ -567,7 +590,7 @@ const Home = () => {
                 downloadVcf={downloadVcf}
               />
 
-              {isClassic && (
+              {userdata?.profileDesign?.backgroundTheme === "Classic" && (
                 <Classic
                   coverurl={coverurl}
                   logourl={logourl}
@@ -581,11 +604,11 @@ const Home = () => {
                   checkHttp={checkHttp}
                   linkAnalytics={linkAnalytics}
                   scrnWidth={scrnWidth}
-                  saveBtnStyle={saveBtnStyle[0]}
+                  saveBtnStyle={saveBtnStyle[1]}
                 />
               )}
 
-              {isColor && (
+              {userdata?.profileDesign?.backgroundTheme === "Color" && (
                 <Color
                   coverurl={coverurl}
                   logourl={logourl}
@@ -603,220 +626,30 @@ const Home = () => {
                 />
               )}
 
-              {isFull && (
-                <Full
-                  coverurl={coverurl}
-                  logourl={logourl}
-                  profileurl={profileurl}
-                  userdata={userdata}
-                  returnSlicedString={returnSlicedString}
-                  handleModal={handleModal}
-                  downloadVcf={downloadVcf}
-                  sociallink={sociallink}
-                  returnIcons={returnIcons}
-                  checkHttp={checkHttp}
-                  linkAnalytics={linkAnalytics}
-                  scrnWidth={scrnWidth}
-                  saveBtnStyle={saveBtnStyle[2]}
-                />
+              {userdata?.profileDesign?.backgroundTheme === "Full" && (
+                <div className="absolute w-[97%]">
+                  <Full
+                    coverurl={coverurl}
+                    logourl={logourl}
+                    profileurl={profileurl}
+                    userdata={userdata}
+                    returnSlicedString={returnSlicedString}
+                    handleModal={handleModal}
+                    downloadVcf={downloadVcf}
+                    sociallink={sociallink}
+                    returnIcons={returnIcons}
+                    checkHttp={checkHttp}
+                    linkAnalytics={linkAnalytics}
+                    scrnWidth={scrnWidth}
+                    saveBtnStyle={saveBtnStyle[2]}
+                  />
+                </div>
               )}
 
-              {/* <div className="w-[97%]  min-h-[100vh] relative">
-                <div className="min-h-[355px] w-[100%] flex items-center flex-col">
-                  {coverurl ? (
-                    <img
-                      src={coverurl}
-                      alt="background"
-                      className="h-[210px] w-[90%] mt-[15px] rounded-2xl "
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="h-[210px] w-[90%] mt-[15px] rounded-2xl border"></div>
-                  )}
-
-                  <div className="h-[160px] w-[100%] absolute top-[140px] flex justify-center">
-                    <div className="h-[100%] w-[160px] relative">
-                      <img
-                        src={logourl ? logourl : logoPlchldr}
-                        alt="logo"
-                        className="absolute bottom-[15px] right-[-7px] h-[55px] w-[55px] rounded-full border-[1px] border-white"
-                        loading="lazy"
-                      />
-                      {profileurl ? (
-                        <img
-                          src={profileurl}
-                          alt="profile"
-                          className="h-[150px] w-[150px] rounded-full border-[5px] border-white"
-                          loading="lazy"
-                        />
-                      ) : (
-                        <div className="h-[150px] w-[150px] rounded-full border-[5px] border-white"></div>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="w-[100%] flex justify-center mt-[72px] ">
-                    <h2 className="text-[22px]  font-[400] text-center w-[90%]">
-                      {returnSlicedString(
-                        `${userdata?.firstName} ${userdata?.lastName}`,
-                        30
-                      )}
-                    </h2>
-                  </div>
-
-                  <div className="w-[100%] flex justify-center ">
-                    <h2 className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]">
-                      {returnSlicedString(userdata?.jobTitle, 51)}
-                    </h2>
-                  </div>
-                  <div className="w-[100%] flex justify-center  ">
-                    <h2 className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]">
-                      {returnSlicedString(userdata?.company, 51)}
-                    </h2>
-                  </div>
-
-                  <div className="w-[100%] flex justify-center  ">
-                    <h2 className=" text-[15px] font-[300] text-[#4D4444] text-center w-[90%]">
-                      {userdata?.address}
-                    </h2>
-                  </div>
-
-                  <div className="w-[100%] flex justify-center mt-[15px] text-center">
-                    <p className="text-[16px] font-[300] text-[#2e363c] w-[90%]">
-                      {userdata?.bio}
-                    </p>
-                  </div>
-                  <div
-                    className={`w-[100%] h-[80px] flex justify-center items-center relative`}
-                  >
-                    <div className="w-[250px] flex justify-center items-center">
-                      <div
-                        className={`w-[166px] h-[55px]  rounded-[15px] flex justify-center items-center text-[18px] text-white font-[700] cursor-pointer`}
-                        style={{
-                          backgroundColor: "black",
-                          fontStyle: "Inter",
-                        }}
-                        onClick={() => downloadVcf()}
-                      >
-                        Save Contact
-                      </div>
-                    </div>
-                    <div
-                      className="h-[25px] w-[25px] cursor-pointer absolute"
-                      onClick={() => handleModal()}
-                      style={
-                        scrnWidth >= 380 ? { right: "17%" } : { right: "13%" }
-                      }
-                    >
-                      <img src={share} alt="" className="h-[25px] w-[25px]" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="w-[100%] flex justify-center mt-3">
-                  <div className="w-[94%] rounded-[25px] bg-[#FAFAFA]   flex flex-col items-center">
-                    <div className="w-[95%] mt-1">
-                      {sociallink?.map((elm) => {
-                        return (
-                          <>
-                            <a
-                              target="_blank"
-                              href={checkHttp(
-                                elm?.baseUrl + elm?.value,
-                                elm?.linkID,
-                                elm?.value
-                              )}
-                            >
-                              <div className="w-[100%] flex justify-center">
-                                <div
-                                  className="w-[92%] h-[121px] mt-4 mb-1 bg-[white]  border-[1px] border-[#F1ECEC]  rounded-[30px] flex "
-                                  style={
-                                    elm?.shareable === false ||
-                                    elm?.isFeatureOn === false
-                                      ? { display: "none" }
-                                      : null
-                                  }
-                                >
-                                  <div className="w-[33%]  flex justify-center items-center ">
-                                    <img
-                                      src={returnIcons(elm?.linkID)}
-                                      alt=""
-                                      className="h-[75px] w-[75px]"
-                                      loading="lazy"
-                                    />
-                                  </div>
-
-                                  <div className="w-[63%] flex flex-col justify-center ">
-                                    <h2 className="font-[700] text-[18px] ">
-                                      {elm?.title?.length < 22
-                                        ? elm?.title
-                                        : elm?.title?.substring(0, 22) + "..."}
-                                    </h2>
-                                    <p className="font-[400] text-[13px] w-[90%] ">
-                                      {elm?.feature?.length < 67
-                                        ? elm?.feature
-                                        : elm?.feature?.substring(0, 67) +
-                                          "..."}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
-                            </a>
-                          </>
-                        );
-                      })}
-                    </div>
-                    <div className=" w-[95%]  flex justify-around items-center flex-wrap mt-5">
-                      {sociallink?.map((elm) => {
-                        return (
-                          <>
-                            <a
-                              target="_blank"
-                              href={
-                                elm?.linkID != null &&
-                                checkHttp(
-                                  elm?.baseUrl + elm?.value,
-                                  elm?.linkID,
-                                  elm?.value
-                                )
-                              }
-                              class="h-[120px] w-[31%] flex flex-col  items-center mt-4 "
-                              style={
-                                elm?.shareable === false ||
-                                elm?.isFeatureOn === true
-                                  ? { display: "none" }
-                                  : null
-                              }
-                              onClick={() => linkAnalytics(elm)}
-                            >
-                              {elm?.linkID != null && (
-                                <img
-                                  src={returnIcons(elm?.linkID)}
-                                  alt="img"
-                                  class={` ${"h-[75px] w-[75px]"}`}
-                                />
-                              )}
-                              <h2 class="font-[300] text-[12px] text-[#000000] mt-[6px] text-center">
-                                {elm?.title?.length < 19
-                                  ? elm?.title
-                                  : elm?.title?.substring(0, 19) + "..."}
-                              </h2>
-                            </a>
-                          </>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-
-                <div className=" w-[100%] h-[100px]  flex justify-center items-center mt-[16px]">
-                  <div className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer">
-                    Create your own profile
-                  </div>
-                </div>
-              </div> */}
+              {/* </div> */}
             </div>
           ) : (
+            // </div>
             (window.location.href = checkHttp(
               userdata?.direct?.baseUrl + userdata?.direct?.value,
               userdata?.direct?.linkID,

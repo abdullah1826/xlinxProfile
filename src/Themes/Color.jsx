@@ -19,7 +19,7 @@ const Color = ({
   scrnWidth,
 }) => {
   return (
-    <div className="w-[97%]  min-h-[100vh]">
+    <div className="w-[97%]   max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide">
       <div className="min-h-[355px] w-[100%] flex items-center flex-col">
         <div className="h-[160px] w-[100%]  flex justify-center mt-[20px]">
           <div className="h-[100%] w-[160px] relative">
