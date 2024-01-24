@@ -6,45 +6,44 @@ const WebBtn = ({
   linkAnalytics,
   returnIcons,
   webBtnStyle,
+  weblinkButtonTextColor,
+  weblinkButtonBackgroundColor,
 }) => {
   return (
     <>
       <a
         target="_blank"
-        href={
-          elm?.linkID != null &&
-          checkHttp(elm?.baseUrl + elm?.value, elm?.linkID, elm?.value)
-        }
+        href={elm?.linkID != null && checkHttp(elm?.url, elm?.linkID, elm?.url)}
         // returnSocialUrl(elm?.title, elm?.value)
-        className="h-[75px] w-[100%] flex justify-start items-center mb-3"
+        className="h-[75px] w-[100%] flex justify-start items-center mb-4"
         style={{
           display:
             elm?.shareable === false || elm?.isFeatureOn === true
               ? "none"
               : null,
           borderRadius:
-            webBtnStyle === "s1" || webBtnStyle === "s5"
+            webBtnStyle === "style1" || webBtnStyle === "style5"
               ? "0px"
-              : webBtnStyle === "s2" || webBtnStyle === "s6"
+              : webBtnStyle === "style2" || webBtnStyle === "style6"
               ? "8px"
-              : webBtnStyle === "s3" || webBtnStyle === "s7"
+              : webBtnStyle === "style3" || webBtnStyle === "style7"
               ? "14px"
-              : webBtnStyle === "s4" || webBtnStyle === "s8"
+              : webBtnStyle === "style4" || webBtnStyle === "style8"
               ? "40px"
               : null,
           backgroundColor:
-            webBtnStyle === "s1" ||
-            webBtnStyle === "s2" ||
-            webBtnStyle === "s3" ||
-            webBtnStyle === "s4"
-              ? "black"
+            webBtnStyle === "style1" ||
+            webBtnStyle === "style2" ||
+            webBtnStyle === "style3" ||
+            webBtnStyle === "style4"
+              ? weblinkButtonBackgroundColor
               : "transparent",
           border:
-            webBtnStyle === "s5" ||
-            webBtnStyle === "s6" ||
-            webBtnStyle === "s7" ||
-            webBtnStyle === "s8"
-              ? "1px solid white"
+            webBtnStyle === "style5" ||
+            webBtnStyle === "style6" ||
+            webBtnStyle === "style7" ||
+            webBtnStyle === "style8"
+              ? `1px solid ${weblinkButtonBackgroundColor}`
               : null,
         }}
         onClick={() => linkAnalytics(elm)}
@@ -52,34 +51,37 @@ const WebBtn = ({
         {elm?.linkID != null && (
           <div className="h-[100%] w-[22%] flex items-center">
             <img
-              src={returnIcons(elm?.linkID)}
+              src={elm?.buttonImgUrl}
               alt="img"
-              class={` ${"h-[65px] w-[65px]"}  ml-1 `}
+              class={` ${"h-[65px] w-[65px]"}  ml-1 object-cover`}
               style={{
                 display:
                   elm?.shareable === false || elm?.isFeatureOn === true
                     ? "none"
                     : null,
                 borderRadius:
-                  webBtnStyle === "s1" || webBtnStyle === "s5"
+                  webBtnStyle === "style1" || webBtnStyle === "style5"
                     ? "0px"
-                    : webBtnStyle === "s2" || webBtnStyle === "s6"
+                    : webBtnStyle === "style2" || webBtnStyle === "style6"
                     ? "8px"
-                    : webBtnStyle === "s3" || webBtnStyle === "s7"
+                    : webBtnStyle === "style3" || webBtnStyle === "style7"
                     ? "14px"
-                    : webBtnStyle === "s4" || webBtnStyle === "s8"
+                    : webBtnStyle === "style4" || webBtnStyle === "style8"
                     ? "40px"
                     : null,
               }}
             />
           </div>
         )}
-        <p class="font-[400] text-[17px] text-white mt-[6px] text-center  w-[75%]">
+        <p
+          class="font-[400] text-[17px]  mt-[6px] text-center  w-[75%]"
+          style={{ color: weblinkButtonTextColor }}
+        >
           {/* {elm?.title} */}
           {/* {elm?.title?.length < 19
         ? elm?.title
         : elm?.title?.substring(0, 62) + "..."} */}
-          This is a customized link title
+          {elm?.title}
         </p>
       </a>
     </>

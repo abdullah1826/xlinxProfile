@@ -3,6 +3,11 @@ import share from "../imgs/share.png";
 import imgPlchldr from "../imgs/imgPlchldr.jpg";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
+import FeaturedSocial from "../assets/components/FeaturedSocial";
+import WebGrfkBtn from "../assets/components/webGrfkBtn";
+import WebBtn from "../assets/components/webBtn";
+import SaveBtn from "../assets/components/SaveBtn";
+import SocialLinks from "../assets/components/SocialLinks";
 
 const Color = ({
   coverurl,
@@ -17,7 +22,16 @@ const Color = ({
   checkHttp,
   linkAnalytics,
   scrnWidth,
+  saveBtnStyle,
+  webBtnStyle,
+  weblinkButtonTextColor,
+  weblinkButtonBackgroundColor,
+  saveContactBackgroundColor,
+  saveContactTextColor,
+  highlightBoxStyle,
+  appIconColor,
 }) => {
+  // console.log(weblinkButtonBackgroundColor);
   return (
     <div className="w-[97%]   max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide">
       <div className="min-h-[355px] w-[100%] flex items-center flex-col">
@@ -77,18 +91,12 @@ const Color = ({
           className={`w-[100%] h-[80px] flex justify-center items-center relative`}
         >
           {/* bg-gradient-to-b from-[${hexToRGBA(userdata?.colorCode)}] to-white */}
-          <div className="w-[250px] flex justify-center items-center ">
-            <div
-              className={`w-[166px] h-[55px]  rounded-[15px] flex justify-center items-center text-[18px] text-white font-[700] cursor-pointer`}
-              style={{
-                backgroundColor: "black",
-                fontStyle: "Inter",
-              }}
-              onClick={() => downloadVcf()}
-            >
-              Save Contact
-            </div>
-          </div>
+          <SaveBtn
+            downloadVcf={downloadVcf}
+            saveBtnStyle={saveBtnStyle}
+            saveContactBackgroundColor={saveContactBackgroundColor}
+            saveContactTextColor={saveContactTextColor}
+          />
           <div
             className="h-[25px] w-[25px] cursor-pointer absolute"
             onClick={() => handleModal()}
@@ -101,101 +109,16 @@ const Color = ({
 
       <div className="w-[100%] flex justify-center mt-3">
         <div className="w-[94%] rounded-[25px]    flex flex-col items-center">
-          {/* bg-[#f5f5f58e] */}
-          <div className="w-[95%] mt-1">
-            {sociallink?.map((elm) => {
-              return (
-                <>
-                  <a
-                    target="_blank"
-                    href={checkHttp(
-                      elm?.baseUrl + elm?.value,
-                      elm?.linkID,
-                      elm?.value
-                    )}
-                    // onClick={() => linkAnalytics(elm?.title)}
-                  >
-                    <div className="w-[100%] flex justify-center">
-                      <div
-                        className="w-[92%] h-[121px] mt-4 mb-1 bg-[white]  border-[1px] border-[#F1ECEC]  rounded-[30px] flex "
-                        style={
-                          elm?.shareable === false || elm?.isFeatureOn === false
-                            ? { display: "none" }
-                            : null
-                        }
-                      >
-                        <div className="w-[33%]  flex justify-center items-center ">
-                          <img
-                            src={returnIcons(elm?.linkID)}
-                            alt=""
-                            className="h-[75px] w-[75px]"
-                            loading="lazy"
-                          />
-                        </div>
+          <SocialLinks
+            sociallink={sociallink}
+            checkHttp={checkHttp}
+            linkAnalytics={linkAnalytics}
+            webBtnStyle={webBtnStyle}
+            weblinkButtonTextColor={weblinkButtonTextColor}
+            weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
+            appIconColor={appIconColor}
+          />
 
-                        <div className="w-[63%] flex flex-col justify-center ">
-                          <h2 className="font-[700] text-[18px] ">
-                            {elm?.title?.length < 22
-                              ? elm?.title
-                              : elm?.title?.substring(0, 22) + "..."}
-                          </h2>
-                          <p className="font-[400] text-[13px] w-[90%] ">
-                            {elm?.feature?.length < 67
-                              ? elm?.feature
-                              : elm?.feature?.substring(0, 67) + "..."}
-                          </p>
-                          {/* 68 */}
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </>
-              );
-            })}
-          </div>
-          <div className=" w-[95%]  flex justify-around items-center flex-wrap mt-5">
-            {/* grid grid-cols-3 gap-x-4 pr-7 */}
-            {sociallink?.map((elm) => {
-              return (
-                <>
-                  <a
-                    target="_blank"
-                    href={
-                      elm?.linkID != null &&
-                      checkHttp(
-                        elm?.baseUrl + elm?.value,
-                        elm?.linkID,
-                        elm?.value
-                      )
-                    }
-                    // returnSocialUrl(elm?.title, elm?.value)
-                    class="h-[120px] w-[31%] flex flex-col  items-center mt-4 "
-                    style={
-                      elm?.shareable === false || elm?.isFeatureOn === true
-                        ? { display: "none" }
-                        : null
-                    }
-                    onClick={() => linkAnalytics(elm)}
-                  >
-                    {elm?.linkID != null && (
-                      <img
-                        src={returnIcons(elm?.linkID)}
-                        alt="img"
-                        class={` ${"h-[75px] w-[75px]"}`}
-                        // style={elm?.name==='Calendly'? {borderRadius:'10px'}:null}
-                      />
-                    )}
-                    <h2 class="font-[300] text-[12px] text-[#000000] mt-[6px] text-center">
-                      {/* {elm?.title} */}
-                      {elm?.title?.length < 19
-                        ? elm?.title
-                        : elm?.title?.substring(0, 19) + "..."}
-                    </h2>
-                  </a>
-                </>
-              );
-            })}
-          </div>
           {/* <br /> */}
         </div>
       </div>

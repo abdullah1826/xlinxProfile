@@ -3,13 +3,13 @@ import share from "../imgs/share.png";
 import imgPlchldr from "../imgs/imgPlchldr.jpg";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
-import SaveBtn from "../assets/components/SaveBtn";
-import WebBtn from "../assets/components/webBtn";
-import WebGrfkBtn from "../assets/components/webGrfkBtn";
 import FeaturedSocial from "../assets/components/FeaturedSocial";
+import WebGrfkBtn from "../assets/components/webGrfkBtn";
+import WebBtn from "../assets/components/webBtn";
+import SaveBtn from "../assets/components/SaveBtn";
 import SocialLinks from "../assets/components/SocialLinks";
 
-const Full = ({
+const Portrait = ({
   coverurl,
   logourl,
   profileurl,
@@ -28,16 +28,44 @@ const Full = ({
   weblinkButtonBackgroundColor,
   saveContactBackgroundColor,
   saveContactTextColor,
+  bg,
   highlightBoxStyle,
   appIconColor,
 }) => {
-  console.log(sociallink);
+  // console.log(weblinkButtonBackgroundColor);
+  let hexToRGBA = (hex) => {
+    // Remove the '#' character if present
+    hex = hex?.replace("#", "");
 
-  // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
+    // Convert the hex value to RGB
+    const red = parseInt(hex?.substring(0, 2), 16);
+    const green = parseInt(hex?.substring(2, 4), 16);
+    const blue = parseInt(hex?.substring(4, 6), 16);
+
+    // Convert RGB to RGBA with alpha value 0.1
+    const rgba = `rgba(${red}, ${green}, ${blue}, 0.1)`;
+
+    return rgba;
+  };
+
   return (
-    <div className="w-[100%]  max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide ">
-      <div className="min-h-[355px] w-[100%] flex items-center flex-col ">
-        <div className="h-[160px] w-[100%]  flex justify-center mt-[20px]">
+    <div className="w-[100%]   max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide">
+      <div className="min-h-[355px] w-[100%] flex items-center flex-col">
+        <div className="w-[100%] h-[420px] relative">
+          <div
+            className="w-[100%] h-[150px] absolute bottom-[-10px]"
+            style={{
+              background: `linear-gradient(to top, ${bg},${bg}, transparent)`,
+              //   background: `linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, ${bg} 100%)`,
+            }}
+          ></div>
+          <img
+            src={profileurl}
+            className="w-[100%] h-[400px] object-cover"
+            alt=""
+          />
+        </div>
+        {/* <div className="h-[160px] w-[100%]  flex justify-center mt-[20px]">
           <div className="h-[100%] w-[160px] relative">
             <img
               src={logourl ? logourl : logoPlchldr}
@@ -56,10 +84,10 @@ const Full = ({
               <div className="h-[150px] w-[150px] rounded-full border-[5px] border-white"></div>
             )}
           </div>
-        </div>
+        </div> */}
 
-        <div className="w-[100%] flex justify-center mt-[10px] ">
-          <h2 className="text-[22px]  font-[400] text-center w-[90%] text-white">
+        <div className="w-[100%] flex justify-center mt-[22px] ">
+          <h2 className="text-[22px]  font-[400] text-center w-[90%]">
             {returnSlicedString(
               `${userdata?.firstName} ${userdata?.lastName}`,
               30
@@ -68,24 +96,24 @@ const Full = ({
         </div>
 
         <div className="w-[100%] flex justify-center ">
-          <h2 className="text-[16px] font-[300] text-white text-center w-[90%]">
+          <h2 className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]">
             {returnSlicedString(userdata?.jobTitle, 51)}
           </h2>
         </div>
         <div className="w-[100%] flex justify-center  ">
-          <h2 className="text-[16px] font-[300] text-white text-center w-[90%]">
+          <h2 className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]">
             {returnSlicedString(userdata?.company, 51)}
           </h2>
         </div>
 
         <div className="w-[100%] flex justify-center  ">
-          <h2 className=" text-[15px] font-[300] text-white text-center w-[90%]">
+          <h2 className=" text-[15px] font-[300] text-[#4D4444] text-center w-[90%]">
             {userdata?.address}
           </h2>
         </div>
 
         <div className="w-[100%] flex justify-center mt-[15px] text-center">
-          <p className="text-[16px] font-[300] text-white w-[90%]">
+          <p className="text-[16px] font-[300] text-[#2e363c] w-[90%]">
             {userdata?.bio}
           </p>
         </div>
@@ -110,7 +138,7 @@ const Full = ({
       </div>
 
       <div className="w-[100%] flex justify-center mt-3">
-        <div className="w-[94%] rounded-[25px]  flex flex-col items-center">
+        <div className="w-[94%] rounded-[25px]    flex flex-col items-center">
           <SocialLinks
             sociallink={sociallink}
             checkHttp={checkHttp}
@@ -120,6 +148,8 @@ const Full = ({
             weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
             appIconColor={appIconColor}
           />
+
+          {/* <br /> */}
         </div>
       </div>
 
@@ -140,4 +170,4 @@ const Full = ({
   );
 };
 
-export default Full;
+export default Portrait;

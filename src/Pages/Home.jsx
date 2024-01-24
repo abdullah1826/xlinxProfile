@@ -20,6 +20,7 @@ import ConfirmModal from "../assets/components/SubmitConfirmModal";
 import Classic from "../Themes/Classic";
 import Color from "../Themes/Color";
 import Full from "../Themes/Full";
+import Portrait from "../Themes/Portrait";
 
 const Home = () => {
   let { userid } = useParams();
@@ -81,7 +82,7 @@ const Home = () => {
           console.log("true");
           usersdata?.map((elm) => {
             if (userid === elm?.id || userid === elm?.username) {
-              // console.log(elm);
+              console.log(elm);
               setuserdata(elm);
               setModal(elm?.leadMode);
               elm?.links && setsociallink(Object.values(elm?.links));
@@ -518,8 +519,9 @@ const Home = () => {
   let isColor = false;
   let isFull = true;
 
-  let saveBtnStyle = ["s1", "s2", "s3", "s4"];
-  let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s7"];
+  // let saveBtnStyle = ["s1", "s2", "s3", "s4"];
+  // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s7"];
+  console.log(userdata?.profileDesign?.backgroundTheme);
   return (
     <>
       {loading ? (
@@ -548,12 +550,13 @@ const Home = () => {
                       // background: `linear-gradient(to bottom, ${hexToRGBA(
                       //   userdata?.cardColor
                       // )},${hexToRGBA(userdata?.backgroudColor)}, white)`,
-                      backgroundColor: `${userdata?.profileDesign?.backgroudColor}`,
+                      backgroundColor: `${userdata?.profileDesign?.backgroundColor}`,
                     }
               }
             >
-              {userdata?.profileDesign?.backgroundTheme === "Full" && (
+              {userdata?.profileDesign?.backgroundTheme === "Custom" && (
                 <img
+                  // backgroundImage
                   src={userdata?.profileDesign?.backgroundImage}
                   className="h-[100%] w-[100%] object-cover"
                   style={{
@@ -604,12 +607,29 @@ const Home = () => {
                   checkHttp={checkHttp}
                   linkAnalytics={linkAnalytics}
                   scrnWidth={scrnWidth}
-                  saveBtnStyle={saveBtnStyle[1]}
+                  saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
+                  webBtnStyle={userdata?.profileDesign?.weblinkStyle}
+                  weblinkButtonTextColor={
+                    userdata?.profileDesign?.weblinkButtonTextColor
+                  }
+                  weblinkButtonBackgroundColor={
+                    userdata?.profileDesign?.weblinkButtonBackgroundColor
+                  }
+                  saveContactBackgroundColor={
+                    userdata?.profileDesign?.saveContactBackgroundColor
+                  }
+                  saveContactTextColor={
+                    userdata?.profileDesign?.saveContactTextColor
+                  }
+                  highlightBoxStyle={userdata?.profileDesign?.highlightBoxStyle}
+                  isClassic={true}
+                  appIconColor={userdata?.profileDesign?.appIconColor}
                 />
               )}
 
               {userdata?.profileDesign?.backgroundTheme === "Color" && (
                 <Color
+                  Portrait
                   coverurl={coverurl}
                   logourl={logourl}
                   profileurl={profileurl}
@@ -622,11 +642,62 @@ const Home = () => {
                   checkHttp={checkHttp}
                   linkAnalytics={linkAnalytics}
                   scrnWidth={scrnWidth}
-                  saveBtnStyle={saveBtnStyle[0]}
+                  saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
+                  webBtnStyle={userdata?.profileDesign?.weblinkStyle}
+                  weblinkButtonTextColor={
+                    userdata?.profileDesign?.weblinkButtonTextColor
+                  }
+                  weblinkButtonBackgroundColor={
+                    userdata?.profileDesign?.weblinkButtonBackgroundColor
+                  }
+                  saveContactBackgroundColor={
+                    userdata?.profileDesign?.saveContactBackgroundColor
+                  }
+                  saveContactTextColor={
+                    userdata?.profileDesign?.saveContactTextColor
+                  }
+                  bg={userdata?.profileDesign?.backgroundColor}
+                  highlightBoxStyle={userdata?.profileDesign?.highlightBoxStyle}
+                  appIconColor={userdata?.profileDesign?.appIconColor}
                 />
               )}
 
-              {userdata?.profileDesign?.backgroundTheme === "Full" && (
+              {userdata?.profileDesign?.backgroundTheme === "Portrait" && (
+                <Portrait
+                  Portrait
+                  coverurl={coverurl}
+                  logourl={logourl}
+                  profileurl={profileurl}
+                  userdata={userdata}
+                  returnSlicedString={returnSlicedString}
+                  handleModal={handleModal}
+                  downloadVcf={downloadVcf}
+                  sociallink={sociallink}
+                  returnIcons={returnIcons}
+                  checkHttp={checkHttp}
+                  linkAnalytics={linkAnalytics}
+                  scrnWidth={scrnWidth}
+                  saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
+                  webBtnStyle={userdata?.profileDesign?.weblinkStyle}
+                  weblinkButtonTextColor={
+                    userdata?.profileDesign?.weblinkButtonTextColor
+                  }
+                  weblinkButtonBackgroundColor={
+                    userdata?.profileDesign?.weblinkButtonBackgroundColor
+                  }
+                  saveContactBackgroundColor={
+                    userdata?.profileDesign?.saveContactBackgroundColor
+                  }
+                  saveContactTextColor={
+                    userdata?.profileDesign?.saveContactTextColor
+                  }
+                  bg={userdata?.profileDesign?.backgroundColor}
+                  highlightBoxStyle={userdata?.profileDesign?.highlightBoxStyle}
+                  appIconColor={userdata?.profileDesign?.appIconColor}
+                />
+              )}
+
+              {userdata?.profileDesign?.backgroundTheme === "Custom" && (
                 <div className="absolute w-[97%]">
                   <Full
                     coverurl={coverurl}
@@ -641,7 +712,24 @@ const Home = () => {
                     checkHttp={checkHttp}
                     linkAnalytics={linkAnalytics}
                     scrnWidth={scrnWidth}
-                    saveBtnStyle={saveBtnStyle[2]}
+                    saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
+                    webBtnStyle={userdata?.profileDesign?.weblinkStyle}
+                    weblinkButtonTextColor={
+                      userdata?.profileDesign?.weblinkButtonTextColor
+                    }
+                    weblinkButtonBackgroundColor={
+                      userdata?.profileDesign?.weblinkButtonBackgroundColor
+                    }
+                    saveContactBackgroundColor={
+                      userdata?.profileDesign?.saveContactBackgroundColor
+                    }
+                    saveContactTextColor={
+                      userdata?.profileDesign?.saveContactTextColor
+                    }
+                    highlightBoxStyle={
+                      userdata?.profileDesign?.highlightBoxStyle
+                    }
+                    appIconColor={userdata?.profileDesign?.appIconColor}
                   />
                 </div>
               )}

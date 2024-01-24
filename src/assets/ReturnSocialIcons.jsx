@@ -1,24 +1,24 @@
 // import contact icons
 
-import call from "./socialLink/phone.png";
+import call from "./svgIcons/cell.svg";
 import contact from "./socialLink/contacts.png";
-import text from "./socialLink/text.png";
-import whatsapp from "./socialLink/whatsapp.png";
-import email from "./socialLink/email.png";
+import text from "./svgIcons/text.svg";
+import whatsapp from "./svgIcons/whatsapp.svg";
+import email from "./svgIcons/email.svg";
 
 // import social icons
 
-import instagram from "./socialLink/instagram.png";
-import facebook from "./socialLink/facebook.png";
-import tiktok from "./socialLink/tiktok.png";
-import twitter from "./socialLink/x.png";
+import instagram from "./svgIcons/instagram.svg";
+import facebook from "./svgIcons/facebook.svg";
+import tiktok from "./svgIcons/tiktok.svg";
+import twitter from "./svgIcons/x.svg";
 
-import linkedin from "./socialLink/linkedin.png";
+import linkedin from "./svgIcons/linkedin.svg";
 // import twitch from "./socialLink/twitch.png";
-import pinterest from "./socialLink/pinterest.png";
-import youtube from "./socialLink/youtube.png";
+import pinterest from "./svgIcons/pinterest.svg";
+import youtube from "./svgIcons/youtube.svg";
 
-import snapchat from "./socialLink/snapchat.png";
+import snapchat from "./svgIcons/snapchat.svg";
 // import telegram from "./socialLink/telegram.png";
 // import reddit from "./socialLink/reddit.png";
 
@@ -26,20 +26,20 @@ import snapchat from "./socialLink/snapchat.png";
 // import tumblr from "./socialLink/tumblr.png";
 
 // import music icons
-import spotify from "./socialLink/spotify.png";
+import spotify from "./svgIcons/spotify.svg";
 
 // import applemusic from "./socialLink/applemusic.png";
 // import soundcloud from "./socialLink/soundcloud.png";
 
 // import payment icons
 
-import cashapp from "./socialLink/cashapp.png";
-import paypal from "./socialLink/paypal.png";
+import cashapp from "./svgIcons/cashapp.svg";
+import paypal from "./svgIcons/paypal.svg";
 
 // import payment icons
 
 import website from "./socialLink/link.png";
-import venmo from "./socialLink/venmo.png";
+import venmo from "./svgIcons/venmo.svg";
 // import custom from "./socialLink/customlink.png";
 
 // import pinterest from './socialLink/pinterest.png'
@@ -191,10 +191,10 @@ export const more = [
 export let returnIcons = (id) => {
   if (id === 2) {
     return call;
-  } else if (id === 4) {
-    return text;
   } else if (id === 5) {
     return whatsapp;
+  } else if (id === 4) {
+    return text;
   } else if (id === 3) {
     return email;
   } else if (id === 15) {

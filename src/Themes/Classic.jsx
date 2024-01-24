@@ -6,6 +6,7 @@ import cvrPlchldr from "../imgs/cvrPlchldr.png";
 import SaveBtn from "../assets/components/SaveBtn";
 import WebBtn from "../assets/components/webBtn";
 import WebGrfkBtn from "../assets/components/webGrfkBtn";
+import SocialLinks from "../assets/components/SocialLinks";
 
 const Classic = ({
   coverurl,
@@ -21,8 +22,16 @@ const Classic = ({
   linkAnalytics,
   scrnWidth,
   saveBtnStyle,
+  webBtnStyle,
+  weblinkButtonTextColor,
+  weblinkButtonBackgroundColor,
+  saveContactBackgroundColor,
+  saveContactTextColor,
+  highlightBoxStyle,
+  isClassic,
+  appIconColor,
 }) => {
-  let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
+  // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
   return (
     <div className="w-[97%]  relative max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide">
       <div className="min-h-[355px] w-[100%] flex items-center flex-col">
@@ -31,7 +40,7 @@ const Classic = ({
             <img
               src={coverurl}
               // alt="background"
-              className="h-[210px] w-[90%] mt-[15px] rounded-2xl "
+              className="h-[210px] w-[90%] mt-[15px] rounded-2xl"
               loading="lazy"
             />
           )
@@ -107,7 +116,12 @@ const Classic = ({
               Save Contact
             </div>
           </div> */}
-          <SaveBtn downloadVcf={downloadVcf} saveBtnStyle={saveBtnStyle} />
+          <SaveBtn
+            downloadVcf={downloadVcf}
+            saveBtnStyle={saveBtnStyle}
+            saveContactBackgroundColor={saveContactBackgroundColor}
+            saveContactTextColor={saveContactTextColor}
+          />
           <div
             className="h-[25px] w-[25px] cursor-pointer absolute"
             onClick={() => handleModal()}
@@ -169,127 +183,18 @@ const Classic = ({
 
       <div className="w-[100%] flex justify-center mt-3">
         <div className="w-[94%] rounded-[25px] bg-[#FAFAFA]   flex flex-col items-center">
-          {/* bg-[#f5f5f58e] */}
-          <div className="w-[95%] mt-1">
-            {sociallink?.map((elm) => {
-              return (
-                <>
-                  <a
-                    target="_blank"
-                    href={checkHttp(
-                      elm?.baseUrl + elm?.value,
-                      elm?.linkID,
-                      elm?.value
-                    )}
-                    // onClick={() => linkAnalytics(elm?.title)}
-                  >
-                    <div className="w-[100%] flex justify-center">
-                      <div
-                        className="w-[92%] h-[121px] mt-4 mb-1 bg-[white]  border-[1px] border-[#F1ECEC]  rounded-[30px] flex "
-                        style={
-                          elm?.shareable === false || elm?.isFeatureOn === false
-                            ? { display: "none" }
-                            : null
-                        }
-                      >
-                        <div className="w-[33%]  flex justify-center items-center ">
-                          <img
-                            src={returnIcons(elm?.linkID)}
-                            alt=""
-                            className="h-[75px] w-[75px]"
-                            loading="lazy"
-                          />
-                        </div>
-
-                        <div className="w-[63%] flex flex-col justify-center ">
-                          <h2 className="font-[700] text-[18px] ">
-                            {elm?.title?.length < 22
-                              ? elm?.title
-                              : elm?.title?.substring(0, 22) + "..."}
-                          </h2>
-                          <p className="font-[400] text-[13px] w-[90%] ">
-                            {elm?.feature?.length < 67
-                              ? elm?.feature
-                              : elm?.feature?.substring(0, 67) + "..."}
-                          </p>
-                          {/* 68 */}
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </>
-              );
-            })}
-          </div>
-          <div className=" w-[95%]  flex justify-around items-center flex-wrap mt-5">
-            {/* grid grid-cols-3 gap-x-4 pr-7 */}
-            {sociallink?.map((elm) => {
-              return elm?.linkID === 32 ||
-                elm?.linkID === 15 ||
-                elm?.linkID === 16 ? (
-                <WebBtn
-                  elm={elm}
-                  checkHttp={checkHttp}
-                  linkAnalytics={linkAnalytics}
-                  returnIcons={returnIcons}
-                  webBtnStyle={webBtnStyle[3]}
-                />
-              ) : elm?.linkID === 14 ? (
-                <WebGrfkBtn
-                  elm={elm}
-                  checkHttp={checkHttp}
-                  linkAnalytics={linkAnalytics}
-                  // returnIcons={returnIcons}
-                  // webBtnStyle={webBtnStyle[7]}
-                />
-              ) : elm?.linkID === 5 ? (
-                <>
-                  <p className="font-[400] text-[16px] w-[100%] text-center">
-                    This is a text paragraph here, user can edit whatever text
-                    you want here.
-                  </p>
-                </>
-              ) : (
-                <>
-                  <a
-                    target="_blank"
-                    href={
-                      elm?.linkID != null &&
-                      checkHttp(
-                        elm?.baseUrl + elm?.value,
-                        elm?.linkID,
-                        elm?.value
-                      )
-                    }
-                    // returnSocialUrl(elm?.title, elm?.value)
-                    class="h-[120px] w-[31%] flex flex-col  items-center mt-4 "
-                    style={
-                      elm?.shareable === false || elm?.isFeatureOn === true
-                        ? { display: "none" }
-                        : null
-                    }
-                    onClick={() => linkAnalytics(elm)}
-                  >
-                    {elm?.linkID != null && (
-                      <img
-                        src={returnIcons(elm?.linkID)}
-                        alt="img"
-                        class={` ${"h-[75px] w-[75px]"}`}
-                        // style={elm?.name==='Calendly'? {borderRadius:'10px'}:null}
-                      />
-                    )}
-                    <h2 class="font-[300] text-[12px] text-[#000000] mt-[6px] text-center">
-                      {/* {elm?.title} */}
-                      {elm?.title?.length < 19
-                        ? elm?.title
-                        : elm?.title?.substring(0, 19) + "..."}
-                    </h2>
-                  </a>
-                </>
-              );
-            })}
-          </div>
-          {/* <br /> */}
+          <SocialLinks
+            sociallink={sociallink}
+            checkHttp={checkHttp}
+            linkAnalytics={linkAnalytics}
+            webBtnStyle={webBtnStyle}
+            weblinkButtonTextColor={weblinkButtonTextColor}
+            weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
+            highlightBoxStyle={highlightBoxStyle}
+            isClassic={isClassic}
+            appIconColor={appIconColor}
+          />
+          <br />
         </div>
       </div>
 

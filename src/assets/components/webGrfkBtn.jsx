@@ -11,10 +11,7 @@ const WebGrfkBtn = ({
     <>
       <a
         target="_blank"
-        href={
-          elm?.linkID != null &&
-          checkHttp(elm?.baseUrl + elm?.value, elm?.linkID, elm?.value)
-        }
+        href={elm?.linkID != null && checkHttp(elm?.url, elm?.linkID, elm?.url)}
         // returnSocialUrl(elm?.title, elm?.value)
         className="h-[186px] w-[100%]  mb-3 rounded-[20px] relative"
         style={{
@@ -22,9 +19,10 @@ const WebGrfkBtn = ({
             elm?.shareable === false || elm?.isFeatureOn === true
               ? "none"
               : null,
-          backgroundImage: `url(${webbtn})`,
+          backgroundImage: `url(${elm?.graphicImgUrl})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
+          marginBottom: elm?.graphicDisplayType === "style1" ? "12px" : "35px",
         }}
         onClick={() => linkAnalytics(elm)}
       >
@@ -53,12 +51,20 @@ const WebGrfkBtn = ({
             />
           </div>
         )} */}
-        <p class="font-[400] text-[17px] text-white mt-[6px] text-center  w-[100%] absolute bottom-3">
+        <p
+          class="font-[400] text-[17px] text-white mt-[6px] text-center  w-[100%] absolute bottom-3"
+          style={{
+            color: elm?.graphicTextColor,
+            bottom: elm?.graphicDisplayType === "style1" ? "12px" : "-35px",
+            // paddingTop: "10px",
+          }}
+        >
           {/* {elm?.title} */}
           {/* {elm?.title?.length < 19
           ? elm?.title
           : elm?.title?.substring(0, 62) + "..."} */}
           This is a customized link title
+          {/* <div className="h-[20px]"></div> */}
         </p>
       </a>
     </>
