@@ -1,5 +1,5 @@
 import React from "react";
-import share from "../imgs/share.png";
+import share from "../imgs/share.svg";
 import imgPlchldr from "../imgs/imgPlchldr.jpg";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
@@ -31,6 +31,11 @@ const Portrait = ({
   bg,
   highlightBoxStyle,
   appIconColor,
+  boxTextColor,
+  boxBackgroundColor,
+  removeHash,
+  hideCompanyLogo,
+  hideSaveContact,
 }) => {
   // console.log(weblinkButtonBackgroundColor);
   let hexToRGBA = (hex) => {
@@ -48,12 +53,15 @@ const Portrait = ({
     return rgba;
   };
 
+  let hideSaveContactFalse =
+    scrnWidth >= 380 ? { right: "15%" } : { right: "11%" };
+  let hideSaveContactTrue = null;
   return (
     <div className="w-[100%]   max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide">
       <div className="min-h-[355px] w-[100%] flex items-center flex-col">
-        <div className="w-[100%] h-[420px] relative">
+        <div className="w-[100%] h-[420px] relative overflow-hidden">
           <div
-            className="w-[100%] h-[150px] absolute bottom-[-10px]"
+            className="w-[100%] h-[150px] absolute bottom-[-15px] "
             style={{
               background: `linear-gradient(to top, ${bg},${bg}, transparent)`,
               //   background: `linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, ${bg} 100%)`,
@@ -61,7 +69,7 @@ const Portrait = ({
           ></div>
           <img
             src={profileurl}
-            className="w-[100%] h-[400px] object-cover"
+            className="w-[100%] h-[400px]  object-cover"
             alt=""
           />
         </div>
@@ -86,7 +94,7 @@ const Portrait = ({
           </div>
         </div> */}
 
-        <div className="w-[100%] flex justify-center mt-[22px] ">
+        <div className="w-[100%] flex justify-center z-20 mt-[-20px]">
           <h2 className="text-[22px]  font-[400] text-center w-[90%]">
             {returnSlicedString(
               `${userdata?.firstName} ${userdata?.lastName}`,
@@ -106,7 +114,7 @@ const Portrait = ({
           </h2>
         </div>
 
-        <div className="w-[100%] flex justify-center  ">
+        <div className="w-[100%] flex justify-center ">
           <h2 className=" text-[15px] font-[300] text-[#4D4444] text-center w-[90%]">
             {userdata?.address}
           </h2>
@@ -121,18 +129,31 @@ const Portrait = ({
           className={`w-[100%] h-[80px] flex justify-center items-center relative`}
         >
           {/* bg-gradient-to-b from-[${hexToRGBA(userdata?.colorCode)}] to-white */}
-          <SaveBtn
-            downloadVcf={downloadVcf}
-            saveBtnStyle={saveBtnStyle}
-            saveContactBackgroundColor={saveContactBackgroundColor}
-            saveContactTextColor={saveContactTextColor}
-          />
+          {!hideSaveContact && (
+            <SaveBtn
+              downloadVcf={downloadVcf}
+              saveBtnStyle={saveBtnStyle}
+              saveContactBackgroundColor={saveContactBackgroundColor}
+              saveContactTextColor={saveContactTextColor}
+            />
+          )}
           <div
-            className="h-[25px] w-[25px] cursor-pointer absolute"
+            className="h-[35px] w-[35px] cursor-pointer absolute"
             onClick={() => handleModal()}
-            style={scrnWidth >= 380 ? { right: "17%" } : { right: "13%" }}
+            style={
+              hideSaveContact ? { hideSaveContactTrue } : hideSaveContactFalse
+            }
           >
-            <img src={share} alt="" className="h-[25px] w-[25px]" />
+            <img
+              width="30"
+              height="30"
+              src={`https://img.icons8.com/ios-filled/100/${removeHash(
+                saveContactBackgroundColor
+              )}/refresh--v1.png`}
+              alt="refresh--v1"
+              className="rotate-90 "
+            />
+            {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
           </div>
         </div>
       </div>
@@ -147,6 +168,9 @@ const Portrait = ({
             weblinkButtonTextColor={weblinkButtonTextColor}
             weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
             appIconColor={appIconColor}
+            boxTextColor={boxTextColor}
+            boxBackgroundColor={boxBackgroundColor}
+            highlightBoxStyle={highlightBoxStyle}
           />
 
           {/* <br /> */}

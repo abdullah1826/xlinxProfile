@@ -1,5 +1,5 @@
 import React from "react";
-import share from "../imgs/share.png";
+import share from "../imgs/share.svg";
 import imgPlchldr from "../imgs/imgPlchldr.jpg";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
@@ -30,21 +30,31 @@ const Full = ({
   saveContactTextColor,
   highlightBoxStyle,
   appIconColor,
+  boxBackgroundColor,
+  boxTextColor,
+  removeHash,
+  hideCompanyLogo,
+  hideSaveContact,
 }) => {
   console.log(sociallink);
 
   // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
+  let hideSaveContactFalse =
+    scrnWidth >= 380 ? { right: "15%" } : { right: "11%" };
+  let hideSaveContactTrue = null;
   return (
     <div className="w-[100%]  max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide ">
       <div className="min-h-[355px] w-[100%] flex items-center flex-col ">
         <div className="h-[160px] w-[100%]  flex justify-center mt-[20px]">
           <div className="h-[100%] w-[160px] relative">
-            <img
-              src={logourl ? logourl : logoPlchldr}
-              alt="logo"
-              className="absolute bottom-[15px] right-[-7px] h-[55px] w-[55px] rounded-full border-[1px] border-white"
-              loading="lazy"
-            />
+            {!hideCompanyLogo && (
+              <img
+                src={logourl ? logourl : logoPlchldr}
+                alt="logo"
+                className="absolute bottom-[15px] right-[-7px] h-[55px] w-[55px] rounded-full border-[1px] border-white"
+                loading="lazy"
+              />
+            )}
             {profileurl ? (
               <img
                 src={profileurl}
@@ -93,18 +103,31 @@ const Full = ({
           className={`w-[100%] h-[80px] flex justify-center items-center relative`}
         >
           {/* bg-gradient-to-b from-[${hexToRGBA(userdata?.colorCode)}] to-white */}
-          <SaveBtn
-            downloadVcf={downloadVcf}
-            saveBtnStyle={saveBtnStyle}
-            saveContactBackgroundColor={saveContactBackgroundColor}
-            saveContactTextColor={saveContactTextColor}
-          />
+          {!hideSaveContact && (
+            <SaveBtn
+              downloadVcf={downloadVcf}
+              saveBtnStyle={saveBtnStyle}
+              saveContactBackgroundColor={saveContactBackgroundColor}
+              saveContactTextColor={saveContactTextColor}
+            />
+          )}
           <div
-            className="h-[25px] w-[25px] cursor-pointer absolute"
+            className="h-[35px] w-[35px] cursor-pointer absolute"
             onClick={() => handleModal()}
-            style={scrnWidth >= 380 ? { right: "17%" } : { right: "13%" }}
+            style={
+              hideSaveContact ? { hideSaveContactTrue } : hideSaveContactFalse
+            }
           >
-            <img src={share} alt="" className="h-[25px] w-[25px]" />
+            <img
+              width="30"
+              height="30"
+              src={`https://img.icons8.com/ios-filled/100/${removeHash(
+                saveContactBackgroundColor
+              )}/refresh--v1.png`}
+              alt="refresh--v1"
+              className="rotate-90 "
+            />
+            {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
           </div>
         </div>
       </div>
@@ -119,6 +142,8 @@ const Full = ({
             weblinkButtonTextColor={weblinkButtonTextColor}
             weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
             appIconColor={appIconColor}
+            boxBackgroundColor={boxBackgroundColor}
+            boxTextColor={boxTextColor}
           />
         </div>
       </div>

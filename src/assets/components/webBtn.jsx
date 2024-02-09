@@ -8,6 +8,7 @@ const WebBtn = ({
   webBtnStyle,
   weblinkButtonTextColor,
   weblinkButtonBackgroundColor,
+  placeholderImg,
 }) => {
   return (
     <>
@@ -51,7 +52,7 @@ const WebBtn = ({
         {elm?.linkID != null && (
           <div className="h-[100%] w-[22%] flex items-center">
             <img
-              src={elm?.buttonImgUrl}
+              src={elm?.buttonImgUrl ? elm?.buttonImgUrl : placeholderImg}
               alt="img"
               class={` ${"h-[65px] w-[65px]"}  ml-1 object-cover`}
               style={{

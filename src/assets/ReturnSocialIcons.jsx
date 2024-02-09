@@ -19,6 +19,7 @@ import pinterest from "./svgIcons/pinterest.svg";
 import youtube from "./svgIcons/youtube.svg";
 
 import snapchat from "./svgIcons/snapchat.svg";
+import Etsy from "./svgIcons/Etsy.svg";
 // import telegram from "./socialLink/telegram.png";
 // import reddit from "./socialLink/reddit.png";
 
@@ -211,10 +212,9 @@ export let returnIcons = (id) => {
   //   }
   else if (id === 16) {
     return youtube;
+  } else if (id === 42) {
+    return Etsy;
   }
-  //   else if (id === "Telegram") {
-  //     return telegram;
-  //   }
   // else if (id === "Pinterest") {
   //   return pinterest;
   // }

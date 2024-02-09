@@ -1,5 +1,5 @@
 import React from "react";
-import share from "../imgs/share.png";
+import share from "../imgs/share.svg";
 import imgPlchldr from "../imgs/imgPlchldr.jpg";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
@@ -30,32 +30,42 @@ const Classic = ({
   highlightBoxStyle,
   isClassic,
   appIconColor,
+  boxTextColor,
+  boxBackgroundColor,
+  removeHash,
+  hideCompanyLogo,
+  hideSaveContact,
 }) => {
   // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
+  let hideSaveContactFalse =
+    scrnWidth >= 380 ? { right: "15%" } : { right: "11%" };
+  let hideSaveContactTrue = null;
+
+  // console.log(hideSaveContact);
   return (
-    <div className="w-[97%]  relative max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide">
+    <div className="w-[100%] relative  h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide ">
       <div className="min-h-[355px] w-[100%] flex items-center flex-col">
-        {
-          coverurl && (
-            <img
-              src={coverurl}
-              // alt="background"
-              className="h-[210px] w-[90%] mt-[15px] rounded-2xl"
-              loading="lazy"
-            />
-          )
-          // : (
-          //   <div className="h-[210px] w-[90%] mt-[15px] rounded-2xl border"></div>
-        }
+        {coverurl ? (
+          <img
+            src={coverurl}
+            // alt="background"
+            className="h-[210px] w-[90%] mt-[15px] rounded-2xl"
+            loading="lazy"
+          />
+        ) : (
+          <div className="h-[210px] w-[90%] mt-[15px] rounded-2xl "></div>
+        )}
 
         <div className="h-[160px] w-[100%] absolute top-[140px] flex justify-center">
           <div className="h-[100%] w-[160px] relative">
-            <img
-              src={logourl ? logourl : logoPlchldr}
-              alt="logo"
-              className="absolute bottom-[15px] right-[-7px] h-[55px] w-[55px] rounded-full border-[1px] border-white"
-              loading="lazy"
-            />
+            {!hideCompanyLogo && (
+              <img
+                src={logourl ? logourl : logoPlchldr}
+                alt="logo"
+                className="absolute bottom-[15px] right-[-7px] h-[55px] w-[55px] rounded-full border-[1px] border-white"
+                loading="lazy"
+              />
+            )}
             {profileurl ? (
               <img
                 src={profileurl}
@@ -116,18 +126,31 @@ const Classic = ({
               Save Contact
             </div>
           </div> */}
-          <SaveBtn
-            downloadVcf={downloadVcf}
-            saveBtnStyle={saveBtnStyle}
-            saveContactBackgroundColor={saveContactBackgroundColor}
-            saveContactTextColor={saveContactTextColor}
-          />
+          {!hideSaveContact && (
+            <SaveBtn
+              downloadVcf={downloadVcf}
+              saveBtnStyle={saveBtnStyle}
+              saveContactBackgroundColor={saveContactBackgroundColor}
+              saveContactTextColor={saveContactTextColor}
+            />
+          )}
           <div
-            className="h-[25px] w-[25px] cursor-pointer absolute"
+            className="h-[35px] w-[35px] cursor-pointer absolute"
             onClick={() => handleModal()}
-            style={scrnWidth >= 380 ? { right: "17%" } : { right: "13%" }}
+            style={
+              hideSaveContact ? { hideSaveContactTrue } : hideSaveContactFalse
+            }
           >
-            <img src={share} alt="" className="h-[25px] w-[25px]" />
+            <img
+              width="30"
+              height="30"
+              src={`https://img.icons8.com/ios-filled/100/${removeHash(
+                saveContactBackgroundColor
+              )}/refresh--v1.png`}
+              alt="refresh--v1"
+              className="rotate-90 "
+            />
+            {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
           </div>
         </div>
       </div>
@@ -182,31 +205,35 @@ const Classic = ({
   </div> */}
 
       <div className="w-[100%] flex justify-center mt-3">
-        <div className="w-[94%] rounded-[25px] bg-[#FAFAFA]   flex flex-col items-center">
-          <SocialLinks
-            sociallink={sociallink}
-            checkHttp={checkHttp}
-            linkAnalytics={linkAnalytics}
-            webBtnStyle={webBtnStyle}
-            weblinkButtonTextColor={weblinkButtonTextColor}
-            weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
-            highlightBoxStyle={highlightBoxStyle}
-            isClassic={isClassic}
-            appIconColor={appIconColor}
-          />
-          <br />
-        </div>
+        {sociallink?.length > 0 && (
+          <div className="w-[94%] rounded-[25px] bg-[#FAFAFA]   flex flex-col items-center">
+            <SocialLinks
+              sociallink={sociallink}
+              checkHttp={checkHttp}
+              linkAnalytics={linkAnalytics}
+              webBtnStyle={webBtnStyle}
+              weblinkButtonTextColor={weblinkButtonTextColor}
+              weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
+              highlightBoxStyle={highlightBoxStyle}
+              isClassic={isClassic}
+              appIconColor={appIconColor}
+              boxTextColor={boxTextColor}
+              boxBackgroundColor={boxBackgroundColor}
+            />
+            <br />
+          </div>
+        )}
       </div>
 
       <div
-        className=" w-[100%] h-[100px]  flex justify-center items-center mt-[16px]"
+        className=" w-[100%] h-[100px]  flex justify-center items-center"
         // style={{
         //   background: `linear-gradient(to top, ${hexToRGBA(
         //     userdata?.colorCode
         //   )},${hexToRGBA(userdata?.colorCode)}, white)`,
         // }}
       >
-        <div className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer">
+        <div className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer ">
           Create your own profile
         </div>
       </div>

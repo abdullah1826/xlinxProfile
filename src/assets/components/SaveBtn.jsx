@@ -6,7 +6,7 @@ const SaveBtn = ({
   saveContactBackgroundColor,
   saveContactTextColor,
 }) => {
-  console.log(saveContactBackgroundColor);
+  console.log(saveContactTextColor);
   return (
     <div className="w-[250px] flex justify-center items-center ">
       <div

@@ -10,7 +10,7 @@ import NotFound from "./NotFound";
 import LeadformModal from "../assets/components/LeadformModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import share from "../imgs/share.png";
+import share from "../imgs/share.svg";
 import imgPlchldr from "../imgs/imgPlchldr.jpg";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
@@ -185,7 +185,7 @@ const Home = () => {
   });
   let linkAddedInAnalyticsOrNot = (id) => {
     let addedOrNot = crntUsrAnalytics?.links?.some((elm) => {
-      return id === elm?.linkID;
+      return id === elm?.id;
     });
     return addedOrNot;
   };
@@ -235,10 +235,35 @@ const Home = () => {
 
         // ---------------------------updatetion for Month wise analytics-------------------------
         if (currentDate > crntUsrAnalytics?.updatedDay + oneDay) {
+          let weeklyViewsArray = Object.values(crntUsrAnalytics?.weeklyViews);
+          let weeklyConnectionsArray = Object.values(
+            crntUsrAnalytics?.weeklyConnections
+          );
           update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
             updatedDay: currentDate,
-            todayViews: 1,
-            todayLeads: 0,
+            weeklyViews: [
+              weeklyViewsArray[1],
+              weeklyViewsArray[2],
+              weeklyViewsArray[3],
+              weeklyViewsArray[4],
+              weeklyViewsArray[5],
+              weeklyViewsArray[6],
+              crntUsrAnalytics?.todayViews,
+            ],
+            weeklyConnections: [
+              weeklyConnectionsArray[1],
+              weeklyConnectionsArray[2],
+              weeklyConnectionsArray[3],
+              weeklyConnectionsArray[4],
+              weeklyConnectionsArray[5],
+              weeklyConnectionsArray[6],
+              crntUsrAnalytics?.todayLeads,
+            ],
+          }).then(() => {
+            update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
+              todayViews: 1,
+              todayLeads: 0,
+            });
           });
         } else {
           update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
@@ -268,6 +293,8 @@ const Home = () => {
 
           todayViews: 1,
           todayLeads: 0,
+          weeklyViews: [0, 0, 0, 0, 0, 0, 0],
+          weeklyConnections: [0, 0, 0, 0, 0, 0, 0],
           updatedWeek: currentDate,
           updatedMonth: currentDate,
           updatedDay: currentDate,
@@ -317,22 +344,34 @@ const Home = () => {
 
   let linkAnalytics = (name) => {
     if (crntUsrAnalytics?.links) {
-      if (linkAddedInAnalyticsOrNot(name?.linkID)) {
+      if (linkAddedInAnalyticsOrNot(name?.id)) {
+        console.log("added");
         let findLink = crntUsrAnalytics?.links?.find((elm) => {
-          return name?.linkID === elm?.linkID;
+          return name?.id === elm?.id;
         });
 
         let linksWithoutCrntLink = crntUsrAnalytics?.links?.filter((elm) => {
-          return name?.linkID != elm?.linkID;
+          return name?.id != elm?.id;
         });
         update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
           links: [
             ...linksWithoutCrntLink,
             {
-              name: findLink?.name,
+              id: findLink?.id,
               linkID: findLink?.linkID,
+              name: findLink?.name,
               clicks: findLink?.clicks + 1,
-              image: "",
+              image: findLink?.image ? findLink?.image : "",
+              title: findLink?.title ? findLink?.title : "",
+              url: findLink?.url ? findLink?.url : "",
+              style: findLink?.style ? findLink?.style : "",
+              linkImgUrl: findLink?.linkImgUrl ? findLink?.linkImgUrl : "",
+              buttonImgUrl: findLink?.buttonImgUrl
+                ? findLink?.buttonImgUrl
+                : "",
+              graphicImgUrl: findLink?.graphicImgUrl
+                ? findLink?.graphicImgUrl
+                : "",
             },
           ],
         }).then(() => {
@@ -344,7 +383,19 @@ const Home = () => {
         update(ref(db, `Analytic/${crntUsrAnalytics?.id}/`), {
           links: [
             ...crntUsrAnalytics?.links,
-            { name: name?.name, linkID: name?.linkID, clicks: 1, image: "" },
+            {
+              id: name?.id,
+              linkID: name?.linkID,
+              name: name?.name,
+              clicks: 1,
+              image: name?.image ? name?.image : "",
+              title: name?.title ? name?.title : "",
+              url: name?.url ? name?.url : "",
+              style: name?.style ? name?.style : "",
+              linkImgUrl: name?.linkImgUrl ? name?.linkImgUrl : "",
+              buttonImgUrl: name?.buttonImgUrl ? name?.buttonImgUrl : "",
+              graphicImgUrl: name?.graphicImgUrl ? name?.graphicImgUrl : "",
+            },
           ],
         }).then(() => {
           update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
@@ -355,7 +406,19 @@ const Home = () => {
     } else {
       update(ref(db, `Analytic/${crntUsrAnalytics?.id}/`), {
         links: [
-          { name: name?.name, linkID: name?.linkID, clicks: 1, image: "" },
+          {
+            id: name?.id,
+            linkID: name?.linkID,
+            name: name?.name ? name?.name : "",
+            clicks: 1,
+            image: name?.image ? name?.image : "",
+            title: name?.title ? name?.title : "",
+            url: name?.url ? name?.url : "",
+            style: name?.style ? name?.style : "",
+            linkImgUrl: name?.linkImgUrl ? name?.linkImgUrl : "",
+            buttonImgUrl: name?.buttonImgUrl ? name?.buttonImgUrl : "",
+            graphicImgUrl: name?.graphicImgUrl ? name?.graphicImgUrl : "",
+          },
         ],
       }).then(() => {
         update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
@@ -522,6 +585,14 @@ const Home = () => {
   // let saveBtnStyle = ["s1", "s2", "s3", "s4"];
   // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s7"];
   console.log(userdata?.profileDesign?.backgroundTheme);
+
+  let removeHash = (code) => {
+    if (code?.includes("#")) {
+      return code?.slice(1, code?.length);
+    } else {
+      return code;
+    }
+  };
   return (
     <>
       {loading ? (
@@ -533,7 +604,7 @@ const Home = () => {
           ) : userdata?.directMode === false ? (
             // <div className="h-max w-max relative">
             <div
-              className="h-[100vh] max-w-[420px] w-[100%] flex flex-col items-center rounded-md shadow-lg  relative"
+              className="h-[100vh] max-w-[435px] w-[100%] flex flex-col items-center rounded-md shadow-lg  relative"
               style={
                 userdata?.profileDesign?.backgroundTheme === "Full"
                   ? {
@@ -554,7 +625,7 @@ const Home = () => {
                     }
               }
             >
-              {userdata?.profileDesign?.backgroundTheme === "Custom" && (
+              {userdata?.profileDesign?.backgroundTheme === "Custom" ? (
                 <img
                   // backgroundImage
                   src={userdata?.profileDesign?.backgroundImage}
@@ -563,7 +634,7 @@ const Home = () => {
                     opacity: `${userdata?.profileDesign?.backgroundOpacity}%`,
                   }}
                 />
-              )}
+              ) : null}
               {/* <div
                 style={{
                   backgroundColor: "rgba(0, 0, 0, 0.5)",
@@ -593,7 +664,197 @@ const Home = () => {
                 downloadVcf={downloadVcf}
               />
 
-              {userdata?.profileDesign?.backgroundTheme === "Classic" && (
+              {userdata?.profileDesign ? (
+                <>
+                  {userdata?.profileDesign?.backgroundTheme === "Classic" && (
+                    <Classic
+                      coverurl={coverurl}
+                      logourl={logourl}
+                      profileurl={profileurl}
+                      userdata={userdata}
+                      returnSlicedString={returnSlicedString}
+                      handleModal={handleModal}
+                      downloadVcf={downloadVcf}
+                      sociallink={sociallink}
+                      returnIcons={returnIcons}
+                      checkHttp={checkHttp}
+                      linkAnalytics={linkAnalytics}
+                      scrnWidth={scrnWidth}
+                      saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
+                      webBtnStyle={userdata?.profileDesign?.weblinkStyle}
+                      weblinkButtonTextColor={
+                        userdata?.profileDesign?.weblinkButtonTextColor
+                      }
+                      weblinkButtonBackgroundColor={
+                        userdata?.profileDesign?.weblinkButtonBackgroundColor
+                      }
+                      saveContactBackgroundColor={
+                        userdata?.profileDesign?.saveContactBackgroundColor
+                      }
+                      saveContactTextColor={
+                        userdata?.profileDesign?.saveContactTextColor
+                      }
+                      highlightBoxStyle={
+                        userdata?.profileDesign?.highlightBoxStyle
+                      }
+                      isClassic={true}
+                      appIconColor={userdata?.profileDesign?.appIconColor}
+                      boxTextColor={userdata?.profileDesign?.boxTextColor}
+                      boxBackgroundColor={
+                        userdata?.profileDesign?.boxBackgroundColor
+                      }
+                      removeHash={removeHash}
+                      hideCompanyLogo={userdata?.profileDesign?.hideCompanyLogo}
+                      hideSaveContact={userdata?.profileDesign?.hideSaveContact}
+                    />
+                  )}
+
+                  {userdata?.profileDesign?.backgroundTheme === "Color" && (
+                    <Color
+                      Portrait
+                      coverurl={coverurl}
+                      logourl={logourl}
+                      profileurl={profileurl}
+                      userdata={userdata}
+                      returnSlicedString={returnSlicedString}
+                      handleModal={handleModal}
+                      downloadVcf={downloadVcf}
+                      sociallink={sociallink}
+                      returnIcons={returnIcons}
+                      checkHttp={checkHttp}
+                      linkAnalytics={linkAnalytics}
+                      scrnWidth={scrnWidth}
+                      saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
+                      webBtnStyle={userdata?.profileDesign?.weblinkStyle}
+                      weblinkButtonTextColor={
+                        userdata?.profileDesign?.weblinkButtonTextColor
+                      }
+                      weblinkButtonBackgroundColor={
+                        userdata?.profileDesign?.weblinkButtonBackgroundColor
+                      }
+                      saveContactBackgroundColor={
+                        userdata?.profileDesign?.saveContactBackgroundColor
+                      }
+                      saveContactTextColor={
+                        userdata?.profileDesign?.saveContactTextColor
+                      }
+                      bg={userdata?.profileDesign?.backgroundColor}
+                      highlightBoxStyle={
+                        userdata?.profileDesign?.highlightBoxStyle
+                      }
+                      appIconColor={userdata?.profileDesign?.appIconColor}
+                      boxTextColor={userdata?.profileDesign?.boxTextColor}
+                      boxBackgroundColor={
+                        userdata?.profileDesign?.boxBackgroundColor
+                      }
+                      whiteTextAndBorder={
+                        userdata?.profileDesign?.whiteTextAndBorder
+                      }
+                      removeHash={removeHash}
+                      hideCompanyLogo={userdata?.profileDesign?.hideCompanyLogo}
+                      hideSaveContact={userdata?.profileDesign?.hideSaveContact}
+                    />
+                  )}
+
+                  {userdata?.profileDesign?.backgroundTheme === "Portrait" && (
+                    <Portrait
+                      Portrait
+                      coverurl={coverurl}
+                      logourl={logourl}
+                      profileurl={profileurl}
+                      userdata={userdata}
+                      returnSlicedString={returnSlicedString}
+                      handleModal={handleModal}
+                      downloadVcf={downloadVcf}
+                      sociallink={sociallink}
+                      returnIcons={returnIcons}
+                      checkHttp={checkHttp}
+                      linkAnalytics={linkAnalytics}
+                      scrnWidth={scrnWidth}
+                      saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
+                      webBtnStyle={userdata?.profileDesign?.weblinkStyle}
+                      weblinkButtonTextColor={
+                        userdata?.profileDesign?.weblinkButtonTextColor
+                      }
+                      weblinkButtonBackgroundColor={
+                        userdata?.profileDesign?.weblinkButtonBackgroundColor
+                      }
+                      saveContactBackgroundColor={
+                        userdata?.profileDesign?.saveContactBackgroundColor
+                      }
+                      saveContactTextColor={
+                        userdata?.profileDesign?.saveContactTextColor
+                      }
+                      bg={userdata?.profileDesign?.backgroundColor}
+                      highlightBoxStyle={
+                        userdata?.profileDesign?.highlightBoxStyle
+                      }
+                      appIconColor={userdata?.profileDesign?.appIconColor}
+                      boxTextColor={userdata?.profileDesign?.boxTextColor}
+                      boxBackgroundColor={
+                        userdata?.profileDesign?.boxBackgroundColor
+                      }
+                      whiteTextAndBorder={
+                        userdata?.profileDesign?.whiteTextAndBorder
+                      }
+                      removeHash={removeHash}
+                      hideCompanyLogo={userdata?.profileDesign?.hideCompanyLogo}
+                      hideSaveContact={userdata?.profileDesign?.hideSaveContact}
+                    />
+                  )}
+
+                  {userdata?.profileDesign?.backgroundTheme === "Custom" && (
+                    <div className="absolute w-[100%]">
+                      <Full
+                        coverurl={coverurl}
+                        logourl={logourl}
+                        profileurl={profileurl}
+                        userdata={userdata}
+                        returnSlicedString={returnSlicedString}
+                        handleModal={handleModal}
+                        downloadVcf={downloadVcf}
+                        sociallink={sociallink}
+                        returnIcons={returnIcons}
+                        checkHttp={checkHttp}
+                        linkAnalytics={linkAnalytics}
+                        scrnWidth={scrnWidth}
+                        saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
+                        webBtnStyle={userdata?.profileDesign?.weblinkStyle}
+                        weblinkButtonTextColor={
+                          userdata?.profileDesign?.weblinkButtonTextColor
+                        }
+                        weblinkButtonBackgroundColor={
+                          userdata?.profileDesign?.weblinkButtonBackgroundColor
+                        }
+                        saveContactBackgroundColor={
+                          userdata?.profileDesign?.saveContactBackgroundColor
+                        }
+                        saveContactTextColor={
+                          userdata?.profileDesign?.saveContactTextColor
+                        }
+                        highlightBoxStyle={
+                          userdata?.profileDesign?.highlightBoxStyle
+                        }
+                        appIconColor={userdata?.profileDesign?.appIconColor}
+                        boxTextColor={userdata?.profileDesign?.boxTextColor}
+                        boxBackgroundColor={
+                          userdata?.profileDesign?.boxBackgroundColor
+                        }
+                        whiteTextAndBorder={
+                          userdata?.profileDesign?.whiteTextAndBorder
+                        }
+                        removeHash={removeHash}
+                        hideCompanyLogo={
+                          userdata?.profileDesign?.hideCompanyLogo
+                        }
+                        hideSaveContact={
+                          userdata?.profileDesign?.hideSaveContact
+                        }
+                      />
+                    </div>
+                  )}
+                </>
+              ) : (
                 <Classic
                   coverurl={coverurl}
                   logourl={logourl}
@@ -607,133 +868,24 @@ const Home = () => {
                   checkHttp={checkHttp}
                   linkAnalytics={linkAnalytics}
                   scrnWidth={scrnWidth}
-                  saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
-                  webBtnStyle={userdata?.profileDesign?.weblinkStyle}
-                  weblinkButtonTextColor={
-                    userdata?.profileDesign?.weblinkButtonTextColor
-                  }
-                  weblinkButtonBackgroundColor={
-                    userdata?.profileDesign?.weblinkButtonBackgroundColor
-                  }
-                  saveContactBackgroundColor={
-                    userdata?.profileDesign?.saveContactBackgroundColor
-                  }
-                  saveContactTextColor={
-                    userdata?.profileDesign?.saveContactTextColor
-                  }
-                  highlightBoxStyle={userdata?.profileDesign?.highlightBoxStyle}
+                  saveBtnStyle="style1"
+                  webBtnStyle="style1"
+                  weblinkButtonTextColor="white"
+                  weblinkButtonBackgroundColor="black"
+                  saveContactBackgroundColor="white"
+                  saveContactTextColor="black"
+                  highlightBoxStyle="style1"
                   isClassic={true}
-                  appIconColor={userdata?.profileDesign?.appIconColor}
+                  appIconColor="black"
+                  boxTextColor="black"
+                  boxBackgroundColor="white"
+                  removeHash={() => {
+                    return "#0a0a0a";
+                  }}
+                  hideCompanyLogo={false}
+                  hideSaveContact={false}
                 />
               )}
-
-              {userdata?.profileDesign?.backgroundTheme === "Color" && (
-                <Color
-                  Portrait
-                  coverurl={coverurl}
-                  logourl={logourl}
-                  profileurl={profileurl}
-                  userdata={userdata}
-                  returnSlicedString={returnSlicedString}
-                  handleModal={handleModal}
-                  downloadVcf={downloadVcf}
-                  sociallink={sociallink}
-                  returnIcons={returnIcons}
-                  checkHttp={checkHttp}
-                  linkAnalytics={linkAnalytics}
-                  scrnWidth={scrnWidth}
-                  saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
-                  webBtnStyle={userdata?.profileDesign?.weblinkStyle}
-                  weblinkButtonTextColor={
-                    userdata?.profileDesign?.weblinkButtonTextColor
-                  }
-                  weblinkButtonBackgroundColor={
-                    userdata?.profileDesign?.weblinkButtonBackgroundColor
-                  }
-                  saveContactBackgroundColor={
-                    userdata?.profileDesign?.saveContactBackgroundColor
-                  }
-                  saveContactTextColor={
-                    userdata?.profileDesign?.saveContactTextColor
-                  }
-                  bg={userdata?.profileDesign?.backgroundColor}
-                  highlightBoxStyle={userdata?.profileDesign?.highlightBoxStyle}
-                  appIconColor={userdata?.profileDesign?.appIconColor}
-                />
-              )}
-
-              {userdata?.profileDesign?.backgroundTheme === "Portrait" && (
-                <Portrait
-                  Portrait
-                  coverurl={coverurl}
-                  logourl={logourl}
-                  profileurl={profileurl}
-                  userdata={userdata}
-                  returnSlicedString={returnSlicedString}
-                  handleModal={handleModal}
-                  downloadVcf={downloadVcf}
-                  sociallink={sociallink}
-                  returnIcons={returnIcons}
-                  checkHttp={checkHttp}
-                  linkAnalytics={linkAnalytics}
-                  scrnWidth={scrnWidth}
-                  saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
-                  webBtnStyle={userdata?.profileDesign?.weblinkStyle}
-                  weblinkButtonTextColor={
-                    userdata?.profileDesign?.weblinkButtonTextColor
-                  }
-                  weblinkButtonBackgroundColor={
-                    userdata?.profileDesign?.weblinkButtonBackgroundColor
-                  }
-                  saveContactBackgroundColor={
-                    userdata?.profileDesign?.saveContactBackgroundColor
-                  }
-                  saveContactTextColor={
-                    userdata?.profileDesign?.saveContactTextColor
-                  }
-                  bg={userdata?.profileDesign?.backgroundColor}
-                  highlightBoxStyle={userdata?.profileDesign?.highlightBoxStyle}
-                  appIconColor={userdata?.profileDesign?.appIconColor}
-                />
-              )}
-
-              {userdata?.profileDesign?.backgroundTheme === "Custom" && (
-                <div className="absolute w-[97%]">
-                  <Full
-                    coverurl={coverurl}
-                    logourl={logourl}
-                    profileurl={profileurl}
-                    userdata={userdata}
-                    returnSlicedString={returnSlicedString}
-                    handleModal={handleModal}
-                    downloadVcf={downloadVcf}
-                    sociallink={sociallink}
-                    returnIcons={returnIcons}
-                    checkHttp={checkHttp}
-                    linkAnalytics={linkAnalytics}
-                    scrnWidth={scrnWidth}
-                    saveBtnStyle={userdata?.profileDesign?.saveContactStyle}
-                    webBtnStyle={userdata?.profileDesign?.weblinkStyle}
-                    weblinkButtonTextColor={
-                      userdata?.profileDesign?.weblinkButtonTextColor
-                    }
-                    weblinkButtonBackgroundColor={
-                      userdata?.profileDesign?.weblinkButtonBackgroundColor
-                    }
-                    saveContactBackgroundColor={
-                      userdata?.profileDesign?.saveContactBackgroundColor
-                    }
-                    saveContactTextColor={
-                      userdata?.profileDesign?.saveContactTextColor
-                    }
-                    highlightBoxStyle={
-                      userdata?.profileDesign?.highlightBoxStyle
-                    }
-                    appIconColor={userdata?.profileDesign?.appIconColor}
-                  />
-                </div>
-              )}
-
               {/* </div> */}
             </div>
           ) : (

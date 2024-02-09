@@ -22,7 +22,7 @@ const WebGrfkBtn = ({
           backgroundImage: `url(${elm?.graphicImgUrl})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          marginBottom: elm?.graphicDisplayType === "style1" ? "12px" : "35px",
+          marginBottom: elm?.graphicDisplayType === "style1" ? "35px" : "12px",
         }}
         onClick={() => linkAnalytics(elm)}
       >
@@ -55,7 +55,7 @@ const WebGrfkBtn = ({
           class="font-[400] text-[17px] text-white mt-[6px] text-center  w-[100%] absolute bottom-3"
           style={{
             color: elm?.graphicTextColor,
-            bottom: elm?.graphicDisplayType === "style1" ? "12px" : "-35px",
+            bottom: elm?.graphicDisplayType === "style1" ? "-35px" : "12px",
             // paddingTop: "10px",
           }}
         >
@@ -63,7 +63,7 @@ const WebGrfkBtn = ({
           {/* {elm?.title?.length < 19
           ? elm?.title
           : elm?.title?.substring(0, 62) + "..."} */}
-          This is a customized link title
+          {elm?.graphicDisplayText}
           {/* <div className="h-[20px]"></div> */}
         </p>
       </a>

@@ -3,6 +3,8 @@ import WebBtn from "./webBtn";
 import WebGrfkBtn from "./webGrfkBtn";
 import FeaturedSocial from "./FeaturedSocial";
 import { returnIcons } from "../ReturnSocialIcons";
+import VideoContainer from "./VideoContainer";
+import web from "../socialLink/web.png";
 
 const SocialLinks = ({
   sociallink,
@@ -14,6 +16,9 @@ const SocialLinks = ({
   highlightBoxStyle,
   isClassic,
   appIconColor,
+  boxBackgroundColor,
+  boxTextColor,
+  whiteTextAndBorder,
 }) => {
   console.log(appIconColor);
 
@@ -43,6 +48,7 @@ const SocialLinks = ({
             webBtnStyle={webBtnStyle}
             weblinkButtonTextColor={weblinkButtonTextColor}
             weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
+            placeholderImg={web}
           />
         ) : elm?.linkID === 999 && elm?.style === "style3" ? (
           <WebGrfkBtn
@@ -52,7 +58,9 @@ const SocialLinks = ({
             // returnIcons={returnIcons}
             // webBtnStyle={webBtnStyle[7]}
           />
-        ) : elm?.isFeatureOn ? (
+        ) : elm?.linkID === 16 ? (
+          <VideoContainer link={elm?.value} />
+        ) : elm?.isFeatureOn || elm?.isLinkHighlighted ? (
           <FeaturedSocial
             elm={elm}
             checkHttp={checkHttp}
@@ -62,6 +70,8 @@ const SocialLinks = ({
             highlightBoxStyle={highlightBoxStyle}
             appIconColor={appIconColor}
             imgAdded={imgAdded}
+            boxBackgroundColor={boxBackgroundColor}
+            boxTextColor={boxTextColor}
           />
         ) : elm?.linkID === 400 ? (
           <div className="w-[100%] text-center flex flex-col items-center">
@@ -94,7 +104,7 @@ const SocialLinks = ({
             >
               {imgAdded(elm?.image) ? (
                 <img
-                  src={elm?.image}
+                  src={elm?.image ? elm?.image : web}
                   alt="img"
                   class={
                     elm?.linkID === 999
@@ -106,7 +116,10 @@ const SocialLinks = ({
               ) : (
                 <div
                   class={`${"h-[75px] w-[75px] rounded-2xl  flex justify-center items-center"}`}
-                  style={{ backgroundColor: appIconColor }}
+                  style={{
+                    backgroundColor:
+                      elm?.linkID === 999 ? "transparent" : appIconColor,
+                  }}
                 >
                   {elm?.linkID != null && (
                     <img
@@ -114,11 +127,13 @@ const SocialLinks = ({
                         returnIcons(elm?.linkID)
                           ? returnIcons(elm?.linkID)
                           : elm?.linkImgUrl
+                          ? elm?.linkImgUrl
+                          : web
                       }
                       alt="img"
                       class={
                         elm?.linkID === 999
-                          ? ` ${"h-[100%] w-[100%] rounded-2xl"}`
+                          ? ` ${"h-[100%] w-[100%] rounded-xl object-cover"}`
                           : ` ${"h-[60px] w-[60px]"}`
                       }
                       // style={elm?.name==='Calendly'? {borderRadius:'10px'}:null}
@@ -128,7 +143,9 @@ const SocialLinks = ({
               )}
               <h2
                 class="font-[300] text-[12px]  mt-[6px] text-center"
-                style={{ color: isClassic ? "black" : "white" }}
+                style={{
+                  color: isClassic || !whiteTextAndBorder ? "black" : "white",
+                }}
               >
                 {/* {elm?.title} */}
                 {elm?.title?.length < 19

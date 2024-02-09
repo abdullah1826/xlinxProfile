@@ -9,18 +9,25 @@ const FeaturedSocial = ({
   highlightBoxStyle,
   appIconColor,
   imgAdded,
+  boxBackgroundColor,
+  boxTextColor,
 }) => {
+  console.log(highlightBoxStyle);
   return (
     <>
       <a
         target="_blank"
-        href={checkHttp(elm?.baseUrl + elm?.value, elm?.linkID, elm?.value)}
-        onClick={() => linkAnalytics(elm?.title)}
+        href={checkHttp(
+          elm?.baseUrl + elm?.value ? elm?.value : elm?.url,
+          elm?.linkID,
+          elm?.value
+        )}
+        onClick={() => linkAnalytics(elm)}
         className="w-[100%] mb-3"
       >
         <div className="w-[100%] flex justify-center">
           <div
-            className="w-[100%] h-[121px] mt-4 mb-1 bg-[white]  border-[1px] border-[#F1ECEC]  rounded-[30px] flex "
+            className="w-[100%] h-[121px] mt-4 mb-1   rounded-[30px] flex "
             // style={
             //   elm?.shareable === false || elm?.isFeatureOn === false
             //     ? { display: "none" }
@@ -28,7 +35,13 @@ const FeaturedSocial = ({
             // }
             style={{
               backgroundColor:
-                highlightBoxStyle === "style1" ? "white" : "black",
+                highlightBoxStyle === "style1"
+                  ? "transparent"
+                  : boxBackgroundColor,
+              border:
+                highlightBoxStyle === "style1"
+                  ? `1px solid ${boxBackgroundColor}`
+                  : null,
             }}
           >
             <div className="w-[33%]  flex justify-center items-center">
@@ -82,15 +95,21 @@ const FeaturedSocial = ({
             <div
               className="w-[63%] flex flex-col justify-center"
               style={{
-                color: highlightBoxStyle === "style1" ? "black" : "white",
+                color: boxTextColor,
               }}
             >
-              <h2 className="font-[700] text-[18px]">
+              <h2
+                className="font-[700] text-[18px]"
+                // style={{ color: boxTextColor }}
+              >
                 {elm?.title?.length < 22
                   ? elm?.title
                   : elm?.title?.substring(0, 22) + "..."}
               </h2>
-              <p className="font-[400] text-[13px] w-[90%] ">
+              <p
+                className="font-[400] text-[13px] w-[90%]"
+                // style={{ color: boxTextColor }}
+              >
                 {elm?.feature?.length < 67
                   ? elm?.feature
                   : elm?.feature?.substring(0, 67) + "..."}
