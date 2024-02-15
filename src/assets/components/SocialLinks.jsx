@@ -5,6 +5,7 @@ import FeaturedSocial from "./FeaturedSocial";
 import { returnIcons } from "../ReturnSocialIcons";
 import VideoContainer from "./VideoContainer";
 import web from "../socialLink/web.png";
+import { returnPngIcons } from "../ReturnSocialIconsPng";
 
 const SocialLinks = ({
   sociallink,
@@ -30,6 +31,14 @@ const SocialLinks = ({
       } else {
         return false;
       }
+    }
+  };
+
+  let returnIconImages = (id) => {
+    if (appIconColor) {
+      return returnIcons(id);
+    } else {
+      return returnPngIcons(id);
     }
   };
 
@@ -65,7 +74,7 @@ const SocialLinks = ({
             elm={elm}
             checkHttp={checkHttp}
             linkAnalytics={linkAnalytics}
-            returnIcons={returnIcons}
+            returnIcons={appIconColor ? returnIcons : returnPngIcons}
             webBtnStyle={webBtnStyle}
             highlightBoxStyle={highlightBoxStyle}
             appIconColor={appIconColor}
@@ -118,21 +127,25 @@ const SocialLinks = ({
                   class={`${"h-[75px] w-[75px] rounded-2xl  flex justify-center items-center"}`}
                   style={{
                     backgroundColor:
-                      elm?.linkID === 999 ? "transparent" : appIconColor,
+                      elm?.linkID === 999 || !returnIconImages(elm?.linkID)
+                        ? "transparent"
+                        : appIconColor,
                   }}
                 >
                   {elm?.linkID != null && (
                     <img
                       src={
-                        returnIcons(elm?.linkID)
-                          ? returnIcons(elm?.linkID)
+                        returnIconImages(elm?.linkID)
+                          ? returnIconImages(elm?.linkID)
                           : elm?.linkImgUrl
                           ? elm?.linkImgUrl
                           : web
                       }
                       alt="img"
                       class={
-                        elm?.linkID === 999
+                        elm?.linkID === 999 ||
+                        !returnIcons(elm?.linkID) ||
+                        !appIconColor
                           ? ` ${"h-[100%] w-[100%] rounded-xl object-cover"}`
                           : ` ${"h-[60px] w-[60px]"}`
                       }

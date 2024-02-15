@@ -34,6 +34,8 @@ const FeaturedSocial = ({
             //     : null
             // }
             style={{
+              display: elm?.shareable === false ? "none" : null,
+
               backgroundColor:
                 highlightBoxStyle === "style1"
                   ? "transparent"
@@ -110,9 +112,11 @@ const FeaturedSocial = ({
                 className="font-[400] text-[13px] w-[90%]"
                 // style={{ color: boxTextColor }}
               >
-                {elm?.feature?.length < 67
-                  ? elm?.feature
-                  : elm?.feature?.substring(0, 67) + "..."}
+                {elm?.feature
+                  ? elm?.feature?.length < 67
+                    ? elm?.feature
+                    : elm?.feature?.substring(0, 67) + "..."
+                  : ""}
               </p>
               {/* 68 */}
             </div>

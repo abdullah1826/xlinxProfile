@@ -35,6 +35,7 @@ const Full = ({
   removeHash,
   hideCompanyLogo,
   hideSaveContact,
+  whiteTextAndBorder,
 }) => {
   console.log(sociallink);
 
@@ -44,7 +45,12 @@ const Full = ({
   let hideSaveContactTrue = null;
   return (
     <div className="w-[100%]  max-h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide ">
-      <div className="min-h-[355px] w-[100%] flex items-center flex-col ">
+      <div
+        className=" w-[100%] flex items-center flex-col "
+        style={
+          !hideSaveContact ? { minHeight: "355px" } : { minHeight: "300px" }
+        }
+      >
         <div className="h-[160px] w-[100%]  flex justify-center mt-[20px]">
           <div className="h-[100%] w-[160px] relative">
             {!hideCompanyLogo && (
@@ -68,8 +74,11 @@ const Full = ({
           </div>
         </div>
 
-        <div className="w-[100%] flex justify-center mt-[10px] ">
-          <h2 className="text-[22px]  font-[400] text-center w-[90%] text-white">
+        <div className="w-[100%] flex justify-center mt-[10px]">
+          <h2
+            className="text-[22px]  font-[400] text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(
               `${userdata?.firstName} ${userdata?.lastName}`,
               30
@@ -78,61 +87,82 @@ const Full = ({
         </div>
 
         <div className="w-[100%] flex justify-center ">
-          <h2 className="text-[16px] font-[300] text-white text-center w-[90%]">
+          <h2
+            className="text-[16px] font-[300]  text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(userdata?.jobTitle, 51)}
           </h2>
         </div>
         <div className="w-[100%] flex justify-center  ">
-          <h2 className="text-[16px] font-[300] text-white text-center w-[90%]">
+          <h2
+            className="text-[16px] font-[300]  text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(userdata?.company, 51)}
           </h2>
         </div>
 
         <div className="w-[100%] flex justify-center  ">
-          <h2 className=" text-[15px] font-[300] text-white text-center w-[90%]">
+          <h2
+            className=" text-[15px] font-[300] text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {userdata?.address}
           </h2>
         </div>
 
         <div className="w-[100%] flex justify-center mt-[15px] text-center">
-          <p className="text-[16px] font-[300] text-white w-[90%]">
+          <p
+            className="text-[16px] font-[300] w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {userdata?.bio}
           </p>
         </div>
         <div
-          className={`w-[100%] h-[80px] flex justify-center items-center relative`}
+          className={`w-[100%] flex justify-center items-center relative`}
+          style={!hideSaveContact ? { height: "80px" } : null}
         >
           {/* bg-gradient-to-b from-[${hexToRGBA(userdata?.colorCode)}] to-white */}
           {!hideSaveContact && (
-            <SaveBtn
-              downloadVcf={downloadVcf}
-              saveBtnStyle={saveBtnStyle}
-              saveContactBackgroundColor={saveContactBackgroundColor}
-              saveContactTextColor={saveContactTextColor}
-            />
+            <>
+              <SaveBtn
+                downloadVcf={downloadVcf}
+                saveBtnStyle={saveBtnStyle}
+                saveContactBackgroundColor={saveContactBackgroundColor}
+                saveContactTextColor={saveContactTextColor}
+              />
+
+              <div
+                className="h-[35px] w-[35px] cursor-pointer absolute"
+                onClick={() => handleModal()}
+                style={
+                  hideSaveContact
+                    ? { hideSaveContactTrue }
+                    : hideSaveContactFalse
+                }
+              >
+                <img
+                  width="30"
+                  height="30"
+                  src={`https://img.icons8.com/ios-filled/100/${removeHash(
+                    saveContactBackgroundColor
+                  )}/refresh--v1.png`}
+                  alt="refresh--v1"
+                  className="rotate-90 "
+                />
+                {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
+              </div>
+            </>
           )}
-          <div
-            className="h-[35px] w-[35px] cursor-pointer absolute"
-            onClick={() => handleModal()}
-            style={
-              hideSaveContact ? { hideSaveContactTrue } : hideSaveContactFalse
-            }
-          >
-            <img
-              width="30"
-              height="30"
-              src={`https://img.icons8.com/ios-filled/100/${removeHash(
-                saveContactBackgroundColor
-              )}/refresh--v1.png`}
-              alt="refresh--v1"
-              className="rotate-90 "
-            />
-            {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
-          </div>
         </div>
       </div>
 
-      <div className="w-[100%] flex justify-center mt-3">
+      <div
+        className="w-[100%] flex justify-center"
+        style={!hideSaveContact ? { marginTop: "12px" } : null}
+      >
         <div className="w-[94%] rounded-[25px]  flex flex-col items-center">
           <SocialLinks
             sociallink={sociallink}
@@ -144,6 +174,7 @@ const Full = ({
             appIconColor={appIconColor}
             boxBackgroundColor={boxBackgroundColor}
             boxTextColor={boxTextColor}
+            whiteTextAndBorder={whiteTextAndBorder}
           />
         </div>
       </div>

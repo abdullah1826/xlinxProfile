@@ -126,35 +126,40 @@ const Portrait = ({
           </p>
         </div>
         <div
-          className={`w-[100%] h-[80px] flex justify-center items-center relative`}
+          className={`w-[100%] flex justify-center items-center relative`}
+          style={!hideSaveContact ? { height: "80px" } : null}
         >
           {/* bg-gradient-to-b from-[${hexToRGBA(userdata?.colorCode)}] to-white */}
           {!hideSaveContact && (
-            <SaveBtn
-              downloadVcf={downloadVcf}
-              saveBtnStyle={saveBtnStyle}
-              saveContactBackgroundColor={saveContactBackgroundColor}
-              saveContactTextColor={saveContactTextColor}
-            />
+            <>
+              <SaveBtn
+                downloadVcf={downloadVcf}
+                saveBtnStyle={saveBtnStyle}
+                saveContactBackgroundColor={saveContactBackgroundColor}
+                saveContactTextColor={saveContactTextColor}
+              />
+              <div
+                className="h-[35px] w-[35px] cursor-pointer absolute"
+                onClick={() => handleModal()}
+                style={
+                  hideSaveContact
+                    ? { hideSaveContactTrue }
+                    : hideSaveContactFalse
+                }
+              >
+                <img
+                  width="30"
+                  height="30"
+                  src={`https://img.icons8.com/ios-filled/100/${removeHash(
+                    saveContactBackgroundColor
+                  )}/refresh--v1.png`}
+                  alt="refresh--v1"
+                  className="rotate-90 "
+                />
+                {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
+              </div>
+            </>
           )}
-          <div
-            className="h-[35px] w-[35px] cursor-pointer absolute"
-            onClick={() => handleModal()}
-            style={
-              hideSaveContact ? { hideSaveContactTrue } : hideSaveContactFalse
-            }
-          >
-            <img
-              width="30"
-              height="30"
-              src={`https://img.icons8.com/ios-filled/100/${removeHash(
-                saveContactBackgroundColor
-              )}/refresh--v1.png`}
-              alt="refresh--v1"
-              className="rotate-90 "
-            />
-            {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
-          </div>
         </div>
       </div>
 

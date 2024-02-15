@@ -1,23 +1,24 @@
 // import contact icons
 
-import call from "./svgIcons/cell.svg";
+import call from "./socialLink/phone.png";
 import contact from "./socialLink/contacts.png";
-import text from "./svgIcons/text.svg";
-import whatsapp from "./svgIcons/whatsapp.svg";
-import email from "./svgIcons/email.svg";
+import text from "./socialLink/text.png";
+import whatsapp from "./socialLink/whatsapp.png";
+import email from "./socialLink/email.png";
+
 // import social icons
-import instagram from "./svgIcons/instagram.svg";
-import facebook from "./svgIcons/facebook.svg";
-import tiktok from "./svgIcons/tiktok.svg";
-import twitter from "./svgIcons/x.svg";
 
-import linkedin from "./svgIcons/linkedin.svg";
+import instagram from "./socialLink/instagram.png";
+import facebook from "./socialLink/facebook.png";
+import tiktok from "./socialLink/tiktok.png";
+import twitter from "./socialLink/x.png";
+
+import linkedin from "./socialLink/linkedin.png";
 // import twitch from "./socialLink/twitch.png";
-import pinterest from "./svgIcons/pinterest.svg";
-import youtube from "./svgIcons/youtube.svg";
+import pinterest from "./socialLink/pinterest.png";
+import youtube from "./socialLink/youtube.png";
 
-import snapchat from "./svgIcons/snapchat.svg";
-import Etsy from "./svgIcons/Etsy.svg";
+import snapchat from "./socialLink/snapchat.png";
 // import telegram from "./socialLink/telegram.png";
 // import reddit from "./socialLink/reddit.png";
 
@@ -25,20 +26,20 @@ import Etsy from "./svgIcons/Etsy.svg";
 // import tumblr from "./socialLink/tumblr.png";
 
 // import music icons
-import spotify from "./svgIcons/spotify.svg";
+import spotify from "./socialLink/spotify.png";
 
 // import applemusic from "./socialLink/applemusic.png";
 // import soundcloud from "./socialLink/soundcloud.png";
 
 // import payment icons
 
-import cashapp from "./svgIcons/cashapp.svg";
-import paypal from "./svgIcons/paypal.svg";
+import cashapp from "./socialLink/cashapp.png";
+import paypal from "./socialLink/paypal.png";
 
 // import payment icons
 
 import website from "./socialLink/link.png";
-import venmo from "./svgIcons/venmo.svg";
+import venmo from "./socialLink/venmo.png";
 // import custom from "./socialLink/customlink.png";
 
 // import pinterest from './socialLink/pinterest.png'
@@ -187,7 +188,7 @@ export const more = [
   //   },
 ];
 
-export let returnIcons = (id) => {
+export let returnPngIcons = (id) => {
   if (id === 2) {
     return call;
   } else if (id === 5) {
@@ -210,9 +211,10 @@ export let returnIcons = (id) => {
   //   }
   else if (id === 16) {
     return youtube;
-  } else if (id === 42) {
-    return Etsy;
   }
+  //   else if (id === 42) {
+  //     return Etsy;
+  //   }
   // else if (id === "Pinterest") {
   //   return pinterest;
   // }
@@ -257,51 +259,4 @@ export let returnIcons = (id) => {
   //     return applemusic;
   //   }
   // venmo 16
-};
-
-export let returnSocialUrl = (name, url) => {
-  if (name === "Instagram") {
-    return `https://www.instagram.com/${url}/`;
-  } else if (name === "LinkedIn") {
-    return url;
-  } else if (name === "Email") {
-    return `mailto:${url}`;
-  } else if (name === "Whatsapp") {
-    return `https://wa.me/${url}`;
-  } else if (name === "Text") {
-    return `sms:${url}`;
-  } else if (name === "Call") {
-    return `tel:${url}`;
-  } else if (name === "Snapchat") {
-    return `https://www.snapchat.com/add/${url}`;
-  } else if (name === "Youtube") {
-    return url;
-  } else if (name === "Pinterest") {
-    return `https://www.pinterest.com/${url}`;
-  } else if (name === "CashApp") {
-    return `https://cash.app/$${url}`;
-  } else if (name === "PayPal") {
-    return `https://www.paypal.com/paypalme/${url}`;
-  } else if (name === "SoundCloud") {
-    return `https://soundcloud.com/${url}`;
-  } else if (name === "Reddit") {
-    return `https://www.reddit.com/user/${url}`;
-  }
-
-  //   else if (name === "Reddit") {
-  //     return `https://www.reddit.com/user/${url}`
-  //   }
-  else if (name === "Twitch") {
-    return `https://www.twitch.tv/${url}`;
-  } else if (name === "Twitter") {
-    return `https://www.Twitter.com/${url}`;
-  } else if (name === "TikTok") {
-    return `https://tiktok.com/@${url}`;
-  } else {
-    if (url?.includes("https://")) {
-      return url;
-    } else {
-      return `https://${url}`;
-    }
-  }
 };
