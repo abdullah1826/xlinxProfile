@@ -7,6 +7,7 @@ import SaveBtn from "../assets/components/SaveBtn";
 import WebBtn from "../assets/components/webBtn";
 import WebGrfkBtn from "../assets/components/webGrfkBtn";
 import SocialLinks from "../assets/components/SocialLinks";
+import ReactPlayer from "react-player";
 
 const Classic = ({
   coverurl,
@@ -35,6 +36,8 @@ const Classic = ({
   removeHash,
   hideCompanyLogo,
   hideSaveContact,
+  whiteTextAndBorder,
+  isV1,
 }) => {
   // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
   let hideSaveContactFalse =
@@ -80,7 +83,10 @@ const Classic = ({
         </div>
 
         <div className="w-[100%] flex justify-center mt-[72px] ">
-          <h2 className="text-[22px]  font-[400] text-center w-[90%]">
+          <h2
+            className="text-[22px]  font-[400] text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(
               `${userdata?.firstName} ${userdata?.lastName}`,
               30
@@ -89,24 +95,36 @@ const Classic = ({
         </div>
 
         <div className="w-[100%] flex justify-center ">
-          <h2 className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]">
+          <h2
+            className="text-[16px] font-[300]  text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(userdata?.jobTitle, 51)}
           </h2>
         </div>
         <div className="w-[100%] flex justify-center  ">
-          <h2 className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]">
+          <h2
+            className="text-[16px] font-[300]  text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(userdata?.company, 51)}
           </h2>
         </div>
 
         <div className="w-[100%] flex justify-center  ">
-          <h2 className=" text-[15px] font-[300] text-[#4D4444] text-center w-[90%]">
+          <h2
+            className=" text-[15px] font-[300] text-[#4D4444] text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {userdata?.address}
           </h2>
         </div>
 
         <div className="w-[100%] flex justify-center mt-[15px] text-center">
-          <p className="text-[16px] font-[300] text-[#2e363c] w-[90%]">
+          <p
+            className="text-[16px] font-[300] text-[#2e363c] w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {userdata?.bio}
           </p>
         </div>
@@ -147,9 +165,13 @@ const Classic = ({
                 <img
                   width="30"
                   height="30"
-                  src={`https://img.icons8.com/ios-filled/100/${removeHash(
-                    saveContactBackgroundColor
-                  )}/refresh--v1.png`}
+                  src={
+                    isV1
+                      ? `https://img.icons8.com/ios-filled/100/080808/refresh--v1.png`
+                      : `https://img.icons8.com/ios-filled/100/${removeHash(
+                          saveContactBackgroundColor
+                        )}/refresh--v1.png`
+                  }
                   alt="refresh--v1"
                   className="rotate-90 "
                 />
@@ -211,7 +233,8 @@ const Classic = ({
 
       <div className="w-[100%] flex justify-center mt-3">
         {sociallink?.length > 0 && (
-          <div className="w-[94%] rounded-[25px] bg-[#FAFAFA]   flex flex-col items-center">
+          <div className="w-[94%] rounded-[25px]    flex flex-col items-center">
+            {/* bg-[#FAFAFA] */}
             <SocialLinks
               sociallink={sociallink}
               checkHttp={checkHttp}
@@ -224,6 +247,7 @@ const Classic = ({
               appIconColor={appIconColor}
               boxTextColor={boxTextColor}
               boxBackgroundColor={boxBackgroundColor}
+              whiteTextAndBorder={whiteTextAndBorder}
             />
             <br />
           </div>
@@ -238,7 +262,10 @@ const Classic = ({
         //   )},${hexToRGBA(userdata?.colorCode)}, white)`,
         // }}
       >
-        <div className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer ">
+        <div
+          className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer "
+          onClick={() => window.open("https://www.getcirco.com/download")}
+        >
           Create your own profile
         </div>
       </div>

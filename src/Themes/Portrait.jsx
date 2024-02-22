@@ -36,6 +36,7 @@ const Portrait = ({
   removeHash,
   hideCompanyLogo,
   hideSaveContact,
+  whiteTextAndBorder,
 }) => {
   // console.log(weblinkButtonBackgroundColor);
   let hexToRGBA = (hex) => {
@@ -61,7 +62,7 @@ const Portrait = ({
       <div className="min-h-[355px] w-[100%] flex items-center flex-col">
         <div className="w-[100%] h-[420px] relative overflow-hidden">
           <div
-            className="w-[100%] h-[150px] absolute bottom-[-15px] "
+            className="w-[100%] h-[150px] absolute bottom-[-15px]"
             style={{
               background: `linear-gradient(to top, ${bg},${bg}, transparent)`,
               //   background: `linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, ${bg} 100%)`,
@@ -95,7 +96,10 @@ const Portrait = ({
         </div> */}
 
         <div className="w-[100%] flex justify-center z-20 mt-[-20px]">
-          <h2 className="text-[22px]  font-[400] text-center w-[90%]">
+          <h2
+            className="text-[22px]  font-[400] text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(
               `${userdata?.firstName} ${userdata?.lastName}`,
               30
@@ -104,24 +108,36 @@ const Portrait = ({
         </div>
 
         <div className="w-[100%] flex justify-center ">
-          <h2 className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]">
+          <h2
+            className="text-[16px] font-[300]  text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(userdata?.jobTitle, 51)}
           </h2>
         </div>
         <div className="w-[100%] flex justify-center  ">
-          <h2 className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]">
+          <h2
+            className="text-[16px] font-[300]  text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {returnSlicedString(userdata?.company, 51)}
           </h2>
         </div>
 
         <div className="w-[100%] flex justify-center ">
-          <h2 className=" text-[15px] font-[300] text-[#4D4444] text-center w-[90%]">
+          <h2
+            className=" text-[15px] font-[300] text-center w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {userdata?.address}
           </h2>
         </div>
 
         <div className="w-[100%] flex justify-center mt-[15px] text-center">
-          <p className="text-[16px] font-[300] text-[#2e363c] w-[90%]">
+          <p
+            className="text-[16px] font-[300]  w-[90%]"
+            style={{ color: whiteTextAndBorder ? "white" : "black" }}
+          >
             {userdata?.bio}
           </p>
         </div>
@@ -176,6 +192,7 @@ const Portrait = ({
             boxTextColor={boxTextColor}
             boxBackgroundColor={boxBackgroundColor}
             highlightBoxStyle={highlightBoxStyle}
+            whiteTextAndBorder={whiteTextAndBorder}
           />
 
           {/* <br /> */}
@@ -190,7 +207,10 @@ const Portrait = ({
         //   )},${hexToRGBA(userdata?.colorCode)}, white)`,
         // }}
       >
-        <div className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer">
+        <div
+          className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer"
+          onClick={() => window.open("https://www.getcirco.com/download")}
+        >
           Create your own profile
         </div>
       </div>

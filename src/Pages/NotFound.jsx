@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import iconimg from "../imgs/notFoundBg2.png";
 import NotFoundModal from "../assets/components/NotFoundModal";
+import notfndbg from "../imgs/notfondbg.png";
+import circo from "../imgs/circo.png";
+import rocket from "../imgs/rocket.png";
 
 const NotFound = () => {
   let [modal, setModal] = useState(false);
@@ -8,11 +11,11 @@ const NotFound = () => {
   let handleModal = () => {
     setModal(!modal);
   };
-  
+
   return (
-    <div className="min-h-[100vh] max-w-[420px] w-[100%] " >
-      <NotFoundModal modal={modal} handleModal={handleModal} />
-      <div className="w-[96%] shadow-lg min-h-[100vh] border">
+    <div className="min-h-[100vh] max-w-[435px] w-[100%] ">
+      {/* <NotFoundModal modal={modal} handleModal={handleModal} /> */}
+      {/* <div className="w-[96%] shadow-lg min-h-[100vh] border">
         <div className="w-[100%] flex justify-center text-2xl mt-[50px] ">
           Y o t a p
         </div>
@@ -45,6 +48,39 @@ const NotFound = () => {
             onClick={() => handleModal()}
           >
             Why am I seeing this ?
+          </div>
+        </div>
+      </div> */}
+      <div
+        style={{
+          backgroundImage: `url(${notfndbg})`,
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+          height: "100%",
+          width: "100%",
+        }}
+        className="flex flex-col justify-evenly"
+      >
+        <div className="w-[100%] flex justify-center items-center">
+          <img src={circo} alt="" className="w-[155px] h-[55px]" />
+        </div>
+        <div className="w-[100%] flex justify-center items-center">
+          <img src={rocket} alt="" className="w-[285px] h-[285px]" />
+        </div>
+        <div className="w-[100%] flex justify-center">
+          <p
+            className="w-[90%] text-center font-[400] text-[16px] text-white mt"
+            style={{ lineHeight: "35.36px" }}
+          >
+            This profile is not activated. Active or create your own profile in
+            Circo App.
+          </p>
+        </div>
+
+        <div className="w-[100%] flex justify-center items-center">
+          <div className="h-[62px] w-[216px] border rounded-[35px] flex justify-center items-center border-white text-white cursor-pointer">
+            Download App
           </div>
         </div>
       </div>

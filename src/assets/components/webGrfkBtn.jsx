@@ -13,7 +13,7 @@ const WebGrfkBtn = ({
         target="_blank"
         href={elm?.linkID != null && checkHttp(elm?.url, elm?.linkID, elm?.url)}
         // returnSocialUrl(elm?.title, elm?.value)
-        className="h-[186px] w-[100%]  mb-3 rounded-[20px] relative"
+        className="h-[186px] w-[100%]  rounded-[20px] relative"
         style={{
           display:
             elm?.shareable === false || elm?.isFeatureOn === true
@@ -22,7 +22,7 @@ const WebGrfkBtn = ({
           backgroundImage: `url(${elm?.graphicImgUrl})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          marginBottom: elm?.graphicDisplayType === "style1" ? "35px" : "12px",
+          marginBottom: elm?.graphicDisplayType === "style1" ? "55px" : "12px",
         }}
         onClick={() => linkAnalytics(elm)}
       >
@@ -56,15 +56,11 @@ const WebGrfkBtn = ({
           style={{
             color: elm?.graphicTextColor,
             bottom: elm?.graphicDisplayType === "style1" ? "-35px" : "12px",
-            // paddingTop: "10px",
+            // marginBottom: "20px",
+            // height: "50px",
           }}
         >
-          {/* {elm?.title} */}
-          {/* {elm?.title?.length < 19
-          ? elm?.title
-          : elm?.title?.substring(0, 62) + "..."} */}
           {elm?.graphicDisplayText}
-          {/* <div className="h-[20px]"></div> */}
         </p>
       </a>
     </>

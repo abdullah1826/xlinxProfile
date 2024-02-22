@@ -359,7 +359,7 @@ const Home = () => {
             {
               id: findLink?.id,
               linkID: findLink?.linkID,
-              name: findLink?.name,
+              name: findLink?.name ? findLink?.name : "",
               clicks: findLink?.clicks + 1,
               image: findLink?.image ? findLink?.image : "",
               title: findLink?.title ? findLink?.title : "",
@@ -380,13 +380,14 @@ const Home = () => {
           });
         });
       } else {
+        console.log("yes this part is working");
         update(ref(db, `Analytic/${crntUsrAnalytics?.id}/`), {
           links: [
             ...crntUsrAnalytics?.links,
             {
               id: name?.id,
               linkID: name?.linkID,
-              name: name?.name,
+              name: name?.name ? name?.name : "",
               clicks: 1,
               image: name?.image ? name?.image : "",
               title: name?.title ? name?.title : "",
@@ -403,6 +404,7 @@ const Home = () => {
           });
         });
       }
+      console.log("testing analytics");
     } else {
       update(ref(db, `Analytic/${crntUsrAnalytics?.id}/`), {
         links: [
@@ -424,6 +426,7 @@ const Home = () => {
         update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
           totalClicks: 1,
         });
+        console.log("testing analytics2");
       });
     }
   };
@@ -519,10 +522,15 @@ const Home = () => {
         elm?.linkID != 4 &&
         elm?.linkID != 2 &&
         elm?.linkID != 3 &&
+        elm?.linkID != 26 &&
         elm?.shareable === true
       ) {
         myVCard.addSocial(
-          checkHttp(elm?.baseUrl + elm?.value, elm?.linkID, elm?.value),
+          checkHttp(
+            elm?.linkID === 999 ? elm?.url : elm?.baseUrl + elm?.value,
+            elm?.linkID,
+            elm?.value
+          ),
           elm?.name
         );
       }
@@ -706,6 +714,10 @@ const Home = () => {
                       removeHash={removeHash}
                       hideCompanyLogo={userdata?.profileDesign?.hideCompanyLogo}
                       hideSaveContact={userdata?.profileDesign?.hideSaveContact}
+                      whiteTextAndBorder={
+                        userdata?.profileDesign?.whiteTextAndBorder
+                      }
+                      isV1={false}
                     />
                   )}
 
@@ -872,8 +884,8 @@ const Home = () => {
                   webBtnStyle="style1"
                   weblinkButtonTextColor="white"
                   weblinkButtonBackgroundColor="black"
-                  saveContactBackgroundColor="white"
-                  saveContactTextColor="black"
+                  saveContactBackgroundColor="#080808"
+                  saveContactTextColor="white"
                   highlightBoxStyle="style1"
                   isClassic={true}
                   appIconColor="black"
@@ -884,6 +896,7 @@ const Home = () => {
                   }}
                   hideCompanyLogo={false}
                   hideSaveContact={false}
+                  isV1={true}
                 />
               )}
               {/* </div> */}

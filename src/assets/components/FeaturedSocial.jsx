@@ -1,29 +1,43 @@
 import React from "react";
+import { returnReactIcons } from "../ReturnSocialIcons";
+import { returnPngIcons } from "../ReturnSocialIconsPng";
 
 const FeaturedSocial = ({
   elm,
   checkHttp,
   linkAnalytics,
-  returnIcons,
   webBtnStyle,
   highlightBoxStyle,
   appIconColor,
   imgAdded,
   boxBackgroundColor,
   boxTextColor,
+  i,
+  sociallink,
 }) => {
   console.log(highlightBoxStyle);
+
   return (
     <>
       <a
         target="_blank"
         href={checkHttp(
-          elm?.baseUrl + elm?.value ? elm?.value : elm?.url,
+          elm?.baseUrl + (elm?.value ? elm?.value : elm?.url),
           elm?.linkID,
           elm?.value
         )}
         onClick={() => linkAnalytics(elm)}
         className="w-[100%] mb-3"
+        style={{
+          marginTop:
+            (sociallink[i - 1]?.isLinkHighlighted === false &&
+              sociallink[i - 1]?.linkID != 999) ||
+            (sociallink[i - 1]?.isLinkHighlighted === false &&
+              sociallink[i - 1]?.linkID === 999 &&
+              sociallink[i - 1]?.style === "style1")
+              ? "-15px"
+              : "0px",
+        }}
       >
         <div className="w-[100%] flex justify-center">
           <div
@@ -63,22 +77,22 @@ const FeaturedSocial = ({
                   class={`${"h-[75px] w-[75px] rounded-2xl  flex justify-center items-center"}`}
                   style={{ backgroundColor: appIconColor }}
                 >
-                  {elm?.linkID != null && (
-                    <img
-                      src={
-                        returnIcons(elm?.linkID)
-                          ? returnIcons(elm?.linkID)
-                          : elm?.linkImgUrl
-                      }
-                      alt="img"
-                      class={
-                        elm?.linkID === 999
-                          ? ` ${"h-[100%] w-[100%] rounded-2xl"}`
-                          : ` ${"h-[60px] w-[60px]"}`
-                      }
-                      // style={elm?.name==='Calendly'? {borderRadius:'10px'}:null}
-                    />
-                  )}
+                  {elm?.linkID != null &&
+                    (!appIconColor || elm?.linkID === 999 ? (
+                      <img
+                        src={
+                          returnPngIcons(elm?.linkID)
+                            ? returnPngIcons(elm?.linkID)
+                            : elm?.linkImgUrl
+                        }
+                        alt="img"
+                        class="h-[100%] w-[100%] rounded-2xl"
+
+                        // style={elm?.name==='Calendly'? {borderRadius:'10px'}:null}
+                      />
+                    ) : (
+                      returnReactIcons(elm?.linkID, appIconColor, 45)
+                    ))}
                 </div>
               )}
               {/* <div
@@ -112,10 +126,10 @@ const FeaturedSocial = ({
                 className="font-[400] text-[13px] w-[90%]"
                 // style={{ color: boxTextColor }}
               >
-                {elm?.feature
-                  ? elm?.feature?.length < 67
-                    ? elm?.feature
-                    : elm?.feature?.substring(0, 67) + "..."
+                {elm?.linkHighlightDescription
+                  ? elm?.linkHighlightDescription?.length < 67
+                    ? elm?.linkHighlightDescription
+                    : elm?.linkHighlightDescription?.substring(0, 67) + "..."
                   : ""}
               </p>
               {/* 68 */}

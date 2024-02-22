@@ -2,10 +2,12 @@ import React from "react";
 import WebBtn from "./webBtn";
 import WebGrfkBtn from "./webGrfkBtn";
 import FeaturedSocial from "./FeaturedSocial";
-import { returnIcons } from "../ReturnSocialIcons";
+import { returnIcons, returnReactIcons } from "../ReturnSocialIcons";
 import VideoContainer from "./VideoContainer";
 import web from "../socialLink/web.png";
 import { returnPngIcons } from "../ReturnSocialIconsPng";
+import SpotifyContainer from "./SpotifyContainer";
+import SoundCloudContainer from "./SoundCloudComponent";
 
 const SocialLinks = ({
   sociallink,
@@ -36,7 +38,7 @@ const SocialLinks = ({
 
   let returnIconImages = (id) => {
     if (appIconColor) {
-      return returnIcons(id);
+      return returnIcons(id, appIconColor);
     } else {
       return returnPngIcons(id);
     }
@@ -45,7 +47,7 @@ const SocialLinks = ({
   return (
     <div className=" w-[95%]  flex justify-around items-center flex-wrap mt-5">
       {/* grid grid-cols-3 gap-x-4 pr-7 */}
-      {sociallink?.map((elm) => {
+      {sociallink?.map((elm, i) => {
         return elm?.linkID === 999 &&
           elm?.style != "style3" &&
           elm?.style != "style1" ? (
@@ -53,7 +55,7 @@ const SocialLinks = ({
             elm={elm}
             checkHttp={checkHttp}
             linkAnalytics={linkAnalytics}
-            returnIcons={returnIcons}
+            returnIcons={returnReactIcons(elm?.linkID, appIconColor, 45)}
             webBtnStyle={webBtnStyle}
             weblinkButtonTextColor={weblinkButtonTextColor}
             weblinkButtonBackgroundColor={weblinkButtonBackgroundColor}
@@ -67,28 +69,54 @@ const SocialLinks = ({
             // returnIcons={returnIcons}
             // webBtnStyle={webBtnStyle[7]}
           />
-        ) : elm?.linkID === 16 ? (
-          <VideoContainer link={elm?.value} />
+        ) : elm?.linkID === 16 || elm?.linkID === 25 ? (
+          <VideoContainer link={elm?.value} shareable={elm?.shareable} />
         ) : elm?.isFeatureOn || elm?.isLinkHighlighted ? (
           <FeaturedSocial
             elm={elm}
             checkHttp={checkHttp}
             linkAnalytics={linkAnalytics}
-            returnIcons={appIconColor ? returnIcons : returnPngIcons}
             webBtnStyle={webBtnStyle}
             highlightBoxStyle={highlightBoxStyle}
             appIconColor={appIconColor}
             imgAdded={imgAdded}
             boxBackgroundColor={boxBackgroundColor}
             boxTextColor={boxTextColor}
+            i={i}
+            sociallink={sociallink}
           />
-        ) : elm?.linkID === 400 ? (
-          <div className="w-[100%] text-center flex flex-col items-center">
-            <h2 className="text-[18px] font-[700]">{elm?.title}</h2>
-            <p className="font-[400] text-[16px] w-[95%] text-center">
+        ) : elm?.linkID === 26 ? (
+          <div
+            className="w-[100%] text-center flex flex-col items-center mb-3"
+            style={{ display: elm?.shareable === false ? "none" : null }}
+          >
+            <h2
+              className="text-[18px] font-[700]"
+              style={{
+                color: elm?.graphicTextColor ? elm?.graphicTextColor : "black",
+              }}
+            >
+              {elm?.title}
+            </h2>
+            <p
+              className="font-[400] text-[16px] w-[95%] text-center"
+              style={{
+                color: elm?.graphicTextColor ? elm?.graphicTextColor : "black",
+              }}
+            >
               {elm?.value}
             </p>
           </div>
+        ) : elm?.linkID === 22 ? (
+          <SpotifyContainer link={elm?.value} shareable={elm?.shareable} />
+        ) : elm?.linkID === 23 ? (
+          <SoundCloudContainer link={elm?.value} shareable={elm?.shareable} />
+        ) : elm?.linkID === 27 ? (
+          elm?.value?.includes("https://soundcloud.com/") ? (
+            <SoundCloudContainer link={elm?.value} shareable={elm?.shareable} />
+          ) : elm?.value?.includes("https://open.spotify.com/") ? (
+            <SpotifyContainer link={elm?.value} shareable={elm?.shareable} />
+          ) : null
         ) : (
           <>
             <a
@@ -104,11 +132,18 @@ const SocialLinks = ({
               }
               // returnSocialUrl(elm?.title, elm?.value)
               class="h-[120px] w-[31%] flex flex-col  items-center mt-3 mb-[-10px]"
-              style={
-                elm?.shareable === false || elm?.isFeatureOn === true
-                  ? { display: "none" }
-                  : null
-              }
+              style={{
+                display:
+                  elm?.shareable === false || elm?.isLinkHighlighted === true
+                    ? "none"
+                    : null,
+
+                // marginBottom:
+                //   sociallink[i + 1]?.isLinkHighlighted === true ||
+                //   sociallink[i + 2]?.isLinkHighlighted === true
+                //     ? "-25px"
+                //     : "0px",
+              }}
               onClick={() => linkAnalytics(elm)}
             >
               {imgAdded(elm?.image) ? (
@@ -127,37 +162,42 @@ const SocialLinks = ({
                   class={`${"h-[75px] w-[75px] rounded-2xl  flex justify-center items-center"}`}
                   style={{
                     backgroundColor:
-                      elm?.linkID === 999 || !returnIconImages(elm?.linkID)
+                      elm?.linkID === 999 ||
+                      !returnReactIcons(elm?.linkID, appIconColor)
                         ? "transparent"
                         : appIconColor,
                   }}
                 >
-                  {elm?.linkID != null && (
-                    <img
-                      src={
-                        returnIconImages(elm?.linkID)
-                          ? returnIconImages(elm?.linkID)
-                          : elm?.linkImgUrl
-                          ? elm?.linkImgUrl
-                          : web
-                      }
-                      alt="img"
-                      class={
-                        elm?.linkID === 999 ||
-                        !returnIcons(elm?.linkID) ||
-                        !appIconColor
-                          ? ` ${"h-[100%] w-[100%] rounded-xl object-cover"}`
-                          : ` ${"h-[60px] w-[60px]"}`
-                      }
-                      // style={elm?.name==='Calendly'? {borderRadius:'10px'}:null}
-                    />
-                  )}
+                  {elm?.linkID != null &&
+                    (!appIconColor || elm?.linkID === 999 ? (
+                      <img
+                        src={
+                          returnPngIcons(elm?.linkID)
+                            ? returnPngIcons(elm?.linkID)
+                            : elm?.linkImgUrl
+                            ? elm?.linkImgUrl
+                            : web
+                        }
+                        alt="img"
+                        class={
+                          elm?.linkID === 999 ||
+                          !returnIcons(elm?.linkID) ||
+                          !appIconColor
+                            ? ` ${"h-[100%] w-[100%] rounded-xl object-cover"}`
+                            : ` ${"h-[60px] w-[60px] mix-blend-multiply"}`
+                        }
+                      />
+                    ) : (
+                      returnReactIcons(elm?.linkID, appIconColor, 45)
+                    ))}
                 </div>
               )}
               <h2
                 class="font-[300] text-[12px]  mt-[6px] text-center"
                 style={{
-                  color: isClassic || !whiteTextAndBorder ? "black" : "white",
+                  color: !whiteTextAndBorder ? "black" : "white",
+                  // textShadow:
+                  //   whiteTextAndBorder && isClassic ? "1px 1px black" : null,
                 }}
               >
                 {/* {elm?.title} */}

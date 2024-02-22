@@ -174,6 +174,7 @@ const Full = ({
             appIconColor={appIconColor}
             boxBackgroundColor={boxBackgroundColor}
             boxTextColor={boxTextColor}
+            highlightBoxStyle={highlightBoxStyle}
             whiteTextAndBorder={whiteTextAndBorder}
           />
         </div>
@@ -187,7 +188,10 @@ const Full = ({
         //   )},${hexToRGBA(userdata?.colorCode)}, white)`,
         // }}
       >
-        <div className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer">
+        <div
+          className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer"
+          onClick={() => window.open("https://www.getcirco.com/download")}
+        >
           Create your own profile
         </div>
       </div>

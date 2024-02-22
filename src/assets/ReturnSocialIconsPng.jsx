@@ -12,24 +12,27 @@ import instagram from "./socialLink/instagram.png";
 import facebook from "./socialLink/facebook.png";
 import tiktok from "./socialLink/tiktok.png";
 import twitter from "./socialLink/x.png";
-
+import Etsy from "./socialLink/etsy.png";
 import linkedin from "./socialLink/linkedin.png";
-// import twitch from "./socialLink/twitch.png";
+import yelp from "./socialLink/yelp.png";
 import pinterest from "./socialLink/pinterest.png";
 import youtube from "./socialLink/youtube.png";
-
+import link from "./socialLink/link.png";
 import snapchat from "./socialLink/snapchat.png";
-// import telegram from "./socialLink/telegram.png";
-// import reddit from "./socialLink/reddit.png";
+import gallery from "./socialLink/gallery.png";
+import applink from "./socialLink/applink.png";
+import pdf from "./socialLink/pdf.png";
+import onlyfans from "./socialLink/onlyfans.png";
 
-// import discord from "./socialLink/discord.png";
+import location from "./socialLink/location.png";
 // import tumblr from "./socialLink/tumblr.png";
 
 // import music icons
 import spotify from "./socialLink/spotify.png";
 
-// import applemusic from "./socialLink/applemusic.png";
-// import soundcloud from "./socialLink/soundcloud.png";
+import applemusic from "./socialLink/applemusic.png";
+import soundcloud from "./socialLink/soundcloud.png";
+import itunes from "./socialLink/itunes.png";
 
 // import payment icons
 
@@ -40,7 +43,7 @@ import paypal from "./socialLink/paypal.png";
 
 import website from "./socialLink/link.png";
 import venmo from "./socialLink/venmo.png";
-// import custom from "./socialLink/customlink.png";
+import calendly from "./socialLink/calendly.png";
 
 // import pinterest from './socialLink/pinterest.png'
 // import youtube from './socialLink/twitter.png'
@@ -189,14 +192,18 @@ export const more = [
 ];
 
 export let returnPngIcons = (id) => {
-  if (id === 2) {
+  if (id === 1) {
+    return contact;
+  } else if (id === 2) {
     return call;
-  } else if (id === 5) {
-    return whatsapp;
-  } else if (id === 4) {
-    return text;
   } else if (id === 3) {
     return email;
+  } else if (id === 4) {
+    return text;
+  } else if (id === 5) {
+    return whatsapp;
+  } else if (id === 6) {
+    return location;
   } else if (id === 15) {
     return snapchat;
   } else if (id === 14) {
@@ -205,58 +212,54 @@ export let returnPngIcons = (id) => {
     return instagram;
   } else if (id === 17) {
     return twitter;
-  }
-  //   else if (id === "Twitch") {
-  //     return twitch;
-  //   }
-  else if (id === 16) {
+  } else if (id === 16) {
     return youtube;
   }
   //   else if (id === 42) {
   //     return Etsy;
   //   }
-  // else if (id === "Pinterest") {
-  //   return pinterest;
-  // }
-  else if (id === 13) {
+  else if (id === 18) {
+    return pinterest;
+  } else if (id === 13) {
     return tiktok;
   } else if (id === 12) {
     return linkedin;
-  } else if (id === 1) {
-    return contact;
-  }
-  //    else if (id === "Discord") {
-  //     return discord;
-  //   }
-  //   else if (id === "Tumblr") {
-  //     return tumblr;
-  //   }
-  else if (id === 22) {
+  } else if (id === 19) {
+    return onlyfans;
+  } else if (id === 20) {
+    return link;
+  } else if (id === 22) {
     return spotify;
-  }
-  //   else if (id === "Apple Music") {
-  //     return applemusic;
-  //   } else if (id === "SoundCloud") {
-  //     return soundcloud;
-  //   }
-  else if (id === 31) {
+  } else if (id === 24) {
+    return applemusic;
+  } else if (id === 29) {
+    return gallery;
+  } else if (id === 27) {
+    return itunes;
+  } else if (id === 28) {
+    return pdf;
+  } else if (id === 31) {
     return cashapp;
     // cashapp
   } else if (id === 32) {
     return paypal;
-  }
-  // else if (id === "Calendly") {
-  //     return calendly;
-  //   }
-  else if (id === 21) {
+  } else if (id === 41) {
+    return calendly;
+  } else if (id === 21) {
     return website;
+  } else if (id === 23) {
+    return soundcloud;
   } else if (id === 33) {
     return venmo;
+  } else if (id === 42) {
+    return Etsy;
   }
-  // else if (id === "CashApp") {
-  //     return cashapp;
-  //   } else if (id === "AppleMusic") {
-  //     return applemusic;
-  //   }
+
+  // Text 26
+  else if (id === 43) {
+    return yelp;
+  } else if (id === 44) {
+    return applink;
+  }
   // venmo 16
 };

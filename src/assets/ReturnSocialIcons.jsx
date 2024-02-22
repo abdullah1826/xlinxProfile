@@ -39,10 +39,437 @@ import paypal from "./svgIcons/paypal.svg";
 
 import website from "./socialLink/link.png";
 import venmo from "./svgIcons/venmo.svg";
+import calendly from "./svgIcons/celendly.svg";
+import calendlyblack from "./svgIcons/calendlyblack.png";
 // import custom from "./socialLink/customlink.png";
 
 // import pinterest from './socialLink/pinterest.png'
 // import youtube from './socialLink/twitter.png'
+
+// React Icons
+
+import { MdCall } from "react-icons/md";
+import { MdEmail } from "react-icons/md";
+import {
+  BiLogoDiscordAlt,
+  BiLogoInstagramAlt,
+  BiLogoPaypal,
+  BiLogoPinterest,
+  BiSolidMessageDetail,
+} from "react-icons/bi";
+import { BsFillPersonFill } from "react-icons/bs";
+import { RiWhatsappFill } from "react-icons/ri";
+import { FaLocationDot } from "react-icons/fa6";
+// import social icons
+import { RiYoutubeFill } from "react-icons/ri";
+import { BsDiscord } from "react-icons/bs";
+import { ImSoundcloud } from "react-icons/im";
+import {
+  BiLogoSnapchat,
+  BiLogoSpotify,
+  BiLogoTelegram,
+  BiLogoTiktok,
+} from "react-icons/bi";
+import { FaLink } from "react-icons/fa";
+import { FaFacebookF, FaTwitch } from "react-icons/fa";
+import { TiSocialTumbler } from "react-icons/ti";
+import { BiLogoTwitter, BiLogoLinkedin } from "react-icons/bi";
+import { SiApplemusic, SiCashapp, SiOnlyfans } from "react-icons/Si";
+import { AiOutlineLink } from "react-icons/ai";
+import { LuLink2 } from "react-icons/lu";
+import { MdContacts } from "react-icons/md";
+import { GrGallery } from "react-icons/gr";
+import { IoImagesSharp } from "react-icons/io5";
+import { FaMusic } from "react-icons/fa";
+import { BsFillFileEarmarkPdfFill } from "react-icons/bs";
+import { FaSafari } from "react-icons/fa";
+import { BiLogoVenmo } from "react-icons/bi";
+import { FaEtsy, FaYelp } from "react-icons/fa";
+import { MdContactEmergency } from "react-icons/md";
+import { FaAppStoreIos } from "react-icons/fa";
+// import { RiTwitterXFill } from "react-icons/ri";
+export let returnReactIcons = (id, appcolor, size = 20) => {
+  if (id === 1) {
+    return (
+      <MdContactEmergency
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 2) {
+    return (
+      <MdCall
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 3) {
+    return (
+      <MdEmail
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 4) {
+    return (
+      <BiSolidMessageDetail
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 5) {
+    return (
+      <RiWhatsappFill
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 6) {
+    return (
+      <FaLocationDot
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 15) {
+    return (
+      <BiLogoSnapchat
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 14) {
+    return (
+      <FaFacebookF
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 11) {
+    return (
+      <BiLogoInstagramAlt
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 17) {
+    return (
+      // import { FaXTwitter } from "react-icons/fa6";
+      <BiLogoTwitter
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 16) {
+    return (
+      <RiYoutubeFill
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  }
+  //   else if (id === 42) {
+  //     return Etsy;
+  //   }
+  else if (id === 18) {
+    return (
+      <BiLogoPinterest
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 13) {
+    return (
+      <BiLogoTiktok
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 12) {
+    return (
+      <BiLogoLinkedin
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 19) {
+    return (
+      <SiOnlyfans
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 20) {
+    return (
+      <FaLink
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 22) {
+    return (
+      <BiLogoSpotify
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 24) {
+    return (
+      <SiApplemusic
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 29) {
+    return (
+      <IoImagesSharp
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 27) {
+    return (
+      <FaMusic
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 28) {
+    return (
+      <BsFillFileEarmarkPdfFill
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 31) {
+    return (
+      <SiCashapp
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+    // cashapp
+  } else if (id === 32) {
+    return (
+      <BiLogoPaypal
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 41) {
+    return (
+      <img
+        src={
+          appcolor === "#FFFFFF" || appcolor === "#ffffff"
+            ? calendlyblack
+            : calendly
+        }
+        alt=""
+      />
+    );
+  } else if (id === 21) {
+    return (
+      <FaSafari
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 23) {
+    return (
+      <ImSoundcloud
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 33) {
+    return (
+      <BiLogoVenmo
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 42) {
+    return (
+      <FaEtsy
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  }
+
+  // Text 26
+  else if (id === 43) {
+    return (
+      <FaYelp
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 44) {
+    return (
+      <FaAppStoreIos
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  }
+  // else {
+  //   return (
+  //     <FaSafari
+  //       style={{
+  //         color: appcolor === "#FFFFFF" ? "black" : "white",
+  //         fontSize: `${size}px`,
+  //       }}
+  //     />
+  //   );
+  // }
+  // venmo 16
+};
 
 export const contactIcons = [
   {

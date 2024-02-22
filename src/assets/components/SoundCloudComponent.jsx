@@ -1,13 +1,13 @@
 import React from "react";
 import ReactPlayer from "react-player";
 
-const VideoContainer = ({ link, shareable }) => {
+const SoundCloudContainer = ({ link, shareable }) => {
   return (
     <div
-      class="w-[100%] flex justify-center mb-5"
+      class="w-[100%] flex justify-center mb-[22px]"
       style={{ display: !shareable ? "none" : null }}
     >
-      <div style={{ height: "186px", width: "100%" }}>
+      <div style={{ height: "166px", width: "100%" }}>
         <div
           style={{
             height: "100%",
@@ -36,4 +36,4 @@ const VideoContainer = ({ link, shareable }) => {
   );
 };
 
-export default VideoContainer;
+export default SoundCloudContainer;
