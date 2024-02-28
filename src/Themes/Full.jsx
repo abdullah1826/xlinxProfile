@@ -8,6 +8,7 @@ import WebBtn from "../assets/components/webBtn";
 import WebGrfkBtn from "../assets/components/webGrfkBtn";
 import FeaturedSocial from "../assets/components/FeaturedSocial";
 import SocialLinks from "../assets/components/SocialLinks";
+import { browserName } from "react-device-detect";
 
 const Full = ({
   coverurl,
@@ -196,6 +197,13 @@ const Full = ({
         </div>
       </div>
       {/* <br /> */}
+      {browserName === "Mobile Safari" && (
+        <>
+          <br />
+          <br />
+          <br />
+        </>
+      )}
     </div>
   );
 };

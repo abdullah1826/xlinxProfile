@@ -9,6 +9,7 @@ import WebBtn from "../assets/components/webBtn";
 import SaveBtn from "../assets/components/SaveBtn";
 import SocialLinks from "../assets/components/SocialLinks";
 import ReactPlayer from "react-player";
+import { browserName } from "react-device-detect";
 
 const Color = ({
   coverurl,
@@ -223,6 +224,13 @@ const Color = ({
         </div>
       </div>
       {/* <br /> */}
+      {browserName === "Mobile Safari" && (
+        <>
+          <br />
+          <br />
+          <br />
+        </>
+      )}
     </div>
   );
 };

@@ -8,6 +8,7 @@ import WebBtn from "../assets/components/webBtn";
 import WebGrfkBtn from "../assets/components/webGrfkBtn";
 import SocialLinks from "../assets/components/SocialLinks";
 import ReactPlayer from "react-player";
+import { browserName } from "react-device-detect";
 
 const Classic = ({
   coverurl,
@@ -270,6 +271,13 @@ const Classic = ({
         </div>
       </div>
       {/* <br /> */}
+      {browserName === "Mobile Safari" && (
+        <>
+          <br />
+          <br />
+          <br />
+        </>
+      )}
     </div>
   );
 };

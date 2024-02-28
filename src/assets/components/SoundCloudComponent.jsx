@@ -27,7 +27,7 @@ const SoundCloudContainer = ({ link, shareable }) => {
             />
           ) : (
             <div className="h-[100%] w-[100%] flex justify-center items-center">
-              <h2>No video found!</h2>
+              <h2>No media found!</h2>
             </div>
           )}
         </div>

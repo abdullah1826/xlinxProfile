@@ -45,7 +45,7 @@ const SocialLinks = ({
   };
 
   return (
-    <div className=" w-[95%]  flex justify-around items-center flex-wrap mt-5">
+    <div className=" w-[95%]  flex justify-evenly items-center flex-wrap mt-5">
       {/* grid grid-cols-3 gap-x-4 pr-7 */}
       {sociallink?.map((elm, i) => {
         return elm?.linkID === 999 &&
@@ -70,7 +70,10 @@ const SocialLinks = ({
             // webBtnStyle={webBtnStyle[7]}
           />
         ) : elm?.linkID === 16 || elm?.linkID === 25 ? (
-          <VideoContainer link={elm?.value} shareable={elm?.shareable} />
+          <VideoContainer
+            link={checkHttp(elm?.value)}
+            shareable={elm?.shareable}
+          />
         ) : elm?.isFeatureOn || elm?.isLinkHighlighted ? (
           <FeaturedSocial
             elm={elm}
@@ -108,14 +111,26 @@ const SocialLinks = ({
             </p>
           </div>
         ) : elm?.linkID === 22 ? (
-          <SpotifyContainer link={elm?.value} shareable={elm?.shareable} />
+          <SpotifyContainer
+            link={checkHttp(elm?.value, elm?.linkID)}
+            shareable={elm?.shareable}
+          />
         ) : elm?.linkID === 23 ? (
-          <SoundCloudContainer link={elm?.value} shareable={elm?.shareable} />
+          <SoundCloudContainer
+            link={checkHttp(elm?.value)}
+            shareable={elm?.shareable}
+          />
         ) : elm?.linkID === 27 ? (
           elm?.value?.includes("https://soundcloud.com/") ? (
-            <SoundCloudContainer link={elm?.value} shareable={elm?.shareable} />
+            <SoundCloudContainer
+              link={checkHttp(elm?.value)}
+              shareable={elm?.shareable}
+            />
           ) : elm?.value?.includes("https://open.spotify.com/") ? (
-            <SpotifyContainer link={elm?.value} shareable={elm?.shareable} />
+            <SpotifyContainer
+              link={checkHttp(elm?.value)}
+              shareable={elm?.shareable}
+            />
           ) : null
         ) : (
           <>

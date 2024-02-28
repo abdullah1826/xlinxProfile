@@ -79,7 +79,10 @@ const NotFound = () => {
         </div>
 
         <div className="w-[100%] flex justify-center items-center">
-          <div className="h-[62px] w-[216px] border rounded-[35px] flex justify-center items-center border-white text-white cursor-pointer">
+          <div
+            className="h-[62px] w-[216px] border rounded-[35px] flex justify-center items-center border-white text-white cursor-pointer"
+            onClick={() => window.open("https://www.getcirco.com/download")}
+          >
             Download App
           </div>
         </div>

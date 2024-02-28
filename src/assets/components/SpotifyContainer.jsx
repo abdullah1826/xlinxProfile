@@ -6,11 +6,14 @@ const SpotifyContainer = ({ link, shareable }) => {
   };
 
   const embedUrl = convertToEmbedUrl(link);
-
+  let isCorrectUrl = () => {
+    let urlBolean = link.includes("https://open.spotify.com");
+    return urlBolean;
+  };
   return (
     <div
       class="w-[100%] flex justify-center mb-[-25px]"
-      style={{ display: !shareable ? "none" : null }}
+      style={{ display: !shareable || !isCorrectUrl() ? "none" : null }}
     >
       {/* <div style={{ height: "186px", width: "100%" }}> */}
       {/* <div

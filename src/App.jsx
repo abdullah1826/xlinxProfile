@@ -1,6 +1,7 @@
 import "./App.css";
 import Home from "./Pages/Home";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import "./fonts.css";
 
 function App() {
   return (

@@ -8,6 +8,7 @@ import WebGrfkBtn from "../assets/components/webGrfkBtn";
 import WebBtn from "../assets/components/webBtn";
 import SaveBtn from "../assets/components/SaveBtn";
 import SocialLinks from "../assets/components/SocialLinks";
+import { browserName, CustomView } from "react-device-detect";
 
 const Portrait = ({
   coverurl,
@@ -68,6 +69,16 @@ const Portrait = ({
               //   background: `linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, ${bg} 100%)`,
             }}
           ></div>
+          <div className="h-[60px] w-[60px]  rounded-full absolute bottom-[70px] left-6">
+            {logourl && (
+              <img
+                src={logourl}
+                alt=""
+                className="h-[60px] w-[60px]  rounded-full"
+                style={{ display: hideCompanyLogo ? "none" : null }}
+              />
+            )}
+          </div>
           <img
             src={profileurl}
             className="w-[100%] h-[400px]  object-cover"
@@ -214,7 +225,15 @@ const Portrait = ({
           Create your own profile
         </div>
       </div>
+      {/* {browserName} */}
       {/* <br /> */}
+      {browserName === "Mobile Safari" && (
+        <>
+          <br />
+          <br />
+          <br />
+        </>
+      )}
     </div>
   );
 };

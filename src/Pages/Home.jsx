@@ -513,7 +513,8 @@ const Home = () => {
       .addEmail(userdata?.email)
       .addPhoneNumber(userdata?.phone)
       .addPhoto(base64img.slice(37), "jpeg")
-      .addAddress("", "", userdata?.address);
+      .addAddress("", "", userdata?.address)
+      .addNote("From Circo");
 
     sociallink?.map((elm) => {
       if (
@@ -601,6 +602,7 @@ const Home = () => {
       return code;
     }
   };
+
   return (
     <>
       {loading ? (
@@ -612,7 +614,7 @@ const Home = () => {
           ) : userdata?.directMode === false ? (
             // <div className="h-max w-max relative">
             <div
-              className="h-[100vh] max-w-[435px] w-[100%] flex flex-col items-center rounded-md shadow-lg  relative"
+              className="h-[100vh] max-w-[435px] w-[100%] flex flex-col items-center  shadow-lg  relative"
               style={
                 userdata?.profileDesign?.backgroundTheme === "Full"
                   ? {
