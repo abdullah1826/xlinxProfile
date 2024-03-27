@@ -79,11 +79,13 @@ const Portrait = ({
               />
             )}
           </div>
-          <img
-            src={profileurl}
-            className="w-[100%] h-[400px]  object-cover"
-            alt=""
-          />
+          {profileurl && (
+            <img
+              src={profileurl}
+              className="w-[100%] h-[400px]  object-cover"
+              alt=""
+            />
+          )}
         </div>
         {/* <div className="h-[160px] w-[100%]  flex justify-center mt-[20px]">
           <div className="h-[100%] w-[160px] relative">
@@ -108,7 +110,7 @@ const Portrait = ({
 
         <div className="w-[100%] flex justify-center z-20 mt-[-20px]">
           <h2
-            className="text-[22px]  font-[400] text-center w-[90%]"
+            className="text-[22px]  font-[600] text-center w-[90%]"
             style={{ color: whiteTextAndBorder ? "white" : "black" }}
           >
             {returnSlicedString(
@@ -118,7 +120,7 @@ const Portrait = ({
           </h2>
         </div>
 
-        <div className="w-[100%] flex justify-center ">
+        <div className="w-[100%] flex justify-center mt-3">
           <h2
             className="text-[16px] font-[300]  text-center w-[90%]"
             style={{ color: whiteTextAndBorder ? "white" : "black" }}

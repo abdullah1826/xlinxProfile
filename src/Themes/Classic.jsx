@@ -62,30 +62,30 @@ const Classic = ({
 
         <div className="h-[160px] w-[100%] absolute top-[140px] flex justify-center">
           <div className="h-[100%] w-[160px] relative">
-            {!hideCompanyLogo && (
+            {!hideCompanyLogo && logourl && (
               <img
-                src={logourl ? logourl : logoPlchldr}
+                src={logourl}
                 alt="logo"
                 className="absolute bottom-[15px] right-[-7px] h-[55px] w-[55px] rounded-full border-[1px] border-white"
                 loading="lazy"
               />
             )}
-            {profileurl ? (
-              <img
-                src={profileurl}
-                alt="profile"
-                className="h-[150px] w-[150px] rounded-full border-[5px] border-white"
-                loading="lazy"
-              />
-            ) : (
-              <div className="h-[150px] w-[150px] rounded-full border-[5px] border-white"></div>
-            )}
+            {/* {profileurl ? ( */}
+            <img
+              src={profileurl ? profileurl : imgPlchldr}
+              alt="profile"
+              className="h-[150px] w-[150px] rounded-full border-[3px] border-white"
+              loading="lazy"
+            />
+            {/* // ) : (
+            //   <div className="h-[150px] w-[150px] rounded-full border-[3px] border-white"></div>
+            // )} */}
           </div>
         </div>
 
         <div className="w-[100%] flex justify-center mt-[72px] ">
           <h2
-            className="text-[22px]  font-[400] text-center w-[90%]"
+            className="text-[22px]  font-[600] text-center w-[90%]"
             style={{ color: whiteTextAndBorder ? "white" : "black" }}
           >
             {returnSlicedString(
@@ -95,7 +95,7 @@ const Classic = ({
           </h2>
         </div>
 
-        <div className="w-[100%] flex justify-center ">
+        <div className="w-[100%] flex justify-center mt-3">
           <h2
             className="text-[16px] font-[300]  text-center w-[90%]"
             style={{ color: whiteTextAndBorder ? "white" : "black" }}

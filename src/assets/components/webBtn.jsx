@@ -16,7 +16,8 @@ const WebBtn = ({
         target="_blank"
         href={elm?.linkID != null && checkHttp(elm?.url, elm?.linkID, elm?.url)}
         // returnSocialUrl(elm?.title, elm?.value)
-        className="h-[75px] w-[100%] flex justify-start items-center mb-4 "
+        className="h-[75px] w-[100%] flex justify-start items-center  relative"
+        // mb-4
         style={{
           display:
             elm?.shareable === false || elm?.isFeatureOn === true
@@ -77,7 +78,7 @@ const WebBtn = ({
           </div>
         )}
         <p
-          class="font-[400] text-[17px]  mt-[6px] text-center  w-[75%]  mr-2"
+          class="font-[400] text-[17px]  mt-[6px] text-center  w-[100%]   absolute "
           style={{ color: weblinkButtonTextColor }}
         >
           {/* {elm?.title} */}

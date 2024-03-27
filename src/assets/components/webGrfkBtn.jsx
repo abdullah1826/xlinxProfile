@@ -22,7 +22,7 @@ const WebGrfkBtn = ({
           backgroundImage: `url(${elm?.graphicImgUrl})`,
           backgroundSize: "cover",
           backgroundRepeat: "no-repeat",
-          marginBottom: elm?.graphicDisplayType === "style1" ? "55px" : "12px",
+          marginBottom: elm?.graphicDisplayType === "style1" ? "30px" : "0px",
         }}
         onClick={() => linkAnalytics(elm)}
       >

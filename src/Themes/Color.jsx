@@ -48,30 +48,30 @@ const Color = ({
       <div className="min-h-[355px] w-[100%] flex items-center flex-col">
         <div className="h-[160px] w-[100%]  flex justify-center mt-[20px]">
           <div className="h-[100%] w-[160px] relative">
-            {!hideCompanyLogo && (
+            {!hideCompanyLogo && logourl && (
               <img
-                src={logourl ? logourl : logoPlchldr}
+                src={logourl}
                 alt="logo"
                 className="absolute bottom-[15px] right-[-7px] h-[55px] w-[55px] rounded-full border-[1px] border-white"
                 loading="lazy"
               />
             )}
-            {profileurl ? (
-              <img
-                src={profileurl}
-                alt="profile"
-                className="h-[150px] w-[150px] rounded-full border-[5px] border-white"
-                loading="lazy"
-              />
-            ) : (
-              <div className="h-[150px] w-[150px] rounded-full border-[5px] border-white"></div>
-            )}
+            {/* {profileurl ? ( */}
+            <img
+              src={profileurl ? profileurl : imgPlchldr}
+              alt="profile"
+              className="h-[150px] w-[150px] rounded-full border-[3px] border-white"
+              loading="lazy"
+            />
+            {/* // ) : (
+            //   <div className="h-[150px] w-[150px] rounded-full border-[3px] border-white"></div>
+            // )} */}
           </div>
         </div>
 
         <div className="w-[100%] flex justify-center mt-[22px] ">
           <h2
-            className="text-[22px]  font-[400] text-center w-[90%]"
+            className="text-[22px]  font-[500] text-center w-[90%]"
             style={{ color: whiteTextAndBorder ? "white" : "black" }}
           >
             {returnSlicedString(
@@ -81,7 +81,7 @@ const Color = ({
           </h2>
         </div>
 
-        <div className="w-[100%] flex justify-center ">
+        <div className="w-[100%] flex justify-center mt-3">
           <h2
             className="text-[16px] font-[300] text-[#4D4444] text-center w-[90%]"
             style={{ color: whiteTextAndBorder ? "white" : "black" }}

@@ -4,7 +4,8 @@ import ReactPlayer from "react-player";
 const SoundCloudContainer = ({ link, shareable }) => {
   return (
     <div
-      class="w-[100%] flex justify-center mb-[22px]"
+      class="w-[100%] flex justify-center "
+      //mb-[22px]
       style={{ display: !shareable ? "none" : null }}
     >
       <div style={{ height: "166px", width: "100%" }}>

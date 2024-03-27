@@ -4,7 +4,8 @@ import ReactPlayer from "react-player";
 const VideoContainer = ({ link, shareable }) => {
   return (
     <div
-      class="w-[100%] flex justify-center mb-5"
+      class="w-[100%] flex justify-center"
+      // mb-5
       style={{ display: !shareable ? "none" : null }}
     >
       <div style={{ height: "186px", width: "100%" }}>

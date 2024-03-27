@@ -1,7 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { db, storage } from "../Firebase";
-import { onValue, push, ref, set, update } from "firebase/database";
+import {
+  equalTo,
+  onValue,
+  orderByChild,
+  push,
+  query,
+  ref,
+  set,
+  update,
+} from "firebase/database";
 import { getDownloadURL, ref as storagref } from "firebase/storage";
 import { returnIcons, returnSocialUrl } from "../assets/ReturnSocialIcons";
 import Loader from "../assets/components/Loader";
@@ -35,15 +44,6 @@ const Home = () => {
   let [usersdata, setusersdata] = useState(null);
   let [allAnalytics, setAllAnalytics] = useState([]);
 
-  useEffect(() => {
-    const starCountRef = ref(db, `User/`);
-    onValue(starCountRef, async (snapshot) => {
-      const data = await snapshot.val();
-      console.log(data);
-      setusersdata(Object.values(data));
-    });
-  }, []);
-
   // console.log(allAnalytics);
 
   let [notfound, setnotfound] = useState(false);
@@ -73,39 +73,133 @@ const Home = () => {
       console.log(analytData);
       setAllAnalytics(Object.values(analytData));
 
-      if (usersdata) {
-        let checklist = usersdata?.some((elm) => {
-          return userid === elm?.id || userid === elm?.username;
-        });
-        console.log(checklist);
-        if (checklist) {
-          console.log("true");
-          usersdata?.map((elm) => {
-            if (userid === elm?.id || userid === elm?.username) {
-              console.log(elm);
-              setuserdata(elm);
-              setModal(elm?.leadMode);
-              elm?.links && setsociallink(Object.values(elm?.links));
-              setloading(false);
+      const starCountRef3 = query(
+        ref(db, "User/"),
+        orderByChild("id"),
+        equalTo(userid)
+      );
+      const starCountRef4 = query(
+        ref(db, "User/"),
+        orderByChild("username"),
+        equalTo(userid)
+      );
+      const starCountRef5 = query(
+        ref(db, "Tag/"),
+        orderByChild("tagId"),
+        equalTo(userid)
+      );
+
+      onValue(starCountRef3, async (snapshot) => {
+        const data = await snapshot.val();
+        console.log(data);
+        if (data) {
+          setuserdata(Object.values(data)[0]);
+          setModal(Object.values(data)[0]?.leadMode);
+          Object.values(data)[0]?.links &&
+            setsociallink(Object.values(Object.values(data)[0]?.links));
+          setloading(false);
+        } else {
+          onValue(starCountRef4, async (snapshot) => {
+            const data2 = await snapshot.val();
+            console.log(data2);
+            if (data2) {
+              console.log(data2);
+
+              if (Object.values(data2)[0]?.profileSelected) {
+                var starCountRef7 = query(
+                  ref(db, "User/"),
+                  orderByChild("id"),
+                  equalTo(Object.values(data2)[0]?.profileSelected)
+                );
+              } else {
+                var starCountRef7 = query(
+                  ref(db, "User/"),
+                  orderByChild("id"),
+                  equalTo(Object.values(data2)[0]?.id)
+                );
+              }
+
+              onValue(starCountRef7, async (snapshot) => {
+                const userdata = await snapshot.val();
+                console.log(userdata);
+                if (userdata) {
+                  setuserdata(Object.values(userdata)[0]);
+                  setModal(Object.values(userdata)[0]?.leadMode);
+                  Object.values(userdata)[0]?.links &&
+                    setsociallink(
+                      Object.values(Object.values(userdata)[0]?.links)
+                    );
+                  setloading(false);
+                }
+              });
+            } else {
+              onValue(starCountRef5, async (snapshot) => {
+                const data3 = await snapshot.val();
+                console.log(data3);
+                if (data3 && Object.values(data3)[0]?.status === true) {
+                  const starCountRef6 = query(
+                    ref(db, "User/"),
+                    orderByChild("username"),
+                    equalTo(Object.values(data3)[0]?.username)
+                  );
+                  onValue(starCountRef6, async (snapshot) => {
+                    const data4 = await snapshot.val();
+                    console.log(data4);
+                    if (data4) {
+                      if (Object.values(data4)[0]?.profileSelected) {
+                        var starCountRef8 = query(
+                          ref(db, "User/"),
+                          orderByChild("id"),
+                          equalTo(Object.values(data4)[0]?.profileSelected)
+                        );
+                      } else {
+                        var starCountRef8 = query(
+                          ref(db, "User/"),
+                          orderByChild("id"),
+                          equalTo(Object.values(data4)[0]?.id)
+                        );
+                      }
+
+                      onValue(starCountRef8, async (snapshot) => {
+                        const userdata = await snapshot.val();
+                        console.log(userdata);
+                        if (userdata) {
+                          setuserdata(Object.values(userdata)[0]);
+                          setModal(Object.values(userdata)[0]?.leadMode);
+                          Object.values(userdata)[0]?.links &&
+                            setsociallink(
+                              Object.values(Object.values(userdata)[0]?.links)
+                            );
+                          setloading(false);
+                        } else {
+                          setloading(false);
+                          setnotfound(true);
+                        }
+                      });
+
+                      // setuserdata(Object.values(data4)[0]);
+                      // setModal(Object.values(data4)[0]?.leadMode);
+                      // Object.values(data4)[0]?.links &&
+                      //   setsociallink(
+                      //     Object.values(Object.values(data4)[0]?.links)
+                      //   );
+                      // setloading(false);
+                    } else {
+                      setloading(false);
+                      setnotfound(true);
+                    }
+                  });
+                } else {
+                  setloading(false);
+                  setnotfound(true);
+                }
+              });
             }
           });
-
-          //     let thedata=usersdata?.filter((elm)=>{
-          // return userid === elm?.id || userid === elm?.userName
-          //         })
-          // if(thedata){
-          //   setuserdata(thedata);
-          //   setModal(thedata?.leadMode)
-          //   thedata?.links &&  setsociallink(Object.values(thedata?.links));
-          // setloading(false);
-          // }
-        } else {
-          setloading(false);
-          setnotfound(true);
         }
-      }
+      });
     });
-  }, [usersdata]);
+  }, []);
 
   // console.log(userdata?.Analytics?.updatedAt);
 
@@ -484,14 +578,6 @@ const Home = () => {
         return `https://${url}`;
       }
     }
-
-    // else {
-    //   if (id === 4) {
-
-    //   } else {
-    //     return url;
-    //   }
-    // }
   };
 
   console.log(userdata);
@@ -635,7 +721,8 @@ const Home = () => {
                     }
               }
             >
-              {userdata?.profileDesign?.backgroundTheme === "Custom" ? (
+              {userdata?.profileDesign?.backgroundTheme === "Custom" &&
+              userdata?.profileDesign?.backgroundImage ? (
                 <img
                   // backgroundImage
                   src={userdata?.profileDesign?.backgroundImage}

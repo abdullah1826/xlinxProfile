@@ -27,21 +27,23 @@ const FeaturedSocial = ({
           elm?.value
         )}
         onClick={() => linkAnalytics(elm)}
-        className="w-[100%] mb-3"
-        style={{
-          marginTop:
-            (sociallink[i - 1]?.isLinkHighlighted === false &&
-              sociallink[i - 1]?.linkID != 999) ||
-            (sociallink[i - 1]?.isLinkHighlighted === false &&
-              sociallink[i - 1]?.linkID === 999 &&
-              sociallink[i - 1]?.style === "style1")
-              ? "-15px"
-              : "0px",
-        }}
+        className="w-[100%]"
+        // mb-3
+        // style={{
+        //   marginTop:
+        //     (sociallink[i - 1]?.isLinkHighlighted === false &&
+        //       sociallink[i - 1]?.linkID != 999) ||
+        //     (sociallink[i - 1]?.isLinkHighlighted === false &&
+        //       sociallink[i - 1]?.linkID === 999 &&
+        //       sociallink[i - 1]?.style === "style1")
+        //       ? "-15px"
+        //       : "0px",
+        // }}
       >
         <div className="w-[100%] flex justify-center">
           <div
-            className="w-[100%] h-[121px] mt-4 mb-1   rounded-[30px] flex "
+            className="w-[100%] h-[121px]    rounded-[30px] flex "
+            // mt-4 mb-1
             // style={
             //   elm?.shareable === false || elm?.isFeatureOn === false
             //     ? { display: "none" }

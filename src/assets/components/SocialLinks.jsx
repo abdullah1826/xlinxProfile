@@ -45,7 +45,7 @@ const SocialLinks = ({
   };
 
   return (
-    <div className=" w-[95%]  flex justify-evenly items-center flex-wrap mt-5">
+    <div className=" w-[95%]  flex justify-evenly  flex-wrap mt-5 items-center gap-y-5">
       {/* grid grid-cols-3 gap-x-4 pr-7 */}
       {sociallink?.map((elm, i) => {
         return elm?.linkID === 999 &&
@@ -90,7 +90,7 @@ const SocialLinks = ({
           />
         ) : elm?.linkID === 26 ? (
           <div
-            className="w-[100%] text-center flex flex-col items-center mb-3"
+            className="w-[100%] text-center flex flex-col items-center "
             style={{ display: elm?.shareable === false ? "none" : null }}
           >
             <h2
@@ -146,7 +146,8 @@ const SocialLinks = ({
                   : checkHttp(elm?.url, elm?.linkID, elm?.url)
               }
               // returnSocialUrl(elm?.title, elm?.value)
-              class="h-[120px] w-[31%] flex flex-col  items-center mt-3 mb-[-10px]"
+              class="h-[100px] w-[31%] flex flex-col  items-center"
+              //mt-3 mb-[-10px]
               style={{
                 display:
                   elm?.shareable === false || elm?.isLinkHighlighted === true

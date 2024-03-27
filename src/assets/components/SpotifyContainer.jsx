@@ -12,7 +12,8 @@ const SpotifyContainer = ({ link, shareable }) => {
   };
   return (
     <div
-      class="w-[100%] flex justify-center mb-[-25px]"
+      className="w-[100%] flex justify-center h-[155px]"
+      // mb-[-25px]
       style={{ display: !shareable || !isCorrectUrl() ? "none" : null }}
     >
       {/* <div style={{ height: "186px", width: "100%" }}> */}
