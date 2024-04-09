@@ -580,7 +580,7 @@ const Home = () => {
     }
   };
 
-  console.log(userdata);
+  // console.log(base64img?.slice(23));
   let downloadVcf = async () => {
     // Define a new vCard
     const myVCard = new VCard();
@@ -598,7 +598,7 @@ const Home = () => {
       .addCompany(userdata?.company)
       .addEmail(userdata?.email)
       .addPhoneNumber(userdata?.phone)
-      .addPhoto(base64img.slice(37), "jpeg")
+      .addPhoto(base64img.slice(23), "jpeg")
       .addAddress("", "", userdata?.address)
       .addNote("From Circo");
 
@@ -642,10 +642,11 @@ const Home = () => {
     const url = window.URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "YoTap.vcf");
+    link.setAttribute("download", "Circo.vcf");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    setModal(true);
   };
 
   let returnSlicedString = (str, numVal) => {
@@ -750,6 +751,7 @@ const Home = () => {
                 userdata={userdata}
                 crntUsrAnalytics={crntUsrAnalytics}
                 handleConfirmModal={handleConfirmModal}
+                setModal={setModal}
               />
               <ConfirmModal
                 confirmModal={confirmModal}

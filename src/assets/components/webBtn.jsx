@@ -10,6 +10,25 @@ const WebBtn = ({
   weblinkButtonBackgroundColor,
   placeholderImg,
 }) => {
+  let hexToRGBA = (hex, num) => {
+    // Remove the '#' character if present
+    hex = hex?.replace("#", "");
+
+    // Convert the hex value to RGB
+    const red = parseInt(hex?.substring(0, 2), 16);
+    const green = parseInt(hex?.substring(2, 4), 16);
+    const blue = parseInt(hex?.substring(4, 6), 16);
+
+    // Convert RGB to RGBA with alpha value 0.1
+    const rgba1 = `rgba(${red}, ${green}, ${blue}, 0.75)`;
+    const rgba2 = `rgba(${red}, ${green}, ${blue}, 0.33)`;
+    if (num === "1") {
+      return rgba1;
+    } else {
+      return rgba2;
+    }
+  };
+
   return (
     <>
       <a
@@ -24,13 +43,21 @@ const WebBtn = ({
               ? "none"
               : null,
           borderRadius:
-            webBtnStyle === "style1" || webBtnStyle === "style5"
+            webBtnStyle === "style1" ||
+            webBtnStyle === "style5" ||
+            webBtnStyle === "style9"
               ? "0px"
-              : webBtnStyle === "style2" || webBtnStyle === "style6"
+              : webBtnStyle === "style2" ||
+                webBtnStyle === "style6" ||
+                webBtnStyle === "style10"
               ? "8px"
-              : webBtnStyle === "style3" || webBtnStyle === "style7"
+              : webBtnStyle === "style3" ||
+                webBtnStyle === "style7" ||
+                webBtnStyle === "style11"
               ? "14px"
-              : webBtnStyle === "style4" || webBtnStyle === "style8"
+              : webBtnStyle === "style4" ||
+                webBtnStyle === "style8" ||
+                webBtnStyle === "style12"
               ? "40px"
               : null,
           backgroundColor:
@@ -46,6 +73,16 @@ const WebBtn = ({
             webBtnStyle === "style7" ||
             webBtnStyle === "style8"
               ? `1px solid ${weblinkButtonBackgroundColor}`
+              : null,
+          background:
+            webBtnStyle === "style9" ||
+            webBtnStyle === "style10" ||
+            webBtnStyle === "style11" ||
+            webBtnStyle === "style12"
+              ? `linear-gradient(90deg, ${hexToRGBA(
+                  weblinkButtonBackgroundColor,
+                  "1"
+                )} 0%, ${hexToRGBA(weblinkButtonBackgroundColor, "2")} 100%)`
               : null,
         }}
         onClick={() => linkAnalytics(elm)}

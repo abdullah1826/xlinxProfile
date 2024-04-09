@@ -90,7 +90,7 @@ const SocialLinks = ({
           />
         ) : elm?.linkID === 26 ? (
           <div
-            className="w-[100%] text-center flex flex-col items-center "
+            className="w-[100%] text-center flex flex-col items-center mt-[20px]"
             style={{ display: elm?.shareable === false ? "none" : null }}
           >
             <h2

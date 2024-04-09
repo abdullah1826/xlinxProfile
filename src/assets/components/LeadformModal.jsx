@@ -1,4 +1,5 @@
 import { Box, Modal } from "@mui/material";
+import Slide from "@mui/material/Slide";
 import React, { useState } from "react";
 import { MdKeyboardArrowUp, MdKeyboardArrowDown } from "react-icons/md";
 import { push, ref, serverTimestamp, update } from "firebase/database";
@@ -6,6 +7,7 @@ import { getDownloadURL, uploadBytes, ref as sRef } from "firebase/storage";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import { db, storage } from "../../Firebase";
+import { RxCross1 } from "react-icons/rx";
 
 const LeadformModal = ({
   modal,
@@ -13,25 +15,28 @@ const LeadformModal = ({
   userdata,
   crntUsrAnalytics,
   handleConfirmModal,
-  downloadVcf,
+  setModal,
 }) => {
   let screenWidth = screen.width;
   const style2 = {
     position: "absolute",
-    top: "57%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    // top: "57%",
+    // left: "70%",
+    right: "0%",
+    // transform: "translate(-50%, -50%)",
+    bottom: 0,
     maxWidth: 420,
     width: "100%",
-    height: 490,
+    height: 530,
     display: "flex",
     justifyContent: "center",
+    zIndex: 20,
     // marginRight: screenWidth >= 900 ? "20px" : "0px",
 
     // boxShadow: 24,
 
     outline: "none",
-    borderRadius: "18px",
+    // borderRadiusTop: "18px",
     // p: "32px",
   };
 
@@ -109,6 +114,9 @@ const LeadformModal = ({
           crntWeekLeads: crntUsrAnalytics?.crntWeekLeads + 1,
           totalLeads: crntUsrAnalytics?.totalLeads + 1,
           todayLeads: crntUsrAnalytics?.todayLeads + 1,
+        }).then(() => {
+          setModal(true);
+          setIsMessage(true);
         });
 
         // toast.success("Information submited successfuly");
@@ -119,72 +127,62 @@ const LeadformModal = ({
           job: "",
           company: "",
         });
-        handleConfirmModal();
-        handleModal();
       });
-      // if (img) {
-      //   let name = new Date().getTime() + img.name;
-      //   const storageRef = sRef(storage, name);
-      //   uploadBytes(storageRef, img)
-      //     .then(() => {
-      //       console.log("img testing");
-      //       getDownloadURL(storageRef)
-      //         .then((URL) => {
-      //           console.log(URL);
-      //           update(
-      //             ref(db, `User/${userdata?.id}/contactRequests/${pushKey}`),
-      //             { imgUrl: URL }
-      //           ).then(() => {
-      //             setimg(null);
-      //           });
-      //         })
-      //         .catch((error) => {
-      //           console.log(error);
-      //         });
-      //     })
-      //     .catch((error) => {
-      //       console.log(error);
-      //     });
-      // }
     } else {
       toast.error("Please fill all the required fields");
     }
   };
 
+  let [isMessage, setIsMessage] = useState(false);
+
   return (
     <div>
-      <Modal
+      {/* <Modal
         open={modal}
         onClose={() => handleModal()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+      >*/}
+
+      <Slide
+        in={modal}
+        direction="up"
+        timeout={{ appear: 500, enter: 500, exit: 500 }}
       >
         <Box sx={style2}>
           <div
-            className="h-[100%] w-[90%] overflow-y-scroll scrollbar-hide flex flex-col rounded-[30px] items-center pb-2 bg-white "
+            className="h-[100%] w-[100%] overflow-y-scroll scrollbar-hide flex flex-col rounded-t-[30px] items-center pb-2 bg-white "
             style={{ marginRight: screenWidth >= 900 ? "15px" : "0px" }}
           >
-            {/* <div className="w-[100%] mt-2 flex justify-center ">
-              <div
-                className="w-[56px] h-[7px] rounded-full bg-[#EBE4E4] cursor-pointer"
-                onClick={() => handleModal()}
-              ></div>
-            </div> */}
-            <div
-              className="w-[100%] mt-5 flex justify-center"
-              style={{
-                fontFamily: "Inter",
-                fontSize: "20px",
-                fontWeight: "600",
-              }}
-            >
-              <span className="mr-[5px] text-[#3B57EE]">Exchange</span>
-              Info with {userdata?.firstName}
+            <div className="w-[92%] flex justify-end mt-[15px]">
+              <RxCross1
+                className="text-2xl cursor-pointer"
+                onClick={() => {
+                  handleModal(), setIsMessage(false);
+                }}
+              />
             </div>
+            {!isMessage ? (
+              <>
+                <div
+                  className="w-[100%] mt-[10px] flex justify-center"
+                  style={{
+                    fontFamily: "Inter",
+                    fontSize: "26px",
+                    fontWeight: "600",
+                  }}
+                >
+                  <p className="w-[85%] text-center">
+                    Share your contact details with
+                    <span className="ml-[5px] text-[#3B57EE] font-[400]">
+                      {userdata?.firstName}
+                    </span>
+                  </p>
+                </div>
 
-            <div class="w-[90%]  mt-[15px] bg-white">
-              <div class="mt-4">
-                {/* <p
+                <div class="w-[90%]  mt-[10px] bg-white">
+                  <div class="mt-4">
+                    {/* <p
                   class="ml-2 text-[#3F3939]"
                   style={{
                     fontFamily: "Inter",
@@ -194,17 +192,19 @@ const LeadformModal = ({
                 >
                   Full Name<span className="text-[red]">*</span>
                 </p> */}
-                <input
-                  type="text"
-                  placeholder="Enter Name"
-                  class="outline-none p-2 w-[100%]  border rounded-lg h-[57px] mt-[2px]"
-                  onChange={(e) => setData({ ...data, name: e.target.value })}
-                  value={data.name}
-                />
-              </div>
+                    <input
+                      type="text"
+                      placeholder="Your Name"
+                      class="outline-none p-2 w-[100%]  border rounded-[16px] h-[52px] mt-[2px]"
+                      onChange={(e) =>
+                        setData({ ...data, name: e.target.value })
+                      }
+                      value={data.name}
+                    />
+                  </div>
 
-              <div class="mt-4">
-                {/* <p
+                  <div class="mt-4">
+                    {/* <p
                   class="ml-2 text-[#3F3939]"
                   style={{
                     fontFamily: "Inter",
@@ -214,17 +214,19 @@ const LeadformModal = ({
                 >
                   Phone Number<span className="text-[red]">*</span>
                 </p> */}
-                <input
-                  type="text"
-                  placeholder="Enter Phone"
-                  class="outline-none p-2 w-[100%]  border rounded-lg h-[57px] mt-[2px]"
-                  onChange={(e) => setData({ ...data, phone: e.target.value })}
-                  value={data.phone}
-                />
-              </div>
+                    <input
+                      type="text"
+                      placeholder="*Phone"
+                      class="outline-none p-2 w-[100%]  border rounded-[16px] h-[52px] mt-[2px]"
+                      onChange={(e) =>
+                        setData({ ...data, phone: e.target.value })
+                      }
+                      value={data.phone}
+                    />
+                  </div>
 
-              <div class="mt-4">
-                {/* <p
+                  <div class="mt-4">
+                    {/* <p
                   class="ml-2 text-[#3F3939]"
                   style={{
                     fontFamily: "Inter",
@@ -235,19 +237,21 @@ const LeadformModal = ({
                   Email<span className="text-[red]">*</span>
                 </p> */}
 
-                <input
-                  type="text"
-                  placeholder="Enter Email"
-                  class="outline-none p-2 w-[100%]  border rounded-lg h-[57px] mt-[2px]"
-                  onChange={(e) => setData({ ...data, email: e.target.value })}
-                  value={data.email}
-                />
-              </div>
+                    <input
+                      type="text"
+                      placeholder="*Email"
+                      class="outline-none p-2 w-[100%]  border rounded-[16px] h-[52px] mt-[2px]"
+                      onChange={(e) =>
+                        setData({ ...data, email: e.target.value })
+                      }
+                      value={data.email}
+                    />
+                  </div>
 
-              <div>
-                <div class="mt-4 w-[100%] flex justify-between">
-                  <div className="w-[47%] ">
-                    {/* <p
+                  <div>
+                    <div class="mt-4 w-[100%] flex justify-between">
+                      <div className="w-[47%] ">
+                        {/* <p
                       class="ml-2 text-[#3F3939]"
                       style={{
                         fontFamily: "Inter",
@@ -257,18 +261,18 @@ const LeadformModal = ({
                     >
                       Company
                     </p> */}
-                    <input
-                      type="text"
-                      placeholder="Enter Company"
-                      class="outline-none p-2 w-[100%]  border rounded-lg h-[57px] mt-[2px]"
-                      onChange={(e) =>
-                        setData({ ...data, company: e.target.value })
-                      }
-                      value={data.company}
-                    />
-                  </div>
-                  <div className="w-[47%] ">
-                    {/* <p
+                        <input
+                          type="text"
+                          placeholder="Company"
+                          class="outline-none p-2 w-[100%]  border rounded-[16px] h-[52px] mt-[2px]"
+                          onChange={(e) =>
+                            setData({ ...data, company: e.target.value })
+                          }
+                          value={data.company}
+                        />
+                      </div>
+                      <div className="w-[47%] ">
+                        {/* <p
                       class="ml-2 text-[#3F3939]"
                       style={{
                         fontFamily: "Inter",
@@ -278,19 +282,19 @@ const LeadformModal = ({
                     >g
                       Title
                     </p> */}
-                    <input
-                      type="text"
-                      placeholder="Enter Title"
-                      class="outline-none p-2 w-[100%]  border rounded-lg h-[57px] mt-[2px]"
-                      onChange={(e) =>
-                        setData({ ...data, job: e.target.value })
-                      }
-                      value={data.job}
-                    />
-                  </div>
-                </div>
+                        <input
+                          type="text"
+                          placeholder="Job title"
+                          class="outline-none p-2 w-[100%]  border rounded-[16px] h-[52px] mt-[2px]"
+                          onChange={(e) =>
+                            setData({ ...data, job: e.target.value })
+                          }
+                          value={data.job}
+                        />
+                      </div>
+                    </div>
 
-                {/* <div class="mt-2">
+                    {/* <div class="mt-2">
                   <p class="ml-2">Company</p>
                   <input
                     type="text"
@@ -302,27 +306,63 @@ const LeadformModal = ({
                     value={data.company}
                   />
                 </div> */}
-              </div>
+                  </div>
 
-              <div className="w-[100%] flex justify-center mt-[20px]">
-                <div
-                  className="w-[100%] border rounded-lg  h-[55px] bg-[black] flex justify-center items-center text-white cursor-pointer "
-                  onClick={() => addData()}
-                  style={{
-                    fontFamily: "Inter",
-                    fontSize: "20px",
-                    fontWeight: "400",
-                  }}
-                >
-                  Share
+                  <div className="w-[100%] flex justify-center mt-[20px]">
+                    <div
+                      className="w-[100%] border rounded-[18px]  h-[60px] bg-[#2B6EF6] flex justify-center items-center text-white cursor-pointer "
+                      onClick={() => addData()}
+                      style={{
+                        fontFamily: "Inter",
+                        fontSize: "20px",
+                        fontWeight: "400",
+                      }}
+                    >
+                      Share
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
+              </>
+            ) : (
+              <>
+                <div className="w-[100%] flex flex-col items-center justify-center mt-[140px]">
+                  <div className="text-[29px] font-[700] text-center">
+                    <p>All set!</p>
+                    <p>
+                      <span className="text-[#3B57EE] mr-[5px]">
+                        {userdata?.firstName}
+                      </span>{" "}
+                      got your info!
+                    </p>
+                  </div>
+                  <div className="w-[100%] flex flex-col justify-center items-center mt-[120px]">
+                    <div
+                      className="w-[90%] border rounded-[18px]  h-[60px] bg-[#2B6EF6] flex justify-center items-center text-white cursor-pointer "
+                      onClick={() => window.open("https://onelink.to/srbhaw")}
+                      style={{
+                        fontFamily: "Inter",
+                        fontSize: "20px",
+                        fontWeight: "400",
+                      }}
+                    >
+                      Create your own profile
+                    </div>
+
+                    <p className="font-[400] w-[87%] text-[16px] text-[#AEAEAE] text-center mt-3">
+                      Grow faster and elevate your info-sharing experience with
+                      your own mini-site.
+                    </p>
+                  </div>
+                </div>
+              </>
+            )}
 
             <ToastContainer position="top-center" autoClose={2000} />
           </div>
         </Box>
-      </Modal>
+      </Slide>
+
+      {/*</Modal> */}
     </div>
   );
 };

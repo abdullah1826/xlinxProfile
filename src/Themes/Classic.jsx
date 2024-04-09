@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import share from "../imgs/share.svg";
 import imgPlchldr from "../imgs/imgPlchldr.jpg";
 import logoPlchldr from "../imgs/logoPlchldr.png";
@@ -9,7 +9,9 @@ import WebGrfkBtn from "../assets/components/webGrfkBtn";
 import SocialLinks from "../assets/components/SocialLinks";
 import ReactPlayer from "react-player";
 import { browserName } from "react-device-detect";
-
+import { HiDotsHorizontal } from "react-icons/hi";
+import MenumenuModal from "../assets/components/MenuModal";
+import btmLogo from "../imgs/btmLogo.png";
 const Classic = ({
   coverurl,
   logourl,
@@ -46,13 +48,31 @@ const Classic = ({
   let hideSaveContactTrue = null;
 
   // console.log(hideSaveContact);
+  let [menuModal, setMenuModal] = useState(false);
+  let handleMenuModal = () => {
+    setMenuModal(!menuModal);
+  };
   return (
     <div className="w-[100%] relative  h-[100vh] opacity-[100%] overflow-y-scroll scrollbar-hide ">
-      <div className="min-h-[355px] w-[100%] flex items-center flex-col">
+      <MenumenuModal
+        menuModal={menuModal}
+        handleMenuModal={handleMenuModal}
+        userdata={userdata}
+      />
+      <div
+        className="h-[38px] w-[38px] rounded-full fixed top-6 right-[50%] cursor-pointer flex justify-center items-center z-10 sm:mr-[-190px] mr-[-43%]"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(255, 255, 255, 0.495) 0%, rgba(255, 255, 255, 0.2178) 100%)",
+        }}
+        onClick={() => handleMenuModal()}
+      >
+        <HiDotsHorizontal className="text-[white] text-2xl" />
+      </div>
+      <div className="min-h-[355px] w-[100%] flex items-center flex-col relative">
         {coverurl ? (
           <img
             src={coverurl}
-            // alt="background"
             className="h-[210px] w-[90%] mt-[15px] rounded-2xl"
             loading="lazy"
           />
@@ -85,7 +105,7 @@ const Classic = ({
 
         <div className="w-[100%] flex justify-center mt-[72px] ">
           <h2
-            className="text-[22px]  font-[600] text-center w-[90%]"
+            className="text-[28px]  font-[600] text-center w-[90%]"
             style={{ color: whiteTextAndBorder ? "white" : "black" }}
           >
             {returnSlicedString(
@@ -264,10 +284,15 @@ const Classic = ({
         // }}
       >
         <div
-          className="h-[51px] w-[211px] rounded-[15px] text-[#FFFFFF]  bg-black flex justify-center items-center  font-[500] text-[15px] cursor-pointer "
+          className="h-[49px] w-[178px] rounded-[55px] text-[#FFFFFF] flex justify-center items-center  font-[500] text-[15px] cursor-pointer gap-2"
           onClick={() => window.open("https://www.getcirco.com/download")}
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(119, 119, 119, 0.66) 0%, rgba(44, 44, 44, 0.33) 100%)",
+          }}
         >
-          Create your own profile
+          <img src={btmLogo} className="h-[17px] w-[17px]" />
+          Create your Circo
         </div>
       </div>
       {/* <br /> */}

@@ -17,6 +17,25 @@ const FeaturedSocial = ({
 }) => {
   console.log(highlightBoxStyle);
 
+  let hexToRGBA = (hex, num) => {
+    // Remove the '#' character if present
+    hex = hex?.replace("#", "");
+
+    // Convert the hex value to RGB
+    const red = parseInt(hex?.substring(0, 2), 16);
+    const green = parseInt(hex?.substring(2, 4), 16);
+    const blue = parseInt(hex?.substring(4, 6), 16);
+
+    // Convert RGB to RGBA with alpha value 0.1
+    const rgba1 = `rgba(${red}, ${green}, ${blue}, 0.75)`;
+    const rgba2 = `rgba(${red}, ${green}, ${blue}, 0.33)`;
+    if (num === "1") {
+      return rgba1;
+    } else {
+      return rgba2;
+    }
+  };
+
   return (
     <>
       <a
@@ -59,6 +78,13 @@ const FeaturedSocial = ({
               border:
                 highlightBoxStyle === "style1"
                   ? `1px solid ${boxBackgroundColor}`
+                  : null,
+              background:
+                highlightBoxStyle === "style3"
+                  ? `linear-gradient(90deg, ${hexToRGBA(
+                      boxBackgroundColor,
+                      "1"
+                    )} 0%, ${hexToRGBA(boxBackgroundColor, "2")} 100%)`
                   : null,
             }}
           >

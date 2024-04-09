@@ -6,8 +6,8 @@ import "./fonts.css";
 function App() {
   return (
     <div
-      className="w-[100%] flex justify-center min-h-[100vh]"
-      style={{ fontFamily: "Inter" }}
+      className="w-[100%] flex justify-center h-[100vh] overflow-hidden"
+      // style={{ fontFamily: "Inter" }}
     >
       <BrowserRouter>
         <Routes>
