@@ -7,12 +7,44 @@ import { push, ref, serverTimestamp, update } from "firebase/database";
 import { db } from "../../Firebase";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import {
+  EmailShareButton,
+  FacebookMessengerShareButton,
+  FacebookShareButton,
+  InstapaperShareButton,
+  LineShareButton,
+  LinkedinShareButton,
+  PinterestShareButton,
+  RedditShareButton,
+  TelegramShareButton,
+  TwitterShareButton,
+  ViberShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import {
+  EmailIcon,
+  FacebookIcon,
+  FacebookMessengerIcon,
+  InstapaperIcon,
+  LineIcon,
+  LinkedinIcon,
+  PinterestIcon,
+  RedditIcon,
+  TelegramIcon,
+  TwitterIcon,
+  ViberIcon,
+  WhatsappIcon,
+} from "react-share";
+import Tooltip from "@mui/material/Tooltip";
+import { BiCopy } from "react-icons/bi";
+import { SlArrowLeft } from "react-icons/sl";
 
 const MenumenuModal = ({ menuModal, handleMenuModal, userdata }) => {
   const [modalRoute, setModalRoute] = useState({
     isOptions: true,
     isReport: false,
     isMessage: false,
+    isShare: false,
   });
 
   const style2 = {
@@ -37,18 +69,28 @@ const MenumenuModal = ({ menuModal, handleMenuModal, userdata }) => {
         isOptions: true,
         isReport: false,
         isMessage: false,
+        isShare: false,
       });
     } else if (option === "report") {
       setModalRoute({
         isOptions: false,
         isReport: true,
         isMessage: false,
+        isShare: false,
       });
     } else if (option === "message") {
       setModalRoute({
         isOptions: false,
         isReport: false,
         isMessage: true,
+        isShare: false,
+      });
+    } else if (option === "share") {
+      setModalRoute({
+        isOptions: false,
+        isReport: false,
+        isMessage: false,
+        isShare: true,
       });
     }
   };
@@ -81,7 +123,8 @@ const MenumenuModal = ({ menuModal, handleMenuModal, userdata }) => {
       toast.error("message field should not be empty!");
     }
   };
-
+  let url = window.location.href;
+  let quote = "Circo";
   return (
     <Modal
       open={menuModal}
@@ -97,7 +140,10 @@ const MenumenuModal = ({ menuModal, handleMenuModal, userdata }) => {
                 {userdata?.name}
               </div>
               <div className="w-[100%] flex justify-center mt-8">
-                <div className="w-[90%] flex justify-between items-center ">
+                <div
+                  className="w-[90%] flex justify-between items-center "
+                  onClick={() => openOption("share")}
+                >
                   <div className="w-[55%] flex justify-between items-center">
                     <FiUpload className="text-xl" />
                     <p className="font-[400] text-[17px]">Share this profile</p>
@@ -214,6 +260,129 @@ const MenumenuModal = ({ menuModal, handleMenuModal, userdata }) => {
                 >
                   Done
                 </button>
+              </div>
+            </>
+          )}
+
+          {modalRoute.isShare && (
+            <>
+              <div className="w-[100%] flex justify-center flex-col items-center">
+                <div className="w-[98%] flex justify-start mt-4 ml-3">
+                  <SlArrowLeft
+                    onClick={() => openOption("options")}
+                    className="text-2xl cursor-pointer"
+                  />
+                  {/* <RxCross2 className="text-black cursor-pointer" onClick={() =>handleShareModal()}/> */}
+                </div>
+                <h2 className="text-lg font-medium">Share To</h2>
+
+                <div className="w-[90%] grid grid-cols-3 gap-x-3 gap-y-5  mt-5">
+                  <Tooltip title="Copy to Clipboard" placement="top-start">
+                    <div className=" flex  items-center ml-[22px]">
+                      <BiCopy
+                        className="text-[45px] cursor-pointer active:text-[#0b567f] active:text-[40px]"
+                        onClick={() => {
+                          navigator.clipboard.writeText(url);
+                        }}
+                      />
+                      {/* <div className='text-[10px]'>Copy url</div> */}
+                    </div>
+                  </Tooltip>
+
+                  <div className="ml-[22px]">
+                    <WhatsappShareButton
+                      id="whatsapp"
+                      url={quote + "\n" + url}
+                      text={"Please find my Profile Link below:"}
+                      hashtag="#React"
+                    >
+                      <WhatsappIcon size={50} round={true} />
+                    </WhatsappShareButton>
+                  </div>
+
+                  <div className="ml-[22px]">
+                    <TelegramShareButton
+                      id="telegram"
+                      url={quote + "\n" + url}
+                      text={quote}
+                      hashtag="#React"
+                    >
+                      <TelegramIcon size={50} round={true} />
+                    </TelegramShareButton>
+                  </div>
+
+                  <div className="ml-[22px]">
+                    <FacebookShareButton
+                      id="facebook"
+                      url={quote + "\n" + url}
+                      text={quote}
+                      hashtag="#React"
+                    >
+                      <FacebookIcon size={50} round={true} />
+                    </FacebookShareButton>
+                  </div>
+
+                  <div className="ml-[22px]">
+                    <EmailShareButton
+                      id="Email"
+                      url={quote + "\n" + url}
+                      text={quote}
+                      hashtag="#React"
+                    >
+                      <EmailIcon size={50} round={true} />
+                    </EmailShareButton>
+                  </div>
+
+                  <div className="ml-[22px]">
+                    <PinterestShareButton
+                      id="pinterest"
+                      url={quote + "\n" + url}
+                      text={quote}
+                      hashtag="#React"
+                    >
+                      <PinterestIcon size={50} round={true} />
+                    </PinterestShareButton>
+                  </div>
+
+                  <div className="ml-[22px]">
+                    <LinkedinShareButton
+                      id="linkedin"
+                      url={quote + "\n" + url}
+                      text={quote}
+                      hashtag="#React"
+                    >
+                      <LinkedinIcon size={50} round={true} />
+                    </LinkedinShareButton>
+                  </div>
+
+                  {/* <div>
+<FacebookMessengerShareButton id='fbMessenger' url={quote + "\n" + url} text={quote} hashtag="#React">
+              <FacebookMessengerIcon size={50} round={true} />
+            </FacebookMessengerShareButton>
+</div> */}
+
+                  <div className="ml-[22px]">
+                    <TwitterShareButton
+                      id="twitter"
+                      url={quote + "\n" + url}
+                      text={quote}
+                      hashtag="#React"
+                    >
+                      <TwitterIcon size={50} round={true} />
+                    </TwitterShareButton>
+                  </div>
+
+                  <div className="ml-[22px]">
+                    <RedditShareButton
+                      id="reddit"
+                      url={quote + "\n" + url}
+                      text={quote}
+                      hashtag="#React"
+                    >
+                      <RedditIcon size={50} round={true} />
+                    </RedditShareButton>
+                  </div>
+                </div>
               </div>
             </>
           )}

@@ -24,13 +24,14 @@ const LeadformModal = ({
     // left: "70%",
     right: "0%",
     // transform: "translate(-50%, -50%)",
-    bottom: 0,
-    maxWidth: 420,
+    bottom: 1,
+    maxWidth: window.innerWidth > 850 ? 420 : 430,
     width: "100%",
     height: 530,
     display: "flex",
     justifyContent: "center",
-    zIndex: 20,
+    zIndex: 30,
+
     // marginRight: screenWidth >= 900 ? "20px" : "0px",
 
     // boxShadow: 24,
@@ -151,7 +152,7 @@ const LeadformModal = ({
       >
         <Box sx={style2}>
           <div
-            className="h-[100%] w-[100%] overflow-y-scroll scrollbar-hide flex flex-col rounded-t-[30px] items-center pb-2 bg-white "
+            className="h-[100%] w-[100%] overflow-y-scroll scrollbar-hide flex flex-col rounded-t-[30px] items-center  bg-white "
             style={{ marginRight: screenWidth >= 900 ? "15px" : "0px" }}
           >
             <div className="w-[92%] flex justify-end mt-[15px]">
@@ -165,7 +166,7 @@ const LeadformModal = ({
             {!isMessage ? (
               <>
                 <div
-                  className="w-[100%] mt-[10px] flex justify-center"
+                  className="w-[100%] mt-[0px] flex justify-center"
                   style={{
                     fontFamily: "Inter",
                     fontSize: "26px",
@@ -175,12 +176,14 @@ const LeadformModal = ({
                   <p className="w-[85%] text-center">
                     Share your contact details with
                     <span className="ml-[5px] text-[#3B57EE] font-[400]">
-                      {userdata?.firstName}
+                      {userdata?.firstName
+                        ? userdata?.firstName
+                        : userdata?.name}
                     </span>
                   </p>
                 </div>
 
-                <div class="w-[90%]  mt-[10px] bg-white">
+                <div class="w-[90%]  mt-[0px] ">
                   <div class="mt-4">
                     {/* <p
                   class="ml-2 text-[#3F3939]"

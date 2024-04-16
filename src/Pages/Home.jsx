@@ -67,6 +67,19 @@ const Home = () => {
   const oneDay = 24 * 60 * 60 * 1000;
 
   useEffect(() => {
+    var starCountRefexe = query(
+      ref(db, "User/"),
+      orderByChild("address"),
+      equalTo("New York, NY")
+    );
+
+    onValue(starCountRefexe, async (snapshot) => {
+      const userdata = await snapshot.val();
+      console.log("qData", userdata);
+    });
+  }, []);
+
+  useEffect(() => {
     const starCountRef2 = ref(db, `Analytic/`);
     onValue(starCountRef2, async (snapshot) => {
       const analytData = await snapshot.val();

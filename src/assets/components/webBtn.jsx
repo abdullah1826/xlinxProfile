@@ -79,10 +79,25 @@ const WebBtn = ({
             webBtnStyle === "style10" ||
             webBtnStyle === "style11" ||
             webBtnStyle === "style12"
-              ? `linear-gradient(90deg, ${hexToRGBA(
+              ? `linear-gradient(135deg, ${hexToRGBA(
                   weblinkButtonBackgroundColor,
                   "1"
                 )} 0%, ${hexToRGBA(weblinkButtonBackgroundColor, "2")} 100%)`
+              : null,
+
+          backdropFilter:
+            webBtnStyle === "style9" ||
+            webBtnStyle === "style10" ||
+            webBtnStyle === "style11" ||
+            webBtnStyle === "style12"
+              ? "blur(5px)"
+              : null,
+          WebkitBackdropFilter:
+            webBtnStyle === "style9" ||
+            webBtnStyle === "style10" ||
+            webBtnStyle === "style11" ||
+            webBtnStyle === "style12"
+              ? "blur(5px)"
               : null,
         }}
         onClick={() => linkAnalytics(elm)}
@@ -100,13 +115,21 @@ const WebBtn = ({
                       ? "none"
                       : null,
                   borderRadius:
-                    webBtnStyle === "style1" || webBtnStyle === "style5"
+                    webBtnStyle === "style1" ||
+                    webBtnStyle === "style5" ||
+                    webBtnStyle === "style9"
                       ? "0px"
-                      : webBtnStyle === "style2" || webBtnStyle === "style6"
+                      : webBtnStyle === "style2" ||
+                        webBtnStyle === "style6" ||
+                        webBtnStyle === "style10"
                       ? "8px"
-                      : webBtnStyle === "style3" || webBtnStyle === "style7"
+                      : webBtnStyle === "style3" ||
+                        webBtnStyle === "style7" ||
+                        webBtnStyle === "style11"
                       ? "14px"
-                      : webBtnStyle === "style4" || webBtnStyle === "style8"
+                      : webBtnStyle === "style4" ||
+                        webBtnStyle === "style8" ||
+                        webBtnStyle === "style12"
                       ? "40px"
                       : null,
                 }}

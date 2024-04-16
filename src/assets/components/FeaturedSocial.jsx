@@ -68,25 +68,33 @@ const FeaturedSocial = ({
             //     ? { display: "none" }
             //     : null
             // }
-            style={{
-              display: elm?.shareable === false ? "none" : null,
-
-              backgroundColor:
-                highlightBoxStyle === "style1"
-                  ? "transparent"
-                  : boxBackgroundColor,
-              border:
-                highlightBoxStyle === "style1"
-                  ? `1px solid ${boxBackgroundColor}`
-                  : null,
-              background:
-                highlightBoxStyle === "style3"
-                  ? `linear-gradient(90deg, ${hexToRGBA(
+            style={
+              highlightBoxStyle === "style3"
+                ? {
+                    background: `linear-gradient(135deg, ${hexToRGBA(
                       boxBackgroundColor,
                       "1"
-                    )} 0%, ${hexToRGBA(boxBackgroundColor, "2")} 100%)`
-                  : null,
-            }}
+                    )} 0%, ${hexToRGBA(boxBackgroundColor, "2")} 100%)`,
+
+                    backdropFilter: "blur(5px)",
+                    WebkitBackdropFilter: "blur(5px)",
+                    display: elm?.shareable === false ? "none" : null,
+                  }
+                : {
+                    display: elm?.shareable === false ? "none" : null,
+
+                    backgroundColor:
+                      highlightBoxStyle === "style1"
+                        ? "transparent"
+                        : boxBackgroundColor,
+                    border:
+                      highlightBoxStyle === "style1"
+                        ? `1px solid ${boxBackgroundColor}`
+                        : null,
+
+                    // boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
+                  }
+            }
           >
             <div className="w-[33%]  flex justify-center items-center">
               {imgAdded(elm?.image) ? (

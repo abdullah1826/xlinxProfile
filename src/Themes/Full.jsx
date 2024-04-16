@@ -11,6 +11,7 @@ import SocialLinks from "../assets/components/SocialLinks";
 import { browserName } from "react-device-detect";
 import MenumenuModal from "../assets/components/MenuModal";
 import { HiDotsHorizontal } from "react-icons/hi";
+import btmLogo from "../imgs/btmLogo.png";
 
 const Full = ({
   coverurl,
@@ -100,13 +101,15 @@ const Full = ({
 
         <div className="w-[100%] flex justify-center mt-[10px]">
           <h2
-            className="text-[28px]  font-[600] text-center w-[90%]"
+            className="text-[28px]  boldtext text-center w-[90%]"
             style={{ color: whiteTextAndBorder ? "white" : "black" }}
           >
-            {returnSlicedString(
-              `${userdata?.firstName} ${userdata?.lastName}`,
-              30
-            )}
+            {userdata?.firstName && userdata?.lastName
+              ? returnSlicedString(
+                  `${userdata?.firstName} ${userdata?.lastName}`,
+                  30
+                )
+              : returnSlicedString(userdata?.name, 30)}
           </h2>
         </div>
 
@@ -218,6 +221,8 @@ const Full = ({
           style={{
             background:
               "linear-gradient(90deg, rgba(119, 119, 119, 0.66) 0%, rgba(44, 44, 44, 0.33) 100%)",
+            backdropFilter: "blur(5px)",
+            WebkitBackdropFilter: "blur(5px)",
           }}
         >
           <img src={btmLogo} className="h-[17px] w-[17px]" />
