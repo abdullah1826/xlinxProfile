@@ -20,7 +20,7 @@ import LeadformModal from "../assets/components/LeadformModal";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import share from "../imgs/share.svg";
-import imgPlchldr from "../imgs/imgPlchldr.jpg";
+import imgPlchldr from "../imgs/imgPlchldr.png";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
 import prffbg from "../imgs/prflbg.png";
@@ -30,6 +30,7 @@ import Classic from "../Themes/Classic";
 import Color from "../Themes/Color";
 import Full from "../Themes/Full";
 import Portrait from "../Themes/Portrait";
+import "../App.css";
 
 const Home = () => {
   let { userid } = useParams();
@@ -58,7 +59,19 @@ const Home = () => {
   };
 
   let handleModal = () => {
-    setModal(!modal);
+    if (!modal) {
+      setModal(!modal);
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth",
+      });
+    } else {
+      setModal(!modal);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
   };
 
   let currentDate = Date.now();
@@ -70,7 +83,7 @@ const Home = () => {
     var starCountRefexe = query(
       ref(db, "User/"),
       orderByChild("address"),
-      equalTo("New York, NY")
+      equalTo("Atlanta")
     );
 
     onValue(starCountRefexe, async (snapshot) => {
@@ -78,6 +91,19 @@ const Home = () => {
       console.log("qData", userdata);
     });
   }, []);
+
+  let handleLeadModal = (lead) => {
+    if (lead) {
+      localStorage.setItem("leadForm", "true");
+      window.scrollTo(0, document.body.scrollHeight);
+      setModal(lead);
+    } else {
+      localStorage.setItem("leadForm", "false");
+      setModal(lead);
+    }
+  };
+
+  let leadShouldOpen = localStorage.getItem("leadForm");
 
   useEffect(() => {
     const starCountRef2 = ref(db, `Analytic/`);
@@ -107,7 +133,8 @@ const Home = () => {
         console.log(data);
         if (data) {
           setuserdata(Object.values(data)[0]);
-          setModal(Object.values(data)[0]?.leadMode);
+          // setModal(Object.values(data)[0]?.leadMode);
+          handleLeadModal(Object.values(data)[0]?.leadMode);
           Object.values(data)[0]?.links &&
             setsociallink(Object.values(Object.values(data)[0]?.links));
           setloading(false);
@@ -116,8 +143,7 @@ const Home = () => {
             const data2 = await snapshot.val();
             console.log(data2);
             if (data2) {
-              console.log(data2);
-
+              // console.log(Object.values(data2)[0]?.profileSelected);
               if (Object.values(data2)[0]?.profileSelected) {
                 var starCountRef7 = query(
                   ref(db, "User/"),
@@ -131,13 +157,12 @@ const Home = () => {
                   equalTo(Object.values(data2)[0]?.id)
                 );
               }
-
               onValue(starCountRef7, async (snapshot) => {
                 const userdata = await snapshot.val();
-                console.log(userdata);
                 if (userdata) {
                   setuserdata(Object.values(userdata)[0]);
-                  setModal(Object.values(userdata)[0]?.leadMode);
+                  // setModal(Object.values(userdata)[0]?.leadMode);
+                  handleLeadModal(Object.values(userdata)[0]?.leadMode);
                   Object.values(userdata)[0]?.links &&
                     setsociallink(
                       Object.values(Object.values(userdata)[0]?.links)
@@ -178,7 +203,8 @@ const Home = () => {
                         console.log(userdata);
                         if (userdata) {
                           setuserdata(Object.values(userdata)[0]);
-                          setModal(Object.values(userdata)[0]?.leadMode);
+                          // setModal(Object.values(userdata)[0]?.leadMode);
+                          handleLeadModal(Object.values(userdata)[0]?.leadMode);
                           Object.values(userdata)[0]?.links &&
                             setsociallink(
                               Object.values(Object.values(userdata)[0]?.links)
@@ -593,7 +619,20 @@ const Home = () => {
     }
   };
 
-  // console.log(base64img?.slice(23));
+  const findLinkAndReturn = (id) => {
+    let link = sociallink?.find((elm) => {
+      return elm?.id === id;
+    });
+    if (link) {
+      if (link.value) {
+        return link?.baseUrl + link?.value;
+      } else {
+        return link?.url;
+      }
+    }
+  };
+
+  console.log(base64img?.slice(37));
   let downloadVcf = async () => {
     // Define a new vCard
     const myVCard = new VCard();
@@ -611,45 +650,80 @@ const Home = () => {
       .addCompany(userdata?.company)
       .addEmail(userdata?.email)
       .addPhoneNumber(userdata?.phone)
-      .addPhoto(base64img.slice(23), "jpeg")
+      .addPhoto(base64img.slice(37), "jpeg")
       .addAddress("", "", userdata?.address)
       .addNote("From Circo");
+    const userAgent = navigator.userAgent;
+    if (userAgent.match(/Android/i)) {
+      sociallink?.map((elm) => {
+        if (
+          // elm?.linkID != 3 &&
+          elm?.linkID != 1 &&
+          elm?.linkID != 4 &&
+          elm?.linkID != 2 &&
+          elm?.linkID != 3 &&
+          elm?.linkID != 26 &&
+          elm?.shareable === true
+        ) {
+          myVCard.addURL(
+            checkHttp(
+              elm?.linkID === 999 ? elm?.url : elm?.baseUrl + elm?.value,
+              elm?.linkID,
+              elm?.value
+            )
+          );
+        }
+        if (elm?.linkID === 2 && elm?.value != userdata?.phone) {
+          myVCard.addPhoneNumber(elm?.value);
+        }
+        if (elm?.linkID === 3 && elm?.value != userdata?.email) {
+          myVCard.addEmail(elm?.value);
+        }
 
-    sociallink?.map((elm) => {
-      if (
-        // elm?.linkID != 3 &&
-        elm?.linkID != 1 &&
-        elm?.linkID != 4 &&
-        elm?.linkID != 2 &&
-        elm?.linkID != 3 &&
-        elm?.linkID != 26 &&
-        elm?.shareable === true
-      ) {
-        myVCard.addSocial(
-          checkHttp(
-            elm?.linkID === 999 ? elm?.url : elm?.baseUrl + elm?.value,
-            elm?.linkID,
-            elm?.value
-          ),
-          elm?.name
-        );
-      }
-      if (elm?.linkID === 2 && elm?.value != userdata?.phone) {
-        myVCard.addPhoneNumber(elm?.value);
-      }
-      if (elm?.linkID === 3 && elm?.value != userdata?.email) {
-        myVCard.addEmail(elm?.value);
-      }
+        // if (elm?.linkID === 1) {
+        //   myVCard.addPhoneNumber(elm?.value);
+        // }
+        if (elm?.linkID === 21) {
+          myVCard.addURL(elm?.value);
+        }
+        // checkHttp(elm?.baseUrl + elm?.value, elm?.linkID)
+      });
+    } else {
+      sociallink?.map((elm) => {
+        if (
+          // elm?.linkID != 3 &&
+          elm?.linkID != 1 &&
+          elm?.linkID != 4 &&
+          elm?.linkID != 2 &&
+          elm?.linkID != 3 &&
+          elm?.linkID != 26 &&
+          elm?.shareable === true
+        ) {
+          myVCard.addSocial(
+            checkHttp(
+              elm?.linkID === 999 ? elm?.url : elm?.baseUrl + elm?.value,
+              elm?.linkID,
+              elm?.value
+            ),
+            elm?.name
+          );
+        }
+        if (elm?.linkID === 2 && elm?.value != userdata?.phone) {
+          myVCard.addPhoneNumber(elm?.value);
+        }
+        if (elm?.linkID === 3 && elm?.value != userdata?.email) {
+          myVCard.addEmail(elm?.value);
+        }
 
-      // if (elm?.linkID === 1) {
-      //   myVCard.addPhoneNumber(elm?.value);
-      // }
-      if (elm?.linkID === 21) {
-        myVCard.addURL(elm?.value);
-      }
-      // checkHttp(elm?.baseUrl + elm?.value, elm?.linkID)
-    });
-
+        // if (elm?.linkID === 1) {
+        //   myVCard.addPhoneNumber(elm?.value);
+        // }
+        if (elm?.linkID === 21) {
+          myVCard.addURL(elm?.value);
+        }
+        // checkHttp(elm?.baseUrl + elm?.value, elm?.linkID)
+      });
+    }
     const vcardData = myVCard.toString();
     const blob = new Blob([vcardData], { type: "text/vcard;charset=utf-8" });
     const url = window.URL.createObjectURL(blob);
@@ -660,6 +734,10 @@ const Home = () => {
     link.click();
     document.body.removeChild(link);
     setModal(true);
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
   let returnSlicedString = (str, numVal) => {
@@ -702,7 +780,7 @@ const Home = () => {
       return code;
     }
   };
-
+  console.log(userdata?.profileDesign?.profileFont);
   return (
     <>
       {loading ? (
@@ -714,11 +792,36 @@ const Home = () => {
           ) : userdata?.directMode === false ? (
             // <div className="h-max w-max relative">
             <div
-              className="h-[100vh] max-w-[435px] w-[100%] flex flex-col items-center  shadow-lg  relative"
+              className={`h-[100vh] max-w-[435px] w-[100%] flex flex-col items-center  shadow-lg  relative ${
+                userdata?.profileDesign?.profileFont === "1"
+                  ? "inika"
+                  : userdata?.profileDesign?.profileFont === "2"
+                  ? "gugi"
+                  : userdata?.profileDesign?.profileFont === "3"
+                  ? "gothic"
+                  : userdata?.profileDesign?.profileFont === "4"
+                  ? "marckScript"
+                  : userdata?.profileDesign?.profileFont === "5"
+                  ? "chivo"
+                  : userdata?.profileDesign?.profileFont === "6"
+                  ? "sf"
+                  : "sf"
+              }`}
               style={
                 userdata?.profileDesign?.backgroundTheme === "Full"
                   ? {
-                      fontFamily: "Inter, sans-serif",
+                      // fontFamily:
+                      //   userdata?.profileDesign?.profileFont === "1"
+                      //     ? "Inika , sans-serif"
+                      //     : userdata?.profileDesign?.profileFont === "2"
+                      //     ? "Inter, sans-serif"
+                      //     : userdata?.profileDesign?.profileFont === "3"
+                      //     ? "Inter, sans-serif"
+                      //     : userdata?.profileDesign?.profileFont === "4"
+                      //     ? "Inter, sans-serif"
+                      //     : userdata?.profileDesign?.profileFont === "5"
+                      //     ? "Inter, sans-serif"
+                      //     : "",
                       // backgroundImage: `url(${userdata?.profileDesign?.backgroundImage})`,
                       // backgroundSize: "cover",
                       // backgroundRepeat: "no-repeat",
@@ -726,7 +829,7 @@ const Home = () => {
                       // opacity: `${userdata?.profileDesign?.backgroundOpacity}%`,
                     }
                   : {
-                      fontFamily: "Inter, sans-serif",
+                      // fontFamily: "Inter, sans-serif",
 
                       // background: `linear-gradient(to bottom, ${hexToRGBA(
                       //   userdata?.cardColor
@@ -735,6 +838,15 @@ const Home = () => {
                     }
               }
             >
+              {modal && (
+                <div
+                  className="h-[100%] w-[100%] z-20 absolute"
+                  style={{
+                    background:
+                      "linear-gradient(90deg, rgba(44, 44, 44, 0.65) 0%, rgba(44, 44, 44, 0.65) 100%) 0%",
+                  }}
+                ></div>
+              )}
               {userdata?.profileDesign?.backgroundTheme === "Custom" &&
               userdata?.profileDesign?.backgroundImage ? (
                 <img
@@ -757,7 +869,7 @@ const Home = () => {
                 }}
               > */}
               {/* <ToastContainer position="top-center" autoClose={2000} /> */}
-
+              {/* {leadShouldOpen === "false" && ( */}
               <LeadformModal
                 modal={modal}
                 handleModal={handleModal}
@@ -766,6 +878,7 @@ const Home = () => {
                 handleConfirmModal={handleConfirmModal}
                 setModal={setModal}
               />
+              {/* )} */}
               <ConfirmModal
                 confirmModal={confirmModal}
                 handleConfirmModal={handleConfirmModal}
@@ -1007,11 +1120,15 @@ const Home = () => {
             </div>
           ) : (
             // </div>
-            (window.location.href = checkHttp(
-              userdata?.direct?.baseUrl + userdata?.direct?.value,
-              userdata?.direct?.linkID,
-              userdata?.direct?.value
-            ))
+            window.open(
+              checkHttp(
+                userdata?.direct?.value
+                  ? userdata?.direct?.baseUrl + userdata?.direct?.value
+                  : findLinkAndReturn(userdata?.direct?.id),
+                userdata?.direct?.linkID,
+                userdata?.direct?.value
+              )
+            )
             // returnSocialUrl(userdata?.direct?.name, userdata?.direct?.value)
           )}
         </>

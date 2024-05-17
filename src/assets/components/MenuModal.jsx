@@ -133,7 +133,21 @@ const MenumenuModal = ({ menuModal, handleMenuModal, userdata }) => {
       aria-describedby="menuModal-menuModal-description"
     >
       <Box sx={style2}>
-        <div className="w-[100%] h-[100%]">
+        <div
+          className={`w-[100%] h-[100%] ${
+            userdata?.profileDesign?.profileFont === "1"
+              ? "inika"
+              : userdata?.profileDesign?.profileFont === "2"
+              ? "gugi"
+              : userdata?.profileDesign?.profileFont === "3"
+              ? "gothic"
+              : userdata?.profileDesign?.profileFont === "4"
+              ? "marckScript"
+              : userdata?.profileDesign?.profileFont === "5"
+              ? "chivo"
+              : "sf"
+          }`}
+        >
           {modalRoute.isOptions && (
             <>
               <div className="w-[100%] flex justify-center items-center font-[700] text-[17px] mt-3">
@@ -144,9 +158,13 @@ const MenumenuModal = ({ menuModal, handleMenuModal, userdata }) => {
                   className="w-[90%] flex justify-between items-center "
                   onClick={() => openOption("share")}
                 >
-                  <div className="w-[55%] flex justify-between items-center">
+                  <div className="w-[70%] flex justify-between items-center">
                     <FiUpload className="text-xl" />
-                    <p className="font-[400] text-[17px]">Share this profile</p>
+                    <div className="flex justify-start  w-[82%]">
+                      <p className="font-[400] text-[17px]">
+                        Share this profile
+                      </p>
+                    </div>
                   </div>
                   <SlArrowRight className="text-xl cursor-pointer" />
                 </div>
@@ -157,11 +175,14 @@ const MenumenuModal = ({ menuModal, handleMenuModal, userdata }) => {
                 onClick={() => openOption("report")}
               >
                 <div className="w-[90%]  flex justify-between items-center">
-                  <div className="w-[55%] flex justify-between items-center">
+                  <div className="w-[70%] flex justify-between items-center">
                     <IoWarningOutline className="text-xl" />
-                    <p className="font-[400] text-[17px]">
-                      Report this profile
-                    </p>
+
+                    <div className="flex justify-start  w-[82%]">
+                      <p className="font-[400] text-[17px]">
+                        Report this profile
+                      </p>
+                    </div>
                   </div>
                   <SlArrowRight className="text-xl cursor-pointer" />
                 </div>

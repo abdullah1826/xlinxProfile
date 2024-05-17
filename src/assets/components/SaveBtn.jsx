@@ -5,6 +5,7 @@ const SaveBtn = ({
   saveBtnStyle,
   saveContactBackgroundColor,
   saveContactTextColor,
+  font,
 }) => {
   console.log(saveContactTextColor);
 
@@ -30,14 +31,28 @@ const SaveBtn = ({
   return (
     <div className="w-[250px] flex justify-center items-center ">
       <div
-        className={`w-[166px] h-[55px]  flex justify-center items-center text-[20px] text-white  cursor-pointer boldtext`}
+        className={`w-[225px] h-[60px] font-[800] flex justify-center items-center text-[20px] text-white  cursor-pointer ${
+          font === "1"
+            ? "inika"
+            : font === "2"
+            ? "gugi"
+            : font === "3"
+            ? "gothic"
+            : font === "4"
+            ? "marckScript"
+            : font === "5"
+            ? "chivo"
+            : font === "6"
+            ? "sfbold"
+            : "sfbold"
+        }`}
         style={
           saveBtnStyle === "style6" || saveBtnStyle === "style5"
             ? {
                 background: `linear-gradient(135deg, ${hexToRGBA(
                   saveContactBackgroundColor,
                   "1"
-                )},  ${hexToRGBA(saveContactBackgroundColor, "2")})`,
+                )} 0%,  ${hexToRGBA(saveContactBackgroundColor, "2")} 0%)`,
 
                 backdropFilter: "blur(5px)",
                 WebkitBackdropFilter: "blur(5px)",

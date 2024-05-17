@@ -35,71 +35,75 @@ const WebBtn = ({
         target="_blank"
         href={elm?.linkID != null && checkHttp(elm?.url, elm?.linkID, elm?.url)}
         // returnSocialUrl(elm?.title, elm?.value)
-        className="h-[75px] w-[100%] flex justify-start items-center  relative"
+        className="h-[60px] w-[100%] flex justify-start items-center  relative"
         // mb-4
-        style={{
-          display:
-            elm?.shareable === false || elm?.isFeatureOn === true
-              ? "none"
-              : null,
-          borderRadius:
-            webBtnStyle === "style1" ||
-            webBtnStyle === "style5" ||
-            webBtnStyle === "style9"
-              ? "0px"
-              : webBtnStyle === "style2" ||
-                webBtnStyle === "style6" ||
-                webBtnStyle === "style10"
-              ? "8px"
-              : webBtnStyle === "style3" ||
-                webBtnStyle === "style7" ||
-                webBtnStyle === "style11"
-              ? "14px"
-              : webBtnStyle === "style4" ||
-                webBtnStyle === "style8" ||
-                webBtnStyle === "style12"
-              ? "40px"
-              : null,
-          backgroundColor:
-            webBtnStyle === "style1" ||
-            webBtnStyle === "style2" ||
-            webBtnStyle === "style3" ||
-            webBtnStyle === "style4"
-              ? weblinkButtonBackgroundColor
-              : "transparent",
-          border:
-            webBtnStyle === "style5" ||
-            webBtnStyle === "style6" ||
-            webBtnStyle === "style7" ||
-            webBtnStyle === "style8"
-              ? `1px solid ${weblinkButtonBackgroundColor}`
-              : null,
-          background:
-            webBtnStyle === "style9" ||
-            webBtnStyle === "style10" ||
-            webBtnStyle === "style11" ||
-            webBtnStyle === "style12"
-              ? `linear-gradient(135deg, ${hexToRGBA(
+        style={
+          webBtnStyle === "style9" ||
+          webBtnStyle === "style10" ||
+          webBtnStyle === "style11" ||
+          webBtnStyle === "style12"
+            ? {
+                display:
+                  elm?.shareable === false || elm?.isFeatureOn === true
+                    ? "none"
+                    : null,
+                borderRadius:
+                  webBtnStyle === "style9"
+                    ? "0px"
+                    : webBtnStyle === "style10"
+                    ? "8px"
+                    : webBtnStyle === "style11"
+                    ? "14px"
+                    : webBtnStyle === "style12"
+                    ? "40px"
+                    : null,
+
+                background: `linear-gradient(90deg, ${hexToRGBA(
                   weblinkButtonBackgroundColor,
                   "1"
-                )} 0%, ${hexToRGBA(weblinkButtonBackgroundColor, "2")} 100%)`
-              : null,
-
-          backdropFilter:
-            webBtnStyle === "style9" ||
-            webBtnStyle === "style10" ||
-            webBtnStyle === "style11" ||
-            webBtnStyle === "style12"
-              ? "blur(5px)"
-              : null,
-          WebkitBackdropFilter:
-            webBtnStyle === "style9" ||
-            webBtnStyle === "style10" ||
-            webBtnStyle === "style11" ||
-            webBtnStyle === "style12"
-              ? "blur(5px)"
-              : null,
-        }}
+                )} 0%, ${hexToRGBA(weblinkButtonBackgroundColor, "2")} 0%)`,
+                backdropFilter: "blur(5px)",
+                WebkitBackdropFilter: "blur(5px)",
+              }
+            : {
+                display:
+                  elm?.shareable === false || elm?.isFeatureOn === true
+                    ? "none"
+                    : null,
+                borderRadius:
+                  webBtnStyle === "style1" ||
+                  webBtnStyle === "style5" ||
+                  webBtnStyle === "style9"
+                    ? "0px"
+                    : webBtnStyle === "style2" ||
+                      webBtnStyle === "style6" ||
+                      webBtnStyle === "style10"
+                    ? "8px"
+                    : webBtnStyle === "style3" ||
+                      webBtnStyle === "style7" ||
+                      webBtnStyle === "style11"
+                    ? "14px"
+                    : webBtnStyle === "style4" ||
+                      webBtnStyle === "style8" ||
+                      webBtnStyle === "style12"
+                    ? "40px"
+                    : null,
+                backgroundColor:
+                  webBtnStyle === "style1" ||
+                  webBtnStyle === "style2" ||
+                  webBtnStyle === "style3" ||
+                  webBtnStyle === "style4"
+                    ? weblinkButtonBackgroundColor
+                    : "transparent",
+                border:
+                  webBtnStyle === "style5" ||
+                  webBtnStyle === "style6" ||
+                  webBtnStyle === "style7" ||
+                  webBtnStyle === "style8"
+                    ? `1px solid ${weblinkButtonBackgroundColor}`
+                    : null,
+              }
+        }
         onClick={() => linkAnalytics(elm)}
       >
         {elm?.linkID != null && (
@@ -108,7 +112,7 @@ const WebBtn = ({
               <img
                 src={elm?.buttonImgUrl}
                 alt="img"
-                class={` ${"h-[65px] w-[65px]"}  ml-1 object-cover`}
+                class={` ${"h-[52px] w-[52px]"}  ml-1 object-cover`}
                 style={{
                   display:
                     elm?.shareable === false || elm?.isFeatureOn === true
@@ -138,7 +142,7 @@ const WebBtn = ({
           </div>
         )}
         <p
-          class="font-[400] text-[17px]  mt-[6px] text-center  w-[100%]   absolute "
+          class="font-[400] text-[17px] text-center  w-[100%]   absolute "
           style={{ color: weblinkButtonTextColor }}
         >
           {/* {elm?.title} */}

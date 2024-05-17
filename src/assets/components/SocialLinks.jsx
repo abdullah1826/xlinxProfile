@@ -102,7 +102,7 @@ const SocialLinks = ({
               {elm?.title}
             </h2>
             <p
-              className="font-[400] text-[16px] w-[95%] text-center"
+              className="font-[400] text-[16px] w-[95%] text-center mt-[10px]"
               style={{
                 color: elm?.graphicTextColor ? elm?.graphicTextColor : "black",
               }}

@@ -1,6 +1,7 @@
 import React from "react";
 import { returnReactIcons } from "../ReturnSocialIcons";
 import { returnPngIcons } from "../ReturnSocialIconsPng";
+import web from "../socialLink/web.png";
 
 const FeaturedSocial = ({
   elm,
@@ -71,10 +72,10 @@ const FeaturedSocial = ({
             style={
               highlightBoxStyle === "style3"
                 ? {
-                    background: `linear-gradient(135deg, ${hexToRGBA(
+                    background: `linear-gradient(90deg, ${hexToRGBA(
                       boxBackgroundColor,
                       "1"
-                    )} 0%, ${hexToRGBA(boxBackgroundColor, "2")} 100%)`,
+                    )} 0%, ${hexToRGBA(boxBackgroundColor, "2")} 0%)`,
 
                     backdropFilter: "blur(5px)",
                     WebkitBackdropFilter: "blur(5px)",
@@ -89,7 +90,9 @@ const FeaturedSocial = ({
                         : boxBackgroundColor,
                     border:
                       highlightBoxStyle === "style1"
-                        ? `1px solid ${boxBackgroundColor}`
+                        ? `1px solid ${
+                            boxBackgroundColor ? boxBackgroundColor : "#f2f3f5"
+                          }`
                         : null,
 
                     // boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
@@ -120,6 +123,8 @@ const FeaturedSocial = ({
                           returnPngIcons(elm?.linkID)
                             ? returnPngIcons(elm?.linkID)
                             : elm?.linkImgUrl
+                            ? elm?.linkImgUrl
+                            : web
                         }
                         alt="img"
                         class="h-[100%] w-[100%] rounded-2xl"
@@ -156,7 +161,7 @@ const FeaturedSocial = ({
               >
                 {elm?.title?.length < 22
                   ? elm?.title
-                  : elm?.title?.substring(0, 22) + "..."}
+                  : elm?.title?.substring(0, 28) + "..."}
               </h2>
               <p
                 className="font-[400] text-[13px] w-[90%]"

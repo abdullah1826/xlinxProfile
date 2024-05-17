@@ -44,6 +44,7 @@ import paypal from "./socialLink/paypal.png";
 import website from "./socialLink/link.png";
 import venmo from "./socialLink/venmo.png";
 import calendly from "./socialLink/calendly.png";
+import reviews from "./socialLink/review.png";
 
 // import pinterest from './socialLink/pinterest.png'
 // import youtube from './socialLink/twitter.png'
@@ -260,6 +261,8 @@ export let returnPngIcons = (id) => {
     return yelp;
   } else if (id === 44) {
     return applink;
+  } else if (id === 45) {
+    return reviews;
   }
   // venmo 16
 };

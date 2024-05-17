@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import share from "../imgs/share.svg";
-import imgPlchldr from "../imgs/imgPlchldr.jpg";
+import imgPlchldr from "../imgs/imgPlchldr.png";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
 import FeaturedSocial from "../assets/components/FeaturedSocial";
@@ -13,6 +13,7 @@ import { browserName } from "react-device-detect";
 import MenumenuModal from "../assets/components/MenuModal";
 import { HiDotsHorizontal } from "react-icons/hi";
 import btmLogo from "../imgs/btmLogo.png";
+import { LuRepeat } from "react-icons/lu";
 
 const Color = ({
   coverurl,
@@ -44,7 +45,13 @@ const Color = ({
 }) => {
   // console.log(weblinkButtonBackgroundColor);
   let hideSaveContactFalse =
-    scrnWidth >= 380 ? { right: "15%" } : { right: "11%" };
+    scrnWidth >= 420
+      ? { right: "13%" }
+      : scrnWidth >= 380
+      ? { right: "8%" }
+      : scrnWidth <= 380
+      ? { right: "5%" }
+      : null;
   let hideSaveContactTrue = null;
 
   let [menuModal, setMenuModal] = useState(false);
@@ -68,7 +75,7 @@ const Color = ({
           }}
           onClick={() => handleMenuModal()}
         >
-          <HiDotsHorizontal className="text-[white] text-2xl" />
+          <HiDotsHorizontal className="text-[black] text-2xl" />
         </div>
         <div className="h-[160px] w-[100%]  flex justify-center mt-[20px]">
           <div className="h-[100%] w-[160px] relative">
@@ -95,7 +102,21 @@ const Color = ({
 
         <div className="w-[100%] flex justify-center mt-[22px] ">
           <h2
-            className="text-[28px]  boldtext text-center w-[90%]"
+            className={`text-[28px]  ${
+              userdata?.profileDesign?.profileFont === "1"
+                ? "inika"
+                : userdata?.profileDesign?.profileFont === "2"
+                ? "gugi"
+                : userdata?.profileDesign?.profileFont === "3"
+                ? "gothic"
+                : userdata?.profileDesign?.profileFont === "4"
+                ? "marckScript"
+                : userdata?.profileDesign?.profileFont === "5"
+                ? "chivo"
+                : userdata?.profileDesign?.profileFont === "6"
+                ? "sfbold"
+                : "sfbold"
+            } text-center w-[90%] font-[800]`}
             style={{ color: whiteTextAndBorder ? "white" : "black" }}
           >
             {userdata?.firstName && userdata?.lastName
@@ -153,6 +174,7 @@ const Color = ({
                 saveBtnStyle={saveBtnStyle}
                 saveContactBackgroundColor={saveContactBackgroundColor}
                 saveContactTextColor={saveContactTextColor}
+                font={userdata?.profileDesign?.profileFont}
               />
               <div
                 className="h-[35px] w-[35px] cursor-pointer absolute"
@@ -163,7 +185,7 @@ const Color = ({
                     : hideSaveContactFalse
                 }
               >
-                <img
+                {/* <img
                   width="30"
                   height="30"
                   src={`https://img.icons8.com/ios-filled/100/${removeHash(
@@ -171,6 +193,10 @@ const Color = ({
                   )}/refresh--v1.png`}
                   alt="refresh--v1"
                   className="rotate-90 "
+                /> */}
+                <LuRepeat
+                  className="text-[30px]"
+                  style={{ color: saveContactBackgroundColor }}
                 />
                 {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
               </div>

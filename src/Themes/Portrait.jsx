@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import share from "../imgs/share.svg";
-import imgPlchldr from "../imgs/imgPlchldr.jpg";
+import imgPlchldr from "../imgs/imgPlchldr.png";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
 import FeaturedSocial from "../assets/components/FeaturedSocial";
@@ -12,6 +12,7 @@ import { browserName, CustomView } from "react-device-detect";
 import MenumenuModal from "../assets/components/MenuModal";
 import { HiDotsHorizontal } from "react-icons/hi";
 import btmLogo from "../imgs/btmLogo.png";
+import { LuRepeat } from "react-icons/lu";
 
 const Portrait = ({
   coverurl,
@@ -59,7 +60,13 @@ const Portrait = ({
   };
 
   let hideSaveContactFalse =
-    scrnWidth >= 380 ? { right: "15%" } : { right: "11%" };
+    scrnWidth >= 420
+      ? { right: "13%" }
+      : scrnWidth >= 380
+      ? { right: "8%" }
+      : scrnWidth <= 380
+      ? { right: "5%" }
+      : null;
   let hideSaveContactTrue = null;
 
   let [menuModal, setMenuModal] = useState(false);
@@ -82,13 +89,15 @@ const Portrait = ({
           }}
           onClick={() => handleMenuModal()}
         >
-          <HiDotsHorizontal className="text-[white] text-2xl" />
+          <HiDotsHorizontal className="text-[black] text-2xl" />
         </div>
         <div className="w-[100%] h-[420px] relative overflow-hidden">
           <div
             className="w-[100%] h-[150px] absolute bottom-[-15px]"
             style={{
-              background: `linear-gradient(to top, ${bg},${bg}, transparent)`,
+              background: `linear-gradient(to top, ${bg ? bg : "#ffffff"},${
+                bg ? bg : "#ffffff"
+              }, transparent)`,
               //   background: `linear-gradient(180deg, rgba(217, 217, 217, 0) 0%, ${bg} 100%)`,
             }}
           ></div>
@@ -133,7 +142,21 @@ const Portrait = ({
 
         <div className="w-[100%] flex justify-center z-20 mt-[-20px]">
           <h2
-            className="text-[28px]  boldtext text-center w-[90%]"
+            className={`text-[28px]  ${
+              userdata?.profileDesign?.profileFont === "1"
+                ? "inika"
+                : userdata?.profileDesign?.profileFont === "2"
+                ? "gugi"
+                : userdata?.profileDesign?.profileFont === "3"
+                ? "gothic"
+                : userdata?.profileDesign?.profileFont === "4"
+                ? "marckScript"
+                : userdata?.profileDesign?.profileFont === "5"
+                ? "chivo"
+                : userdata?.profileDesign?.profileFont === "6"
+                ? "sfbold"
+                : "sfbold"
+            } text-center w-[90%] font-[800]`}
             style={{ color: whiteTextAndBorder ? "white" : "black" }}
           >
             {userdata?.firstName && userdata?.lastName
@@ -191,6 +214,7 @@ const Portrait = ({
                 saveBtnStyle={saveBtnStyle}
                 saveContactBackgroundColor={saveContactBackgroundColor}
                 saveContactTextColor={saveContactTextColor}
+                font={userdata?.profileDesign?.profileFont}
               />
               <div
                 className="h-[35px] w-[35px] cursor-pointer absolute"
@@ -201,14 +225,18 @@ const Portrait = ({
                     : hideSaveContactFalse
                 }
               >
-                <img
+                {/* <img
                   width="30"
                   height="30"
                   src={`https://img.icons8.com/ios-filled/100/${removeHash(
                     saveContactBackgroundColor
                   )}/refresh--v1.png`}
                   alt="refresh--v1"
-                  className="rotate-90 "
+                  className="rotate-90"
+                /> */}
+                <LuRepeat
+                  className="text-[30px]"
+                  style={{ color: saveContactBackgroundColor }}
                 />
                 {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
               </div>

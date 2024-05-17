@@ -88,6 +88,7 @@ import { FaEtsy, FaYelp } from "react-icons/fa";
 import { MdContactEmergency } from "react-icons/md";
 import { FaAppStoreIos } from "react-icons/fa";
 // import { RiTwitterXFill } from "react-icons/ri";
+import { FaGoogle } from "react-icons/fa";
 export let returnReactIcons = (id, appcolor, size = 20) => {
   if (id === 1) {
     return (
@@ -448,6 +449,18 @@ export let returnReactIcons = (id, appcolor, size = 20) => {
   } else if (id === 44) {
     return (
       <FaAppStoreIos
+        style={{
+          color:
+            appcolor === "#FFFFFF" || appcolor === "#ffffff"
+              ? "black"
+              : "white",
+          fontSize: `${size}px`,
+        }}
+      />
+    );
+  } else if (id === 45) {
+    return (
+      <FaGoogle
         style={{
           color:
             appcolor === "#FFFFFF" || appcolor === "#ffffff"

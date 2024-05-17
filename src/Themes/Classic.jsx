@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import share from "../imgs/share.svg";
-import imgPlchldr from "../imgs/imgPlchldr.jpg";
+import imgPlchldr from "../imgs/imgPlchldr.png";
 import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
 import SaveBtn from "../assets/components/SaveBtn";
@@ -12,6 +12,7 @@ import { browserName } from "react-device-detect";
 import { HiDotsHorizontal } from "react-icons/hi";
 import MenumenuModal from "../assets/components/MenuModal";
 import btmLogo from "../imgs/btmLogo.png";
+import { LuRepeat } from "react-icons/lu";
 const Classic = ({
   coverurl,
   logourl,
@@ -44,7 +45,13 @@ const Classic = ({
 }) => {
   // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
   let hideSaveContactFalse =
-    scrnWidth >= 380 ? { right: "15%" } : { right: "11%" };
+    scrnWidth >= 420
+      ? { right: "13%" }
+      : scrnWidth >= 380
+      ? { right: "8%" }
+      : scrnWidth <= 380
+      ? { right: "5%" }
+      : null;
   let hideSaveContactTrue = null;
 
   // console.log(hideSaveContact);
@@ -67,18 +74,18 @@ const Classic = ({
         }}
         onClick={() => handleMenuModal()}
       >
-        <HiDotsHorizontal className="text-[white] text-2xl" />
+        <HiDotsHorizontal className="text-[black] text-2xl" />
       </div>
       <div className="min-h-[355px] w-[100%] flex items-center flex-col relative">
-        {coverurl ? (
-          <img
-            src={coverurl}
-            className="h-[210px] w-[90%] mt-[15px] rounded-2xl"
-            loading="lazy"
-          />
-        ) : (
-          <div className="h-[210px] w-[90%] mt-[15px] rounded-2xl "></div>
-        )}
+        {/* {coverurl ? ( */}
+        <img
+          src={coverurl ? coverurl : cvrPlchldr}
+          className="h-[210px] w-[90%] mt-[15px] rounded-2xl "
+          loading="lazy"
+        />
+        {/* // ) : (
+        //   <div className="h-[210px] w-[90%] mt-[15px] rounded-2xl "></div>
+        // )} */}
 
         <div className="h-[160px] w-[100%] absolute top-[140px] flex justify-center">
           <div className="h-[100%] w-[160px] relative">
@@ -105,7 +112,21 @@ const Classic = ({
 
         <div className="w-[100%] flex justify-center mt-[72px] ">
           <h2
-            className="text-[28px]  boldtext text-center w-[90%] "
+            className={`text-[28px]  ${
+              userdata?.profileDesign?.profileFont === "1"
+                ? "inika"
+                : userdata?.profileDesign?.profileFont === "2"
+                ? "gugi"
+                : userdata?.profileDesign?.profileFont === "3"
+                ? "gothic"
+                : userdata?.profileDesign?.profileFont === "4"
+                ? "marckScript"
+                : userdata?.profileDesign?.profileFont === "5"
+                ? "chivo"
+                : userdata?.profileDesign?.profileFont === "6"
+                ? "sfbold"
+                : "sfbold"
+            } text-center w-[90%] font-[800]`}
             style={{ color: whiteTextAndBorder ? "white" : "black" }}
           >
             {userdata?.firstName && userdata?.lastName
@@ -175,6 +196,7 @@ const Classic = ({
                 saveBtnStyle={saveBtnStyle}
                 saveContactBackgroundColor={saveContactBackgroundColor}
                 saveContactTextColor={saveContactTextColor}
+                font={userdata?.profileDesign?.profileFont}
               />
               <div
                 className="h-[35px] w-[35px] cursor-pointer absolute"
@@ -185,7 +207,7 @@ const Classic = ({
                     : hideSaveContactFalse
                 }
               >
-                <img
+                {/* <img
                   width="30"
                   height="30"
                   src={
@@ -197,6 +219,10 @@ const Classic = ({
                   }
                   alt="refresh--v1"
                   className="rotate-90 "
+                /> */}
+                <LuRepeat
+                  className="text-[30px]"
+                  style={{ color: saveContactBackgroundColor }}
                 />
                 {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
               </div>
@@ -290,7 +316,7 @@ const Classic = ({
           onClick={() => window.open("https://www.getcirco.com/download")}
           style={{
             background:
-              "linear-gradient(90deg, rgba(119, 119, 119, 0.66) 0%, rgba(44, 44, 44, 0.33) 100%)",
+              "linear-gradient(90deg, rgba(119, 119, 119, 0.66) 0%, rgba(44, 44, 44, 0.33) 100%) 0%",
             backdropFilter: "blur(5px)",
             WebkitBackdropFilter: "blur(5px)",
           }}
