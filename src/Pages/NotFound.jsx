@@ -1,7 +1,4 @@
 import React, { useState } from "react";
-import iconimg from "../imgs/notFoundBg2.png";
-import NotFoundModal from "../assets/components/NotFoundModal";
-import notfndbg from "../imgs/notfondbg.png";
 import circo from "../imgs/circo.png";
 import people from "../imgs/people.png";
 

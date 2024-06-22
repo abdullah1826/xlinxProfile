@@ -17,14 +17,7 @@ import Loader from "../assets/components/Loader";
 import VCard from "vcard-creator";
 import NotFound from "./NotFound";
 import LeadformModal from "../assets/components/LeadformModal";
-import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import share from "../imgs/share.svg";
-import imgPlchldr from "../imgs/imgPlchldr.png";
-import logoPlchldr from "../imgs/logoPlchldr.png";
-import cvrPlchldr from "../imgs/cvrPlchldr.png";
-import prffbg from "../imgs/prflbg.png";
-
 import ConfirmModal from "../assets/components/SubmitConfirmModal";
 import Classic from "../Themes/Classic";
 import Color from "../Themes/Color";
@@ -41,16 +34,9 @@ const Home = () => {
   // console.log(sociallink);
 
   // ------------------getting Data--------------------
-
-  let [usersdata, setusersdata] = useState(null);
   let [allAnalytics, setAllAnalytics] = useState([]);
 
-  // console.log(allAnalytics);
-
   let [notfound, setnotfound] = useState(false);
-  let [endpoint, setendpoint] = useState("");
-  let [showSlide, setshowSlide] = useState(false);
-
   let [modal, setModal] = useState(false);
   let [confirmModal, setConfirmModal] = useState(false);
 
@@ -79,19 +65,6 @@ const Home = () => {
   const oneMonth = 30 * 24 * 60 * 60 * 1000;
   const oneDay = 24 * 60 * 60 * 1000;
 
-  useEffect(() => {
-    var starCountRefexe = query(
-      ref(db, "User/"),
-      orderByChild("address"),
-      equalTo("Atlanta")
-    );
-
-    onValue(starCountRefexe, async (snapshot) => {
-      const userdata = await snapshot.val();
-      console.log("qData", userdata);
-    });
-  }, []);
-
   let handleLeadModal = (lead) => {
     if (lead) {
       localStorage.setItem("leadForm", "true");
@@ -102,8 +75,6 @@ const Home = () => {
       setModal(lead);
     }
   };
-
-  let leadShouldOpen = localStorage.getItem("leadForm");
 
   useEffect(() => {
     const starCountRef2 = ref(db, `Analytic/`);
@@ -133,7 +104,7 @@ const Home = () => {
         console.log(data);
         if (data) {
           setuserdata(Object.values(data)[0]);
-          // setModal(Object.values(data)[0]?.leadMode);
+
           handleLeadModal(Object.values(data)[0]?.leadMode);
           Object.values(data)[0]?.links &&
             setsociallink(Object.values(Object.values(data)[0]?.links));
@@ -143,7 +114,6 @@ const Home = () => {
             const data2 = await snapshot.val();
             console.log(data2);
             if (data2) {
-              // console.log(Object.values(data2)[0]?.profileSelected);
               if (Object.values(data2)[0]?.profileSelected) {
                 var starCountRef7 = query(
                   ref(db, "User/"),
@@ -161,7 +131,6 @@ const Home = () => {
                 const userdata = await snapshot.val();
                 if (userdata) {
                   setuserdata(Object.values(userdata)[0]);
-                  // setModal(Object.values(userdata)[0]?.leadMode);
                   handleLeadModal(Object.values(userdata)[0]?.leadMode);
                   Object.values(userdata)[0]?.links &&
                     setsociallink(
@@ -203,7 +172,6 @@ const Home = () => {
                         console.log(userdata);
                         if (userdata) {
                           setuserdata(Object.values(userdata)[0]);
-                          // setModal(Object.values(userdata)[0]?.leadMode);
                           handleLeadModal(Object.values(userdata)[0]?.leadMode);
                           Object.values(userdata)[0]?.links &&
                             setsociallink(
@@ -215,14 +183,6 @@ const Home = () => {
                           setnotfound(true);
                         }
                       });
-
-                      // setuserdata(Object.values(data4)[0]);
-                      // setModal(Object.values(data4)[0]?.leadMode);
-                      // Object.values(data4)[0]?.links &&
-                      //   setsociallink(
-                      //     Object.values(Object.values(data4)[0]?.links)
-                      //   );
-                      // setloading(false);
                     } else {
                       setloading(false);
                       setnotfound(true);
@@ -240,17 +200,10 @@ const Home = () => {
     });
   }, []);
 
-  // console.log(userdata?.Analytics?.updatedAt);
-
-  // getting profile url
-
   let [profileurl, setprofileurl] = useState("");
   useEffect(() => {
     if (userdata?.profileUrl) {
-      // const storage = getStorage();
       const fileRef = storagref(storage, userdata?.profileUrl);
-      // console.log(loginUserData.profileUrl);
-
       getDownloadURL(fileRef)
         .then((URL) => {
           console.log(URL);
@@ -311,8 +264,6 @@ const Home = () => {
     return addedOrNot;
   };
 
-  let returnClickedLinkAnalyt = () => {};
-
   let crntUsrAnalytics = allAnalytics?.find((usr) => {
     return userdata?.id === usr?.userid;
   });
@@ -333,9 +284,6 @@ const Home = () => {
             updatedWeek: currentDate,
             pastWeekViews: crntUsrAnalytics?.crntWeekViews,
             pastWeekLeads: crntUsrAnalytics?.crntWeekLeads,
-
-            // pastMonthViews: crntUsrAnalytics?.crntMonthViews,
-            // pastMonthLeads: crntUsrAnalytics?.crntMonthLeads,
           }).then(() => {
             update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
               crntWeekViews: 1,
@@ -354,8 +302,6 @@ const Home = () => {
         if (currentDate > crntUsrAnalytics?.updatedMonth + oneMonth) {
           update(ref(db, `Analytic/${crntUsrAnalytics?.id}`), {
             updatedMonth: currentDate,
-            // pastWeekViews: crntUsrAnalytics?.crntWeekViews,
-            // pastWeekLeads: crntUsrAnalytics?.crntWeekLeads,
             pastMonthViews: crntUsrAnalytics?.crntMonthViews,
             pastMonthLeads: crntUsrAnalytics?.crntMonthLeads,
           }).then(() => {
@@ -439,39 +385,6 @@ const Home = () => {
       }
     }
   }, [userdata?.id]);
-
-  // useEffect(() => {
-  //   if (userdata?.id) {
-  //     if (userdata?.Analytics) {
-  //       if (currentDate > userdata?.Analytics?.updatedAt + oneWeek) {
-  //         update(ref(db, `User/${userdata?.id}/Analytics`), {
-  //           totalClicks: userdata?.Analytics?.totalClicks + 1,
-  //           updatedAt: currentDate,
-  //           tClicksPstWk: userdata?.Analytics?.tClicksCrntWk,
-  //           tContactsMePstWk: userdata?.Analytics?.tContactsMeCrntWk,
-  //         }).then(() => {
-  //           update(ref(db, `User/${userdata?.id}/Analytics`), {
-  //             tClicksCrntWk: 0,
-  //             tContactsMeCrntWk: 0,
-  //           });
-  //         });
-  //       } else {
-  //         update(ref(db, `User/${userdata?.id}/Analytics`), {
-  //           totalClicks: userdata?.Analytics?.totalClicks + 1,
-  //         });
-  //       }
-  //     } else {
-  //       update(ref(db, `User/${userdata?.id}/Analytics`), {
-  //         totalClicks: 1,
-  //         totalLinkClicks: 0,
-  //         tClicksCrntWk: 1,
-  //         tClicksPstWk: 0,
-  //         tContactsMeCrntWk: 0,
-  //         tContactsMePstWk: 0,
-  //       });
-  //     }
-  //   }
-  // }, [userdata?.id]);
 
   // ----------------------------------------->Link Analytics<-------------------------------------
 
@@ -564,23 +477,6 @@ const Home = () => {
     }
   };
 
-  // -----------------------------------------hex to rgba for bg color-------------------------------------
-
-  let hexToRGBA = (hex) => {
-    // Remove the '#' character if present
-    hex = hex?.replace("#", "");
-
-    // Convert the hex value to RGB
-    const red = parseInt(hex?.substring(0, 2), 16);
-    const green = parseInt(hex?.substring(2, 4), 16);
-    const blue = parseInt(hex?.substring(4, 6), 16);
-
-    // Convert RGB to RGBA with alpha value 0.1
-    const rgba = `rgba(${red}, ${green}, ${blue}, 0.1)`;
-
-    return rgba;
-  };
-
   // To base64
 
   let [base64img, setbase64img] = useState("");
@@ -632,7 +528,6 @@ const Home = () => {
     }
   };
 
-  console.log(base64img?.slice(37));
   let downloadVcf = async () => {
     // Define a new vCard
     const myVCard = new VCard();
@@ -784,10 +679,11 @@ const Home = () => {
   return (
     <>
       {loading ? (
-        <Loader />
+        // <Loader />
+        <div className="w-[100%] h-[100vh]"></div>
       ) : (
         <>
-          {notfound || userdata.profileOn === 0 ? (
+          {notfound || userdata?.profileOn === 0 ? (
             <NotFound />
           ) : userdata?.directMode === false ? (
             // <div className="h-max w-max relative">

@@ -1,11 +1,4 @@
 import React, { useState } from "react";
-import share from "../imgs/share.svg";
-import imgPlchldr from "../imgs/imgPlchldr.png";
-import logoPlchldr from "../imgs/logoPlchldr.png";
-import cvrPlchldr from "../imgs/cvrPlchldr.png";
-import FeaturedSocial from "../assets/components/FeaturedSocial";
-import WebGrfkBtn from "../assets/components/webGrfkBtn";
-import WebBtn from "../assets/components/webBtn";
 import SaveBtn from "../assets/components/SaveBtn";
 import SocialLinks from "../assets/components/SocialLinks";
 import { browserName, CustomView } from "react-device-detect";

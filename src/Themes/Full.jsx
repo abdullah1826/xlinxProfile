@@ -1,12 +1,6 @@
 import React, { useState } from "react";
-import share from "../imgs/share.svg";
 import imgPlchldr from "../imgs/imgPlchldr.png";
-import logoPlchldr from "../imgs/logoPlchldr.png";
-import cvrPlchldr from "../imgs/cvrPlchldr.png";
 import SaveBtn from "../assets/components/SaveBtn";
-import WebBtn from "../assets/components/webBtn";
-import WebGrfkBtn from "../assets/components/webGrfkBtn";
-import FeaturedSocial from "../assets/components/FeaturedSocial";
 import SocialLinks from "../assets/components/SocialLinks";
 import { browserName } from "react-device-detect";
 import MenumenuModal from "../assets/components/MenuModal";
@@ -42,9 +36,6 @@ const Full = ({
   hideSaveContact,
   whiteTextAndBorder,
 }) => {
-  console.log(sociallink);
-
-  // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
   let hideSaveContactFalse =
     scrnWidth >= 420
       ? { right: "13%" }

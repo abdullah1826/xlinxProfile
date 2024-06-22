@@ -6,6 +6,7 @@ const SaveBtn = ({
   saveContactBackgroundColor,
   saveContactTextColor,
   font,
+  isProTheme,
 }) => {
   console.log(saveContactTextColor);
 
@@ -29,9 +30,14 @@ const SaveBtn = ({
   };
 
   return (
-    <div className="w-[250px] flex justify-center items-center ">
+    <div
+      className=" flex  items-center"
+      style={{ width: isProTheme ? "55%" : "250px" }}
+    >
       <div
-        className={`w-[225px] h-[60px] font-[800] flex justify-center items-center text-[20px] text-white  cursor-pointer ${
+        className={`${
+          isProTheme ? "w-[100%]" : "w-[225px]"
+        } h-[60px] font-[800] flex justify-center items-center text-[20px] text-white  cursor-pointer ${
           font === "1"
             ? "inika"
             : font === "2"

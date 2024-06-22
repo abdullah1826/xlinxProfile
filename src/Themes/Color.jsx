@@ -1,14 +1,7 @@
 import React, { useState } from "react";
-import share from "../imgs/share.svg";
 import imgPlchldr from "../imgs/imgPlchldr.png";
-import logoPlchldr from "../imgs/logoPlchldr.png";
-import cvrPlchldr from "../imgs/cvrPlchldr.png";
-import FeaturedSocial from "../assets/components/FeaturedSocial";
-import WebGrfkBtn from "../assets/components/webGrfkBtn";
-import WebBtn from "../assets/components/webBtn";
 import SaveBtn from "../assets/components/SaveBtn";
 import SocialLinks from "../assets/components/SocialLinks";
-import ReactPlayer from "react-player";
 import { browserName } from "react-device-detect";
 import MenumenuModal from "../assets/components/MenuModal";
 import { HiDotsHorizontal } from "react-icons/hi";
@@ -185,20 +178,10 @@ const Color = ({
                     : hideSaveContactFalse
                 }
               >
-                {/* <img
-                  width="30"
-                  height="30"
-                  src={`https://img.icons8.com/ios-filled/100/${removeHash(
-                    saveContactBackgroundColor
-                  )}/refresh--v1.png`}
-                  alt="refresh--v1"
-                  className="rotate-90 "
-                /> */}
                 <LuRepeat
                   className="text-[30px]"
                   style={{ color: saveContactBackgroundColor }}
                 />
-                {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
               </div>
             </>
           )}
@@ -220,54 +203,10 @@ const Color = ({
             highlightBoxStyle={highlightBoxStyle}
             whiteTextAndBorder={whiteTextAndBorder}
           />
-
-          {/* <ReactPlayer
-            height="186px"
-            width="100%"
-            controls={true}
-            url="https://soundcloud.com/vishalmishra-music/janiye-from-the-netflix-film?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing"
-          /> */}
-          {/* <iframe
-            width="100%"
-            height="300"
-            scrolling="no"
-            frameborder="no"
-            allow="autoplay"
-            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/1734888813&color=%23ff5500&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true&visual=true"
-            
-          ></iframe> */}
-          {/* <div style="font-size: 10px; color: #cccccc;line-break: anywhere;word-break: normal;overflow: hidden;white-space: nowrap;text-overflow: ellipsis; font-family: Interstate,Lucida Grande,Lucida Sans Unicode,Lucida Sans,Garuda,Verdana,Tahoma,sans-serif;font-weight: 100;">
-            <a
-              href="https://soundcloud.com/trending-music-pk"
-              title="Trending Music"
-              target="_blank"
-              style="color: #cccccc; text-decoration: none;"
-            >
-              Trending Music
-            </a>{" "}
-            ·{" "}
-            <a
-              href="https://soundcloud.com/trending-music-pk/sets/hip-hop-rap"
-              title="Hip Hop &amp; Rap"
-              target="_blank"
-              style="color: #cccccc; text-decoration: none;"
-            >
-              Hip Hop &amp; Rap
-            </a>
-          </div> */}
-
-          {/* <br /> */}
         </div>
       </div>
 
-      <div
-        className=" w-[100%] h-[100px]  flex justify-center items-center mt-[16px] bottom-0"
-        // style={{
-        //   background: `linear-gradient(to top, ${hexToRGBA(
-        //     userdata?.colorCode
-        //   )},${hexToRGBA(userdata?.colorCode)}, white)`,
-        // }}
-      >
+      <div className=" w-[100%] h-[100px]  flex justify-center items-center mt-[16px] bottom-0">
         <div
           className="h-[49px] w-[178px] rounded-[55px] text-[#FFFFFF] flex justify-center items-center  font-[500] text-[15px] cursor-pointer gap-2"
           onClick={() => window.open("https://www.getcirco.com/download")}
@@ -282,7 +221,7 @@ const Color = ({
           Create your Circo
         </div>
       </div>
-      {/* <br /> */}
+
       {browserName === "Mobile Safari" && (
         <>
           <br />

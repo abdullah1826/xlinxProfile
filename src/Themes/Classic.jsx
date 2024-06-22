@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import share from "../imgs/share.svg";
 import imgPlchldr from "../imgs/imgPlchldr.png";
-import logoPlchldr from "../imgs/logoPlchldr.png";
 import cvrPlchldr from "../imgs/cvrPlchldr.png";
 import SaveBtn from "../assets/components/SaveBtn";
-import WebBtn from "../assets/components/webBtn";
-import WebGrfkBtn from "../assets/components/webGrfkBtn";
 import SocialLinks from "../assets/components/SocialLinks";
-import ReactPlayer from "react-player";
 import { browserName } from "react-device-detect";
 import { HiDotsHorizontal } from "react-icons/hi";
 import MenumenuModal from "../assets/components/MenuModal";
@@ -43,7 +38,6 @@ const Classic = ({
   whiteTextAndBorder,
   isV1,
 }) => {
-  // let webBtnStyle = ["s1", "s2", "s3", "s4", "s5", "s6", "s7", "s8"];
   let hideSaveContactFalse =
     scrnWidth >= 420
       ? { right: "13%" }
@@ -54,7 +48,6 @@ const Classic = ({
       : null;
   let hideSaveContactTrue = null;
 
-  // console.log(hideSaveContact);
   let [menuModal, setMenuModal] = useState(false);
   let handleMenuModal = () => {
     setMenuModal(!menuModal);
@@ -77,15 +70,15 @@ const Classic = ({
         <HiDotsHorizontal className="text-[black] text-2xl" />
       </div>
       <div className="min-h-[355px] w-[100%] flex items-center flex-col relative">
-        {/* {coverurl ? ( */}
-        <img
-          src={coverurl ? coverurl : cvrPlchldr}
-          className="h-[210px] w-[90%] mt-[15px] rounded-2xl "
-          loading="lazy"
-        />
-        {/* // ) : (
-        //   <div className="h-[210px] w-[90%] mt-[15px] rounded-2xl "></div>
-        // )} */}
+        {coverurl ? (
+          <img
+            src={coverurl}
+            className="h-[210px] w-[90%] mt-[15px] rounded-2xl "
+            loading="lazy"
+          />
+        ) : (
+          <div className="h-[210px] w-[90%] mt-[15px] rounded-2xl "></div>
+        )}
 
         <div className="h-[160px] w-[100%] absolute top-[140px] flex justify-center">
           <div className="h-[100%] w-[160px] relative">
@@ -97,16 +90,16 @@ const Classic = ({
                 loading="lazy"
               />
             )}
-            {/* {profileurl ? ( */}
-            <img
-              src={profileurl ? profileurl : imgPlchldr}
-              alt="profile"
-              className="h-[150px] w-[150px] rounded-full border-[3px] border-white"
-              loading="lazy"
-            />
-            {/* // ) : (
-            //   <div className="h-[150px] w-[150px] rounded-full border-[3px] border-white"></div>
-            // )} */}
+            {profileurl ? (
+              <img
+                src={profileurl}
+                alt="profile"
+                className="h-[150px] w-[150px] rounded-full border-[3px] border-white"
+                loading="lazy"
+              />
+            ) : (
+              <div className="h-[150px] w-[150px] rounded-full border-[3px] border-white"></div>
+            )}
           </div>
         </div>
 
@@ -176,19 +169,6 @@ const Classic = ({
           className={`w-[100%] flex justify-center items-center relative`}
           style={!hideSaveContact ? { height: "80px" } : null}
         >
-          {/* bg-gradient-to-b from-[${hexToRGBA(userdata?.colorCode)}] to-white */}
-          {/* <div className="w-[250px] flex justify-center items-center">
-            <div
-              className={`w-[166px] h-[55px]  rounded-[15px] flex justify-center items-center text-[18px] text-white font-[700] cursor-pointer`}
-              style={{
-                backgroundColor: "black",
-                fontStyle: "Inter",
-              }}
-              onClick={() => downloadVcf()}
-            >
-              Save Contact
-            </div>
-          </div> */}
           {!hideSaveContact && (
             <>
               <SaveBtn
@@ -207,78 +187,15 @@ const Classic = ({
                     : hideSaveContactFalse
                 }
               >
-                {/* <img
-                  width="30"
-                  height="30"
-                  src={
-                    isV1
-                      ? `https://img.icons8.com/ios-filled/100/080808/refresh--v1.png`
-                      : `https://img.icons8.com/ios-filled/100/${removeHash(
-                          saveContactBackgroundColor
-                        )}/refresh--v1.png`
-                  }
-                  alt="refresh--v1"
-                  className="rotate-90 "
-                /> */}
                 <LuRepeat
                   className="text-[30px]"
                   style={{ color: saveContactBackgroundColor }}
                 />
-                {/* <img src={share} alt="" className="h-[25px] w-[50px] " /> */}
               </div>
             </>
           )}
         </div>
       </div>
-
-      {/* </div> */}
-
-      {/* <div className="w-[100%]">
-    {sociallink?.map((elm) => {
-      return (
-        <>
-          <a
-            target="_blank"
-          
-          >
-            <div className="w-[100%] flex justify-center">
-              <div
-                className="w-[90%] h-[130px] mt-4 bg-[white] shadow-xl rounded-[10px] flex border"
-                style={
-                  elm?.shareable === false ||
-                  elm?.isFeatureOn === false
-                    ? { display: "none" }
-                    : null
-                }
-              >
-                <div className="w-[40%]  flex justify-center items-center">
-                  <img
-                    src={returnIcons(elm?.linkID)}
-                    alt=""
-                    className="h-[88px] w-[88px]"
-                  />
-                </div>
-
-                <div className="w-[60%] flex flex-col ">
-                  <h2 className="font-[700] text-[18px] mt-[20px]">
-                    {elm?.name?.length < 17
-                      ? elm?.name
-                      : elm?.name?.substring(0, 16) + "..."}
-                  </h2>
-                  <p className="font-[300] text-[12px] w-[90%] ">
-                    {elm?.feature?.length < 67
-                      ? elm?.feature
-                      : elm?.feature?.substring(0, 67) + "..."}
-                  </p>
-                
-                </div>
-              </div>
-            </div>
-          </a>
-        </>
-      );
-    })}
-  </div> */}
 
       <div className="w-[100%] flex justify-center mt-3">
         {sociallink?.length > 0 && (
@@ -303,14 +220,7 @@ const Classic = ({
         )}
       </div>
 
-      <div
-        className=" w-[100%] h-[100px]  flex justify-center items-center"
-        // style={{
-        //   background: `linear-gradient(to top, ${hexToRGBA(
-        //     userdata?.colorCode
-        //   )},${hexToRGBA(userdata?.colorCode)}, white)`,
-        // }}
-      >
+      <div className=" w-[100%] h-[100px]  flex justify-center items-center">
         <div
           className="h-[49px] w-[178px] rounded-[55px] text-[#FFFFFF] flex justify-center items-center  font-[500] text-[15px] cursor-pointer gap-2"
           onClick={() => window.open("https://www.getcirco.com/download")}
@@ -325,7 +235,7 @@ const Classic = ({
           Create your Circo
         </div>
       </div>
-      {/* <br /> */}
+
       {browserName === "Mobile Safari" && (
         <>
           <br />
